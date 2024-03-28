@@ -1,0 +1,22 @@
+{
+	"extends": [
+	  "wesbos"
+	],
+	"rules": {
+		"func-style": [2, "declaration", { "allowArrowFunctions": true }],
+		"jsdoc/check-param-names": 0,
+		"jsdoc/check-indentation": 0,
+		"jsdoc/check-line-alignment": 0,
+		"jsdoc/require-param": 0,
+		"jsdoc/require-param-type": 0,
+		"jsdoc/require-param-description": 0,
+		"jsdoc/require-returns": 0,
+		"jsdoc/require-returns-description": 0,
+		"jsx-a11y/anchor-is-valid": "off",
+		"prettier/prettier": "error",
+		"react/react-in-jsx-scope": "off",
+		"react/prop-types": 0,
+		"no-tabs": 0,
+		"arrow-body-style": "always"
+	}
+}
