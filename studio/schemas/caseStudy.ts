@@ -1,5 +1,13 @@
 import {orderRankField, orderRankOrdering} from '@sanity/orderable-document-list'
 import {CaseIcon} from '@sanity/icons'
+import {
+  selectMediaTypeObject,
+  imageObject,
+  mobileImageObject,
+  videoObject,
+  mobileVideoObject,
+  galleryBlocks,
+} from '../objects'
 
 export default {
   title: 'Case Study',
@@ -30,5 +38,38 @@ export default {
       },
       validation: (Rule: any) => Rule.required(),
     },
+    {
+      title: 'Year',
+      name: 'year',
+      type: 'string',
+      description: 'e.g. 2024',
+    },
+    {
+      title: 'Hero Media',
+      name: 'heroMedia',
+      type: 'object',
+      description:
+        'HINT: Please use portrait orientated image or video. Make sure images are optimised for performance.',
+      fields: [
+        selectMediaTypeObject,
+        {
+          ...imageObject,
+          hidden: ({parent}: any) => parent?.mediaType !== 'image',
+        },
+        {
+          ...mobileImageObject,
+          hidden: ({parent}: any) => parent?.mediaType !== 'image',
+        },
+        {
+          ...videoObject,
+          hidden: ({parent}: any) => parent?.mediaType !== 'video',
+        },
+        {
+          ...mobileVideoObject,
+          hidden: ({parent}: any) => parent?.mediaType !== 'video',
+        },
+      ],
+    },
+    galleryBlocks,
   ],
 }

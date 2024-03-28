@@ -4,7 +4,7 @@ import {visionTool} from '@sanity/vision'
 import {schemaTypes} from './schemaTypes'
 import {muxInput} from 'sanity-plugin-mux-input'
 import {vercelDeployTool} from 'sanity-plugin-vercel-deploy'
-import {orderableDocumentListDeskItem} from '@sanity/orderable-document-list'
+// import {orderableDocumentListDeskItem} from '@sanity/orderable-document-list'
 import {EarthGlobeIcon, DocumentIcon, CaseIcon} from '@sanity/icons'
 
 export default defineConfig({
@@ -66,10 +66,10 @@ export default defineConfig({
                   .schemaType('caseStudy')
                   .filter('_type == "caseStudy"'),
               ),
-            S.divider(),
-            orderableDocumentListDeskItem({type: 'client', S, context}),
-            orderableDocumentListDeskItem({type: 'representation', S, context}),
-            orderableDocumentListDeskItem({type: 'caseStudy', S, context}),
+            // S.divider(),
+            // orderableDocumentListDeskItem({type: 'client', S, context}),
+            // orderableDocumentListDeskItem({type: 'representation', S, context}),
+            // orderableDocumentListDeskItem({type: 'caseStudy', S, context}),
           ])
       },
     }),

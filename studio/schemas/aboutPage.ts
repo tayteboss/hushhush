@@ -1,4 +1,5 @@
 import {HomeIcon} from '@sanity/icons'
+import {linkObject} from '../objects'
 
 export default {
   title: 'About Page',
@@ -23,6 +24,38 @@ export default {
       name: 'seoDescription',
       type: 'string',
       description: 'This is the SEO description that appears in search engines.',
+    },
+    {
+      title: 'About description',
+      name: 'aboutDescription',
+      type: 'text',
+    },
+    {
+      title: 'Enquiries CTA',
+      name: 'enquiriesCTA',
+      type: 'object',
+      fields: linkObject,
+    },
+    {
+      title: 'Phone number',
+      name: 'phoneNumber',
+      type: 'string',
+    },
+    {
+      title: 'Office',
+      name: 'office',
+      type: 'text',
+    },
+    {
+      title: 'Google Maps Link',
+      name: 'googleMapsLink',
+      type: 'url',
+    },
+    {
+      title: 'Jobs CTA',
+      name: 'jobsCTA',
+      type: 'object',
+      fields: linkObject,
     },
   ],
 }
