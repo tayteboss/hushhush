@@ -39,3 +39,5 @@ export type HomePageType = {
 	seoDescription: string;
 	seoTitle: string;
 };
+
+export type SiteSettingsType = {};

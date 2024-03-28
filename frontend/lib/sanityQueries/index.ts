@@ -4,8 +4,8 @@ export const siteSettingsQueryString = `
 	}
 `;
 
-export const homePageQueryString = `
-	*[_type == 'homePage'][0] {
+export const clientsPageQueryString = `
+	*[_type == 'clientsPage'][0] {
 		...,
 	}
 `;
