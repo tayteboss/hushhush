@@ -213,19 +213,19 @@ export const galleryBlocks = {
                 selectMediaTypeObject,
                 {
                   ...imageObject,
-                  hidden: ({document}: any) => document?.media !== 'image',
+                  hidden: ({parent}: any) => parent?.mediaType !== 'image',
                 },
                 {
                   ...mobileImageObject,
-                  hidden: ({document}: any) => document?.media !== 'image',
+                  hidden: ({parent}: any) => parent?.mediaType !== 'image',
                 },
                 {
                   ...videoObject,
-                  hidden: ({document}: any) => document?.media !== 'video',
+                  hidden: ({parent}: any) => parent?.mediaType !== 'video',
                 },
                 {
                   ...mobileVideoObject,
-                  hidden: ({document}: any) => document?.media !== 'video',
+                  hidden: ({parent}: any) => parent?.mediaType !== 'video',
                 },
               ],
             },

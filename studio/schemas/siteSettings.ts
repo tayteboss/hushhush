@@ -1,10 +1,4 @@
-import {
-  selectMediaTypeObject,
-  imageObject,
-  mobileImageObject,
-  videoObject,
-  mobileVideoObject,
-} from '../objects'
+import {videoObject, mobileVideoObject} from '../objects'
 
 export default {
   title: 'Site Settings',
