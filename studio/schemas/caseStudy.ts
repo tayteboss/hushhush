@@ -28,6 +28,11 @@ export default {
       type: 'string',
     },
     {
+      title: 'SEO Description',
+      name: 'seoDescription',
+      type: 'string',
+    },
+    {
       title: 'Slug',
       name: 'slug',
       type: 'slug',

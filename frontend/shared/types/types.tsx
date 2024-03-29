@@ -44,6 +44,11 @@ export type RepresentationPageType = {
 	seoTitle: string;
 };
 
+export type CaseStudyPageType = {
+	seoDescription: string;
+	seoTitle: string;
+};
+
 export type StatementType = { statement: string };
 
 export type SiteSettingsType = {
@@ -78,4 +83,13 @@ export type RepresentationType = {
 	slug: SlugType;
 	type: string;
 	galleryBlocks: (FullBleedSlideType | CroppedSlideType)[];
+};
+
+export type CaseStudyType = {
+	title: string;
+	slug: SlugType;
+	heroMedia: MediaType;
+	year: string;
+	galleryBlocks: (FullBleedSlideType | CroppedSlideType)[];
+	seoDescription: string;
 };
