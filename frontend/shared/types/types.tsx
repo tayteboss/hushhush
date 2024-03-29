@@ -4,7 +4,6 @@ export type MediaType = {
 	image: { asset: { url: string; metadata: { lqip: string } }; alt: string };
 	mobileImage?: { asset: { url: string; metadata: { lqip: string } } };
 	mobileVideo?: { asset: { playbackId: string } };
-	caption?: string;
 };
 
 export type TransitionsType = {
@@ -35,9 +34,19 @@ export type SlugType = {
 	current: string;
 };
 
-export type HomePageType = {
+export type ClientPageType = {
 	seoDescription: string;
 	seoTitle: string;
 };
 
-export type SiteSettingsType = {};
+export type StatementType = { statement: string };
+
+export type SiteSettingsType = {
+	password: string;
+	introStatements: StatementType[];
+};
+
+export type ClientType = {
+	title: string;
+	media: MediaType;
+};
