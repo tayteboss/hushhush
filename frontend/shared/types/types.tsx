@@ -49,6 +49,17 @@ export type CaseStudyPageType = {
 	seoTitle: string;
 };
 
+export type AboutPageType = {
+	seoDescription: string;
+	seoTitle: string;
+	aboutDescription: string;
+	enquiriesCTA: ButtonType;
+	phoneNumber: string;
+	office: string;
+	googleMapsLink: string;
+	jobsCTA: ButtonType;
+};
+
 export type StatementType = { statement: string };
 
 export type SiteSettingsType = {

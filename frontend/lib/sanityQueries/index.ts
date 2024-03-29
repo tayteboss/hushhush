@@ -55,6 +55,12 @@ export const caseStudyPageQueryString = `
 	}
 `;
 
+export const aboutPagePageQueryString = `
+	*[_type == 'aboutPage'][0] {
+		...,
+	}
+`;
+
 export const clientsQueryString = `
 	*[_type == 'client'] | order(orderRank) [0...100] {
 		...,
