@@ -1,4 +1,5 @@
-const mediaString = `
+export const mediaString = `
+	...,
 	mediaType,
 	image {
 		asset-> {
@@ -42,6 +43,12 @@ export const clientsPageQueryString = `
 	}
 `;
 
+export const representationPageQueryString = `
+	*[_type == 'representationPage'][0] {
+		...,
+	}
+`;
+
 export const clientsQueryString = `
 	*[_type == 'client'] | order(orderRank) [0...100] {
 		...,
@@ -54,6 +61,9 @@ export const clientsQueryString = `
 export const representationsQueryString = `
 	*[_type == 'representation'] | order(orderRank) [0...100] {
 		...,
+		heroMedia {
+			${mediaString}
+		}
 	}
 `;
 

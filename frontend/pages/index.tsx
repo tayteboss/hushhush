@@ -41,7 +41,7 @@ const Page = (props: Props) => {
 				title={data?.seoTitle || ''}
 				description={data?.seoDescription || ''}
 			/>
-			Clients
+			Representation
 		</PageWrapper>
 	);
 };

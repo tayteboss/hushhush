@@ -39,6 +39,11 @@ export type ClientPageType = {
 	seoTitle: string;
 };
 
+export type RepresentationPageType = {
+	seoDescription: string;
+	seoTitle: string;
+};
+
 export type StatementType = { statement: string };
 
 export type SiteSettingsType = {
@@ -49,4 +54,28 @@ export type SiteSettingsType = {
 export type ClientType = {
 	title: string;
 	media: MediaType;
+};
+
+export type FullBleedSlideType = {
+	galleryComponent: 'fullBleedSlide';
+	media: MediaType;
+	content: any[];
+	slideTitle: string;
+};
+
+export type CroppedSlideType = {
+	galleryComponent: 'croppedSlide';
+	media: MediaType;
+	content: any[];
+	slideTitle: string;
+	orientationType: 'landscape' | 'portrait';
+};
+
+export type RepresentationType = {
+	title: string;
+	heroMedia: MediaType;
+	excerpt: string;
+	slug: SlugType;
+	type: string;
+	galleryBlocks: (FullBleedSlideType | CroppedSlideType)[];
 };
