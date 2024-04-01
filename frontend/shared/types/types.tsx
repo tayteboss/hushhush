@@ -6,6 +6,10 @@ export type MediaType = {
 	mobileVideo?: { asset: { playbackId: string } };
 };
 
+export type VideoType = {
+	asset: { playbackId: string };
+};
+
 export type TransitionsType = {
 	hidden: {
 		opacity: number;
@@ -65,6 +69,8 @@ export type StatementType = { statement: string };
 export type SiteSettingsType = {
 	password: string;
 	introStatements: StatementType[];
+	introMedia: VideoType;
+	mobileIntroMedia: VideoType;
 };
 
 export type ClientType = {

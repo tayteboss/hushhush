@@ -34,6 +34,16 @@ export const mediaString = `
 export const siteSettingsQueryString = `
 	*[_type == 'siteSettings'][0] {
 		...,
+		introMedia {
+			asset-> {
+				playbackId
+			}
+		},
+		mobileIntroMedia {
+			asset-> {
+				playbackId
+			}
+		}
 	}
 `;
 

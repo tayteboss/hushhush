@@ -13,6 +13,7 @@ import {
 	clientsQueryString,
 	siteSettingsQueryString
 } from '../lib/sanityQueries';
+import LandingSequence from '../components/blocks/LandingSequence';
 
 const PageWrapper = styled(motion.div)``;
 
@@ -26,9 +27,9 @@ type Props = {
 const Page = (props: Props) => {
 	const { data, siteSettings, clients, pageTransitionVariants } = props;
 
-	console.log('data', data);
-	console.log('siteSettings', siteSettings);
-	console.log('clients', clients);
+	// console.log('data', data);
+	// console.log('siteSettings', siteSettings);
+	// console.log('clients', clients);
 
 	return (
 		<PageWrapper
@@ -41,7 +42,11 @@ const Page = (props: Props) => {
 				title={data?.seoTitle || ''}
 				description={data?.seoDescription || ''}
 			/>
-			Clients
+			<LandingSequence
+				data={siteSettings?.introMedia}
+				mobileData={siteSettings?.mobileIntroMedia}
+				introStatements={siteSettings?.introStatements}
+			/>
 		</PageWrapper>
 	);
 };

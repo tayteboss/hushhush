@@ -101,6 +101,7 @@ export const GlobalStyles = createGlobalStyle`
 	p,
 	.type-p,
 	a,
+	span,
 	button,
 	div {
 		font-size: ${pxToRem(11)};

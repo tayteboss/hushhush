@@ -13,19 +13,14 @@ export default {
       initialValue: 'Site Settings',
     },
     {
-      title: 'Intro Media',
+      title: 'Desktop Intro Media',
       name: 'introMedia',
-      type: 'object',
-      fields: [
-        {
-          ...videoObject,
-          hidden: ({document}: any) => document?.introMedia !== 'video',
-        },
-        {
-          ...mobileVideoObject,
-          hidden: ({document}: any) => document?.introMedia !== 'video',
-        },
-      ],
+      type: 'mux.video',
+    },
+    {
+      title: 'Mobile Intro Media',
+      name: 'mobileIntroMedia',
+      type: 'mux.video',
     },
     {
       title: 'Intro statements',
