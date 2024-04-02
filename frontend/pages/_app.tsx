@@ -37,7 +37,7 @@ const App = (props: Props) => {
 
 		const timer = setTimeout(() => {
 			setAppCursorRefresh(appCursorRefresh + 1);
-		}, 500);
+		}, 1000);
 
 		return () => {
 			clearTimeout(timer);

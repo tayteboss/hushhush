@@ -1,5 +1,9 @@
 import styled from 'styled-components';
-import { ClientType, RepresentationType } from '../../../shared/types/types';
+import {
+	CaseStudyType,
+	ClientType,
+	RepresentationType
+} from '../../../shared/types/types';
 import pxToRem from '../../../utils/pxToRem';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import useEmblaCarousel from 'embla-carousel-react';
@@ -8,8 +12,8 @@ import { useRouter } from 'next/router';
 
 type Props = {
 	title: string;
-	scrollList: (ClientType | RepresentationType)[];
-	type: 'clients' | 'representations';
+	scrollList: (ClientType | RepresentationType | CaseStudyType)[];
+	type: 'clients' | 'representations' | 'case-study';
 	activeSlideIndex: number;
 	setActiveSlideIndex: (index: number) => void;
 	setActiveMediaSlideIndex: (index: number) => void;
@@ -35,7 +39,7 @@ const Title = styled.h1`
 	color: var(--fg-colour);
 `;
 
-const Inner = styled.div`
+const Inner = styled.div<{ $containerWidth: number }>`
 	padding: 0 ${pxToRem(9)};
 	background: rgba(217, 217, 217, 0.1);
 	backdrop-filter: blur(30px);
@@ -43,7 +47,7 @@ const Inner = styled.div`
 	flex-direction: column;
 	align-items: flex-start;
 	border-radius: ${pxToRem(5)};
-	width: ${pxToRem(220)};
+	width: ${(props) => props.$containerWidth}px;
 `;
 
 const EmblaCarousel = styled.div`
@@ -61,11 +65,15 @@ const EmblaSlide = styled.div<{ $isActive: boolean }>`
 	opacity: ${({ $isActive }) => ($isActive ? 1 : 0.4)};
 	color: var(--fg-colour);
 	cursor: pointer;
+	display: flex;
+	justify-content: space-between;
 
 	&:hover {
 		opacity: ${({ $isActive }) => ($isActive ? 1 : 0.75)};
 	}
 `;
+
+const SlideText = styled.p``;
 
 const ContentLayout = (props: Props) => {
 	const {
@@ -81,6 +89,12 @@ const ContentLayout = (props: Props) => {
 
 	const router = useRouter();
 	const rootNodeRef = useRef<HTMLDivElement>(null);
+
+	let containerWidth = 220;
+
+	if (type === 'case-study' || type === 'representations') {
+		containerWidth = 340;
+	}
 
 	const [emblaRef, emblaApi] = useEmblaCarousel(
 		{
@@ -168,7 +182,7 @@ const ContentLayout = (props: Props) => {
 	return (
 		<ContentLayoutWrapper>
 			<Title className="text-colour">{title || ''}</Title>
-			<Inner ref={rootNodeRef}>
+			<Inner ref={rootNodeRef} $containerWidth={containerWidth}>
 				<EmblaCarousel className="embla" ref={emblaRef}>
 					<EmblaContainer className="embla__container">
 						{scrollList.map((item, index) => {
@@ -181,7 +195,24 @@ const ContentLayout = (props: Props) => {
 								>
 									{type === 'clients' && <>{item.title}</>}
 									{type === 'representations' && (
-										<>{item.title}</>
+										<>
+											<SlideText className="type-p">
+												{item.title}
+											</SlideText>
+											<SlideText className="type-p">
+												{item.type}
+											</SlideText>
+										</>
+									)}
+									{type === 'case-study' && (
+										<>
+											<SlideText className="type-p">
+												{item.title}
+											</SlideText>
+											<SlideText className="type-p">
+												{item.year}
+											</SlideText>
+										</>
 									)}
 								</EmblaSlide>
 							);

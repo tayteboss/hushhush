@@ -105,7 +105,7 @@ export type RepresentationType = {
 export type CaseStudyType = {
 	title: string;
 	slug: SlugType;
-	heroMedia: MediaType;
+	media: MediaType;
 	year: string;
 	galleryBlocks: (FullBleedSlideType | CroppedSlideType)[];
 	seoDescription: string;

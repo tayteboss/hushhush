@@ -11,8 +11,14 @@ import {
 	caseStudiesQueryString,
 	caseStudyPageQueryString
 } from '../../lib/sanityQueries';
+import MediaLayout from '../../components/layout/MediaLayout';
+import { useState } from 'react';
+import ContentLayout from '../../components/layout/ContentLayout';
 
-const PageWrapper = styled(motion.div)``;
+const PageWrapper = styled(motion.div)`
+	height: 100vh;
+	overflow: hidden;
+`;
 
 type Props = {
 	data: CaseStudyPageType;
@@ -23,8 +29,8 @@ type Props = {
 const Page = (props: Props) => {
 	const { data, caseStudies, pageTransitionVariants } = props;
 
-	console.log('data', data);
-	console.log('caseStudies', caseStudies);
+	const [activeSlideIndex, setActiveSlideIndex] = useState(0);
+	const [activeMediaSlideIndex, setActiveMediaSlideIndex] = useState(0);
 
 	return (
 		<PageWrapper
@@ -37,14 +43,30 @@ const Page = (props: Props) => {
 				title={data?.seoTitle || ''}
 				description={data?.seoDescription || ''}
 			/>
-			Case Study Index
+			<MediaLayout
+				activeSlideIndex={activeMediaSlideIndex}
+				data={caseStudies}
+				type="case-study"
+			/>
+			<ContentLayout
+				title="Case Studies"
+				scrollList={caseStudies}
+				type="case-study"
+				activeSlideIndex={activeSlideIndex}
+				setActiveSlideIndex={setActiveSlideIndex}
+				setActiveMediaSlideIndex={setActiveMediaSlideIndex}
+			/>
 		</PageWrapper>
 	);
 };
 
 export async function getStaticProps() {
 	const data = await client.fetch(caseStudyPageQueryString);
-	const caseStudies = await client.fetch(caseStudiesQueryString);
+	let caseStudies = await client.fetch(caseStudiesQueryString);
+
+	while (caseStudies.length < 10) {
+		caseStudies = [...caseStudies, ...caseStudies];
+	}
 
 	return {
 		props: {

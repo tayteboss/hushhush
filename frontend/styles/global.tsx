@@ -187,9 +187,13 @@ export const GlobalStyles = createGlobalStyle`
 	.is-wheel-dragging {
 		.image-component-wrapper,
 		.video-component-wrapper {
-			filter: saturate(0.3);
+			filter: saturate(0.2);
 			transform: scale(1.001);
 			transition-delay: 0ms;
+		}
+
+		.cursor-panel {
+			display: none;
 		}
 	}
 

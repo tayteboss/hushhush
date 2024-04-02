@@ -72,7 +72,7 @@ export const aboutPagePageQueryString = `
 `;
 
 export const clientsQueryString = `
-	*[_type == 'client'] | order(orderRank) [0...100] {
+	*[_type == 'client'] | order(title asc) [0...100] {
 		...,
 		media {
 			${mediaString}
@@ -81,7 +81,7 @@ export const clientsQueryString = `
 `;
 
 export const representationsQueryString = `
-	*[_type == 'representation'] | order(orderRank) [0...100] {
+	*[_type == 'representation'] | order(title asc) [0...100] {
 		title,
 		type,
 		slug,
@@ -92,10 +92,10 @@ export const representationsQueryString = `
 `;
 
 export const caseStudiesQueryString = `
-	*[_type == 'caseStudy'] | order(orderRank) [0...100] {
+	*[_type == 'caseStudy'] | order(title asc) [0...100] {
 		title,
 		year,
-		heroMedia {
+		'media': heroMedia {
 			${mediaString}
 		},
 		slug,

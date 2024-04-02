@@ -181,7 +181,6 @@ const Cursor = ({ cursorRefresh }: Props) => {
 		};
 	}, [cursorRefresh]);
 
-	// reset cursor on page change
 	useEffect(() => {
 		clearCursor();
 	}, [router.pathname, router.asPath, router.query.slug, cursorRefresh]);

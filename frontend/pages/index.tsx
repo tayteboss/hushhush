@@ -18,7 +18,10 @@ import ContentLayout from '../components/layout/ContentLayout';
 import { useState } from 'react';
 import MediaLayout from '../components/layout/MediaLayout';
 
-const PageWrapper = styled(motion.div)``;
+const PageWrapper = styled(motion.div)`
+	height: 100vh;
+	overflow: hidden;
+`;
 
 type Props = {
 	data: ClientPageType;

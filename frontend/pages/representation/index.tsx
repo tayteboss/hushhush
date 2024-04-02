@@ -16,7 +16,8 @@ import ContentLayout from '../../components/layout/ContentLayout';
 import { useState } from 'react';
 
 const PageWrapper = styled(motion.div)`
-	height: 100dvh;
+	height: 100vh;
+	overflow: hidden;
 `;
 
 type Props = {
@@ -30,8 +31,6 @@ const Page = (props: Props) => {
 
 	const [activeSlideIndex, setActiveSlideIndex] = useState(0);
 	const [activeMediaSlideIndex, setActiveMediaSlideIndex] = useState(0);
-
-	console.log('representations', representations);
 
 	return (
 		<PageWrapper

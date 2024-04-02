@@ -1,13 +1,17 @@
 import styled from 'styled-components';
-import { ClientType, RepresentationType } from '../../../shared/types/types';
+import {
+	CaseStudyType,
+	ClientType,
+	RepresentationType
+} from '../../../shared/types/types';
 import MediaStack from '../../common/MediaStack';
 import { AnimatePresence, motion } from 'framer-motion';
 import Link from 'next/link';
 
 type Props = {
 	activeSlideIndex: number;
-	data: (ClientType | RepresentationType)[];
-	type: 'clients' | 'representations';
+	data: (ClientType | RepresentationType | CaseStudyType)[];
+	type: 'clients' | 'representations' | 'case-study';
 };
 
 const MediaLayoutWrapper = styled(motion.section)`
@@ -41,6 +45,26 @@ const RepresentationMediaWrapper = styled.a`
 	}
 `;
 
+const CaseStudyMediaWrapper = styled.a`
+	height: 100%;
+	width: 100%;
+
+	* {
+		height: 100%;
+		width: 100%;
+	}
+`;
+
+const CursorPanel = styled.div`
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	z-index: 60;
+	height: 100%;
+	width: 100%;
+`;
+
 const wrapperVariants = {
 	hidden: {
 		opacity: 0,
@@ -61,27 +85,16 @@ const wrapperVariants = {
 const MediaLayout = (props: Props) => {
 	const { activeSlideIndex, data, type } = props;
 
-	let cursorDataTitle = '';
-
-	if (type === 'representations') {
-		cursorDataTitle = 'See representative';
-	}
-
-	console.log('data', data);
-
 	return (
 		<AnimatePresence>
 			{data && (
 				<MediaLayoutWrapper
-					className={`media-layout ${
-						type !== 'clients' && 'cursor-text'
-					}`}
+					className={`media-layout`}
 					variants={wrapperVariants}
 					initial="hidden"
 					animate="visible"
 					exit="hidden"
 					key={data[activeSlideIndex]?.title}
-					data-title={cursorDataTitle}
 				>
 					{type === 'clients' && (
 						<ClientMediaWrapper>
@@ -94,20 +107,52 @@ const MediaLayout = (props: Props) => {
 					)}
 					{type === 'representations' && (
 						<Link
-							href={
+							href={`/representations/${
 								(data[activeSlideIndex] as RepresentationType)
 									?.slug?.current
-							}
+							}`}
 							passHref
 							legacyBehavior
 						>
 							<RepresentationMediaWrapper>
-								{data[activeSlideIndex]?.media && (
+								{(data[activeSlideIndex] as RepresentationType)
+									?.media && (
 									<MediaStack
-										data={data[activeSlideIndex].media}
+										data={
+											(
+												data[
+													activeSlideIndex
+												] as RepresentationType
+											).media
+										}
 									/>
 								)}
 							</RepresentationMediaWrapper>
+						</Link>
+					)}
+					{type === 'case-study' && (
+						<Link
+							href={`/case-study/${
+								(data[activeSlideIndex] as CaseStudyType)?.slug
+									?.current
+							}`}
+							passHref
+							legacyBehavior
+						>
+							<CaseStudyMediaWrapper>
+								{(data[activeSlideIndex] as CaseStudyType)
+									?.media && (
+									<MediaStack
+										data={
+											(
+												data[
+													activeSlideIndex
+												] as RepresentationType
+											).media
+										}
+									/>
+								)}
+							</CaseStudyMediaWrapper>
 						</Link>
 					)}
 				</MediaLayoutWrapper>
