@@ -14,6 +14,7 @@ import {
 	siteSettingsQueryString
 } from '../lib/sanityQueries';
 import LandingSequence from '../components/blocks/LandingSequence';
+import ContentLayout from '../components/layout/ContentLayout';
 
 const PageWrapper = styled(motion.div)``;
 
@@ -29,7 +30,7 @@ const Page = (props: Props) => {
 
 	// console.log('data', data);
 	// console.log('siteSettings', siteSettings);
-	// console.log('clients', clients);
+	console.log('clients', clients);
 
 	return (
 		<PageWrapper
@@ -46,6 +47,11 @@ const Page = (props: Props) => {
 				data={siteSettings?.introMedia}
 				mobileData={siteSettings?.mobileIntroMedia}
 				introStatements={siteSettings?.introStatements}
+			/>
+			<ContentLayout
+				title="Selected Clients"
+				scrollList={clients}
+				type="clients"
 			/>
 		</PageWrapper>
 	);

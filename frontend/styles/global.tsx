@@ -8,6 +8,8 @@ export const GlobalStyles = createGlobalStyle`
 		--colour-black: ${theme.colours.black};
 		--colour-grey: ${theme.colours.grey};
 		--colour-green: ${theme.colours.green};
+		--fg-colour: ${theme.colours.white};
+		--bg-colour: ${theme.colours.green};
 		--font-lossy: ${theme.fonts.lossy};
 		--transition-speed-default: ${theme.transitionSpeed.default};
 		--transition-speed-fast: ${theme.transitionSpeed.fast};
@@ -163,10 +165,12 @@ export const GlobalStyles = createGlobalStyle`
 
 	.embla__container {
 		display: flex;
+		flex-direction: column;
+		height: ${pxToRem(142)};
 	}
 
 	.embla__slide {
-		flex: 0 0 100%;
+		flex: 0 0 auto;
 		min-width: 0;
 	}
 

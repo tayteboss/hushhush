@@ -4,7 +4,9 @@ import Footer from './Footer';
 import { ReactNode } from 'react';
 import { ReactLenis, useLenis } from '@studio-freight/react-lenis';
 
-const Main = styled.main``;
+const Main = styled.main`
+	height: 100dvh;
+`;
 
 type Props = {
 	children: ReactNode;

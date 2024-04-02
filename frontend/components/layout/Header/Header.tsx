@@ -15,7 +15,7 @@ const HeaderWrapper = styled.header`
 
 	@media ${(props) => props.theme.mediaBreakpoints.tabletPortrait} {
 		top: ${pxToRem(66)};
-		left: ${pxToRem(16)};
+		left: ${pxToRem(9)};
 	}
 `;
 
@@ -34,9 +34,9 @@ const MenuWrapper = styled.div`
 `;
 
 const MenuLink = styled.a<{ $isActive: boolean }>`
-	color: var(--colour-white);
 	opacity: ${({ $isActive }) => ($isActive ? 1 : 0.4)};
 	text-decoration: none;
+	color: var(--fg-colour);
 
 	transition: all var(--transition-speed-default) var(--transition-ease);
 
@@ -46,7 +46,7 @@ const MenuLink = styled.a<{ $isActive: boolean }>`
 `;
 
 const Divider = styled.div`
-	color: var(--colour-white);
+	color: var(--fg-colour);
 	opacity: 0.4;
 `;
 
@@ -54,7 +54,7 @@ const Header = () => {
 	return (
 		<HeaderWrapper className="header">
 			<LogoWrapper>
-				<LogoWordmarkSvg colour="white" />
+				<LogoWordmarkSvg colour="var(--fg-colour)" />
 			</LogoWrapper>
 			<MenuWrapper>
 				<Link href="/" passHref legacyBehavior>
