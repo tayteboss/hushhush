@@ -17,6 +17,17 @@ const ImageComponentWrapper = styled.div`
 		object-fit: cover;
 		transition: all var(--transition-speed-slow) var(--transition-ease);
 	}
+
+	&::after {
+		content: '';
+		position: absolute;
+		inset: 0;
+		height: 100%;
+		width: 100%;
+		background: var(--fg-colour);
+		z-index: -1;
+		opacity: 0.3;
+	}
 `;
 
 const InnerBlur = styled(motion.div)`

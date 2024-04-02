@@ -14,7 +14,6 @@
     "@mux/mux-player-react": "^2.4.0",
     "@portabletext/react": "^3.0.15",
     "@sanity/client": "^6.8.6",
-    "@studio-freight/react-lenis": "^0.0.46",
     "@styled-jsx/plugin-sass": "^4.0.2",
     "@types/js-cookie": "^3.0.3",
     "@types/lodash.throttle": "^4.1.7",

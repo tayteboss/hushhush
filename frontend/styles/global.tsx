@@ -10,6 +10,7 @@ export const GlobalStyles = createGlobalStyle`
 		--colour-green: ${theme.colours.green};
 		--fg-colour: ${theme.colours.white};
 		--bg-colour: ${theme.colours.green};
+		--blurred-bg-colour: rgba(217, 217, 217, 0.1);
 		--font-lossy: ${theme.fonts.lossy};
 		--font-walter: ${theme.fonts.walter};
 		--transition-speed-default: ${theme.transitionSpeed.default};
@@ -39,7 +40,7 @@ export const GlobalStyles = createGlobalStyle`
 	}
 
 	html {
-		background: var(--colour-green);
+		background: var(--bg-colour);
 		font-size: 16px;
 		-webkit-transform: translateZ(0);
 		backface-visibility: hidden;

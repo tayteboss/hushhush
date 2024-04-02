@@ -17,9 +17,12 @@ const MediaLayoutWrapper = styled(motion.section)`
 	width: 100%;
 	height: 100vh;
 	z-index: 50;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 `;
 
-const MediaWrapper = styled.div`
+const ClientMediaWrapper = styled.div`
 	height: 100%;
 	width: 100%;
 
@@ -29,13 +32,12 @@ const MediaWrapper = styled.div`
 	}
 `;
 
-const MediaWrapperLink = styled.a`
-	height: 100%;
-	width: 100%;
+const RepresentationMediaWrapper = styled.a`
+	width: 33.333vw;
 
-	* {
-		height: 100%;
-		width: 100%;
+	.image-component-wrapper,
+	.video-component-wrapper {
+		padding-top: 133.8%;
 	}
 `;
 
@@ -65,6 +67,8 @@ const MediaLayout = (props: Props) => {
 		cursorDataTitle = 'See representative';
 	}
 
+	console.log('data', data);
+
 	return (
 		<AnimatePresence>
 			{data && (
@@ -80,13 +84,13 @@ const MediaLayout = (props: Props) => {
 					data-title={cursorDataTitle}
 				>
 					{type === 'clients' && (
-						<MediaWrapper>
+						<ClientMediaWrapper>
 							{data[activeSlideIndex]?.media && (
 								<MediaStack
 									data={data[activeSlideIndex].media}
 								/>
 							)}
-						</MediaWrapper>
+						</ClientMediaWrapper>
 					)}
 					{type === 'representations' && (
 						<Link
@@ -97,13 +101,13 @@ const MediaLayout = (props: Props) => {
 							passHref
 							legacyBehavior
 						>
-							<MediaWrapperLink>
+							<RepresentationMediaWrapper>
 								{data[activeSlideIndex]?.media && (
 									<MediaStack
 										data={data[activeSlideIndex].media}
 									/>
 								)}
-							</MediaWrapperLink>
+							</RepresentationMediaWrapper>
 						</Link>
 					)}
 				</MediaLayoutWrapper>

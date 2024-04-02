@@ -33,10 +33,6 @@ const Page = (props: Props) => {
 	const [activeSlideIndex, setActiveSlideIndex] = useState(0);
 	const [activeMediaSlideIndex, setActiveMediaSlideIndex] = useState(0);
 
-	// console.log('data', data);
-	// console.log('siteSettings', siteSettings);
-	console.log('clients', clients);
-
 	return (
 		<PageWrapper
 			variants={pageTransitionVariants}
@@ -73,7 +69,11 @@ const Page = (props: Props) => {
 export async function getStaticProps() {
 	const siteSettings = await client.fetch(siteSettingsQueryString);
 	const data = await client.fetch(clientsPageQueryString);
-	const clients = await client.fetch(clientsQueryString);
+	let clients = await client.fetch(clientsQueryString);
+
+	while (clients.length < 10) {
+		clients = [...clients, ...clients];
+	}
 
 	return {
 		props: {

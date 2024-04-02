@@ -642,36 +642,6 @@
     event-source-polyfill "1.0.31"
     eventsource "2.0.2"
 
-"@studio-freight/hamo@^0.6.28":
-  version "0.6.28"
-  resolved "https://registry.npmjs.org/@studio-freight/hamo/-/hamo-0.6.28.tgz"
-  integrity sha512-LVXYJwPToVa4ZVIbFnicg8bmZF8xWebbdtx10/1HAQAjN8xGsTWAdc3BmUUOHtLWFvNJNLSuwdX24njrp7LF7g==
-  dependencies:
-    "@studio-freight/tempus" "^0.0.38"
-    just-debounce-it "^3.2.0"
-    nanoevents "^9.0.0"
-    zustand "^4.4.7"
-
-"@studio-freight/lenis@^1.0.40":
-  version "1.0.42"
-  resolved "https://registry.npmjs.org/@studio-freight/lenis/-/lenis-1.0.42.tgz"
-  integrity sha512-HJAGf2DeM+BTvKzHv752z6Z7zy6bA643nZM7W88Ft9tnw2GsJSp6iJ+3cekjyMIWH+cloL2U9X82dKXgdU8kPg==
-
-"@studio-freight/react-lenis@^0.0.46":
-  version "0.0.46"
-  resolved "https://registry.npmjs.org/@studio-freight/react-lenis/-/react-lenis-0.0.46.tgz"
-  integrity sha512-gkhzpafadt2C2Mv7AudNn1o7GrFm9627Jtx3Zf1VXke5nSUpyrVjVRjbkR16kxG8DrEq1iL9orsPT5uhAmPI5Q==
-  dependencies:
-    "@studio-freight/hamo" "^0.6.28"
-    "@studio-freight/lenis" "^1.0.40"
-    clsx "^2.0.0"
-    zustand "^4.4.7"
-
-"@studio-freight/tempus@^0.0.38":
-  version "0.0.38"
-  resolved "https://registry.npmjs.org/@studio-freight/tempus/-/tempus-0.0.38.tgz"
-  integrity sha512-AO1O2fEmfUqWGjEofmPNMQRlwgZ96eB5OFsVJjeH8/RKd1/Yf4zbPnXO+r2TD4aueA6X9JRCJU2GUprI9+m8uQ==
-
 "@styled-jsx/plugin-sass@^4.0.2":
   version "4.1.0"
   resolved "https://registry.npmjs.org/@styled-jsx/plugin-sass/-/plugin-sass-4.1.0.tgz"
@@ -1256,11 +1226,6 @@ client-only@0.0.1:
   version "0.0.1"
   resolved "https://registry.npmjs.org/client-only/-/client-only-0.0.1.tgz"
   integrity sha512-IV3Ou0jSMzZrd3pZ48nLkT9DA7Ag1pnPzaiQhpW7c3RbcqqzvzzVu+L8gfqMp/8IM2MQtSiqaCxrrcfu8I8rMA==
-
-clsx@^2.0.0:
-  version "2.1.0"
-  resolved "https://registry.npmjs.org/clsx/-/clsx-2.1.0.tgz"
-  integrity sha512-m3iNNWpd9rl3jvvcBnu70ylMdrXt8Vlq4HYadnU5fwcOtvkSQWPmj7amUcDT2qYI7risszBjI5AUIUox9D16pg==
 
 color-convert@^1.9.0:
   version "1.9.3"
@@ -2841,11 +2806,6 @@ json5@^2.2.3:
     object.assign "^4.1.4"
     object.values "^1.1.6"
 
-just-debounce-it@^3.2.0:
-  version "3.2.0"
-  resolved "https://registry.npmjs.org/just-debounce-it/-/just-debounce-it-3.2.0.tgz"
-  integrity sha512-WXzwLL0745uNuedrCsCs3rpmfD6DBaf7uuVwaq98/8dafURfgQaBsSpjiPp5+CW6Vjltwy9cOGI6qE71b3T8iQ==
-
 keyv@^4.5.3:
   version "4.5.4"
   resolved "https://registry.npmjs.org/keyv/-/keyv-4.5.4.tgz"
@@ -3004,11 +2964,6 @@ mux-embed@~4.30.0:
   version "4.30.0"
   resolved "https://registry.npmjs.org/mux-embed/-/mux-embed-4.30.0.tgz"
   integrity sha512-XAgAp4CEvsiZL26GbruzeG1g33OWyrzuskDMavXUxDufTxS0/AxAhwoTTRqEzEJS9vnZa/X9R2GV3xRX1XMp2w==
-
-nanoevents@^9.0.0:
-  version "9.0.0"
-  resolved "https://registry.npmjs.org/nanoevents/-/nanoevents-9.0.0.tgz"
-  integrity sha512-X8pU7IOpgKXVLPxYUI55ymXc8XuBE+uypfEyEFBtHkD1EX9KavYTVc+vXZHFyHKzA1TaZoVDqklLdQBBrxIuAw==
 
 nanoid@^3.3.6:
   version "3.3.7"
@@ -4071,11 +4026,6 @@ use-deep-compare-effect@^1.6.1:
     "@babel/runtime" "^7.12.5"
     dequal "^2.0.2"
 
-use-sync-external-store@1.2.0:
-  version "1.2.0"
-  resolved "https://registry.npmjs.org/use-sync-external-store/-/use-sync-external-store-1.2.0.tgz"
-  integrity sha512-eEgnFxGQ1Ife9bzYs6VLi8/4X6CObHMw9Qr9tPY43iKwsPw8xE8+EFsf/2cFZ5S3esXgpWgtSCtLNS41F+sKPA==
-
 util-deprecate@^1.0.1, util-deprecate@~1.0.1:
   version "1.0.2"
   resolved "https://registry.npmjs.org/util-deprecate/-/util-deprecate-1.0.2.tgz"
@@ -4198,10 +4148,3 @@ yocto-queue@^0.1.0:
   version "0.1.0"
   resolved "https://registry.npmjs.org/yocto-queue/-/yocto-queue-0.1.0.tgz"
   integrity sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==
-
-zustand@^4.4.7:
-  version "4.5.2"
-  resolved "https://registry.npmjs.org/zustand/-/zustand-4.5.2.tgz"
-  integrity sha512-2cN1tPkDVkwCy5ickKrI7vijSjPksFRfqS6237NzT0vqSsztTNnQdHw9mmN7uBdk3gceVXU0a+21jFzFzAc9+g==
-  dependencies:
-    use-sync-external-store "1.2.0"

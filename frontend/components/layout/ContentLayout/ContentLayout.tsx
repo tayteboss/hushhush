@@ -32,6 +32,7 @@ const ContentLayoutWrapper = styled.div`
 
 const Title = styled.h1`
 	padding-left: ${pxToRem(9)};
+	color: var(--fg-colour);
 `;
 
 const Inner = styled.div`
@@ -58,6 +59,12 @@ const EmblaSlide = styled.div<{ $isActive: boolean }>`
 	width: 100%;
 	height: ${pxToRem(16)};
 	opacity: ${({ $isActive }) => ($isActive ? 1 : 0.4)};
+	color: var(--fg-colour);
+	cursor: pointer;
+
+	&:hover {
+		opacity: ${({ $isActive }) => ($isActive ? 1 : 0.75)};
+	}
 `;
 
 const ContentLayout = (props: Props) => {
@@ -102,7 +109,9 @@ const ContentLayout = (props: Props) => {
 		if (type === 'representations') {
 			const representation = scrollList[index] as RepresentationType;
 			if (representation) {
-				router.push(`/representations/${representation.slug}`);
+				router.push(
+					`/representations/${representation?.slug?.current}`
+				);
 			}
 		}
 	};
@@ -171,6 +180,9 @@ const ContentLayout = (props: Props) => {
 									onClick={() => handleSlideClick(index)}
 								>
 									{type === 'clients' && <>{item.title}</>}
+									{type === 'representations' && (
+										<>{item.title}</>
+									)}
 								</EmblaSlide>
 							);
 						})}

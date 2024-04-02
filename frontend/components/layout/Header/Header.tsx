@@ -25,7 +25,7 @@ const LogoWrapper = styled.div`
 
 const MenuWrapper = styled.div`
 	padding: ${pxToRem(7)} ${pxToRem(9)};
-	background: rgba(217, 217, 217, 0.1);
+	background: var(--blurred-bg-colour);
 	backdrop-filter: blur(30px);
 	display: flex;
 	flex-direction: column;
