@@ -8,7 +8,7 @@ export const GlobalStyles = createGlobalStyle`
 		--colour-black: ${theme.colours.black};
 		--colour-grey: ${theme.colours.grey};
 		--colour-green: ${theme.colours.green};
-		--font-default: ${theme.fonts.default};
+		--font-lossy: ${theme.fonts.lossy};
 		--transition-speed-default: ${theme.transitionSpeed.default};
 		--transition-speed-fast: ${theme.transitionSpeed.fast};
 		--transition-speed-extra-fast: ${theme.transitionSpeed.extraFast};
@@ -58,7 +58,7 @@ export const GlobalStyles = createGlobalStyle`
 	button,
 	label,
 	body {
-		font-family: var(--font-default);
+		font-family: var(--font-lossy);
 		color: var(--colour-white);
 		line-height: normal;
 	}
@@ -106,6 +106,7 @@ export const GlobalStyles = createGlobalStyle`
 	div {
 		font-size: ${pxToRem(11)};
 		line-height: ${pxToRem(16)};
+		font-family: var(--font-lossy);
 	}
 
 	mux-player {

@@ -6,7 +6,7 @@ export const theme = {
 		green: '#3A4B24'
 	},
 	fonts: {
-		default: 'arial'
+		lossy: 'HB Lossy, monospace'
 	},
 	mediaBreakpoints: {
 		desktop: '(min-width: 1680px)',
@@ -14,14 +14,18 @@ export const theme = {
 		tabletLandscape: '(max-width: 1440px)',
 		tabletMedium: '(max-width: 1124px)',
 		tabletPortrait: '(max-width: 768px)',
-		mobile: '(max-width: 550px)'
+		mobile: '(max-width: 550px)',
+		minTabletLandscape: '(min-width: 1440px)',
+		minTabletMedium: '(min-width: 1124px)',
+		minTabletPortrait: '(min-width: 768px)',
+		minMobile: '(min-width: 550px)'
 	},
 	layout: {
 		innerWrapper: '1920px'
 	},
 	transitionSpeed: {
-		default: '300ms',
-		fast: '200ms',
+		default: '100ms',
+		fast: '50ms',
 		extraFast: '100ms',
 		slow: '500ms',
 		extraSlow: '800ms'
