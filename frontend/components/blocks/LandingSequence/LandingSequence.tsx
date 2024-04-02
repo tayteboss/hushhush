@@ -42,18 +42,36 @@ const MediaWrapper = styled(motion.div)`
 `;
 
 const ContentWrapper = styled(motion.div)`
-	padding-top: ${pxToRem(66)};
-	height: 100%;
-	width: 100%;
 	position: absolute;
-	top: 0;
-	left: 0;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
 	z-index: 1;
+
+	@media ${(props) => props.theme.mediaBreakpoints.tabletPortrait} {
+		padding-top: ${pxToRem(66)};
+		top: 0;
+		left: 0;
+		transform: translate(0, 0);
+	}
+`;
+
+const ContentInner = styled.div`
+	display: flex;
+	align-items: center;
+	gap: ${pxToRem(16)};
+
+	@media ${(props) => props.theme.mediaBreakpoints.tabletPortrait} {
+		flex-direction: column;
+		align-items: flex-start;
+		gap: ${pxToRem(10)};
+	}
 `;
 
 const LogoWrapper = styled.div`
-	margin-bottom: ${pxToRem(10)};
-	padding-left: ${pxToRem(10)};
+	@media ${(props) => props.theme.mediaBreakpoints.tabletPortrait} {
+		padding-left: ${pxToRem(10)};
+	}
 `;
 
 const wrapperVariants = {
@@ -129,6 +147,8 @@ const LandingSequence = (props: Props) => {
 								setShowVideo(false);
 								setShowTextBanners(true);
 							}}
+							className="cursor-text"
+							data-text="Click to continue"
 						>
 							<MuxPlayer
 								streamType="on-demand"
@@ -150,7 +170,11 @@ const LandingSequence = (props: Props) => {
 					)}
 					{showTextBanners && (
 						<ContentWrapper
-							onClick={() => setFinishSequence(true)}
+							onClick={() => {
+								setShowVideo(false);
+								setShowTextBanners(false);
+								setFinishSequence(true);
+							}}
 							variants={wrapperVariants}
 							initial="hidden"
 							animate="visible"
@@ -158,13 +182,15 @@ const LandingSequence = (props: Props) => {
 							key="content-wrapper"
 						>
 							<LayoutWrapper>
-								<LogoWrapper>
-									<LogoWordmarkSvg colour="#FFFFFF" />
-								</LogoWrapper>
-								<LandingTyper
-									data={introStatements}
-									setFinishSequence={setFinishSequence}
-								/>
+								<ContentInner>
+									<LogoWrapper>
+										<LogoWordmarkSvg colour="#FFFFFF" />
+									</LogoWrapper>
+									<LandingTyper
+										data={introStatements}
+										setFinishSequence={setFinishSequence}
+									/>
+								</ContentInner>
 							</LayoutWrapper>
 						</ContentWrapper>
 					)}
