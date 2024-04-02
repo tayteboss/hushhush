@@ -21,7 +21,7 @@ const Layout = (props: Props) => {
 		<>
 			<Header />
 			<ReactLenis root>
-				<Main>{children}</Main>
+				<Main className="main">{children}</Main>
 			</ReactLenis>
 			<Footer />
 		</>

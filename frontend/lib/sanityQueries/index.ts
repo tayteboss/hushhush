@@ -85,7 +85,7 @@ export const representationsQueryString = `
 		title,
 		type,
 		slug,
-		heroMedia {
+		'hero': heroMedia {
 			${mediaString}
 		}
 	}

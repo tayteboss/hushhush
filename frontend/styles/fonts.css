@@ -3,3 +3,9 @@
 	src: url('/fonts/hb-lossy.woff2') format('woff2'), url('/fonts/hb-lossy.woff') format('woff');
 	font-display: swap;
 }
+
+@font-face {
+	font-family: 'ABC Walter';
+	src: url('/fonts/abc-walter.woff2') format('woff2'), url('/fonts/abc-walter.woff') format('woff');
+	font-display: swap;
+}

@@ -9,11 +9,13 @@ const ImageComponentWrapper = styled.div`
 	background-color: rgba(0, 0, 0, 0.1);
 	overflow: hidden;
 
+	transition: all var(--transition-speed-slow) var(--transition-ease);
+	transition-delay: 2000ms;
+
 	mux-player,
 	img {
 		object-fit: cover;
-		transition: all var(--transition-speed-extra-slow)
-			var(--transition-ease);
+		transition: all var(--transition-speed-slow) var(--transition-ease);
 	}
 `;
 
@@ -35,21 +37,19 @@ const Inner = styled(motion.div)`
 const wrapperVariants = {
 	hidden: {
 		opacity: 1,
-		filter: 'blur(10px)',
-		scale: 1.05,
+		filter: 'blur(3px)',
 		transition: {
-			duration: 1,
+			duration: 0.1,
 			ease: 'easeInOut'
 		}
 	},
 	visible: {
 		opacity: 0,
 		filter: 'blur(0px)',
-		scale: 1,
 		transition: {
-			duration: 1,
+			duration: 0.1,
 			ease: 'easeInOut',
-			delay: 0.2
+			delay: 0
 		}
 	}
 };
@@ -57,19 +57,17 @@ const wrapperVariants = {
 const defaultVariants = {
 	hidden: {
 		opacity: 0,
-		filter: 'blur(5px)',
-		scale: 1.05,
+		filter: 'blur(3px)',
 		transition: {
-			duration: 0.75,
+			duration: 0.3,
 			ease: 'easeInOut'
 		}
 	},
 	visible: {
 		opacity: 1,
 		filter: 'blur(0px)',
-		scale: 1,
 		transition: {
-			duration: 0.75,
+			duration: 0.3,
 			ease: 'easeInOut'
 		}
 	}

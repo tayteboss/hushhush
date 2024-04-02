@@ -11,6 +11,7 @@ export const GlobalStyles = createGlobalStyle`
 		--fg-colour: ${theme.colours.white};
 		--bg-colour: ${theme.colours.green};
 		--font-lossy: ${theme.fonts.lossy};
+		--font-walter: ${theme.fonts.walter};
 		--transition-speed-default: ${theme.transitionSpeed.default};
 		--transition-speed-fast: ${theme.transitionSpeed.fast};
 		--transition-speed-extra-fast: ${theme.transitionSpeed.extraFast};
@@ -40,6 +41,11 @@ export const GlobalStyles = createGlobalStyle`
 	html {
 		background: var(--colour-green);
 		font-size: 16px;
+		-webkit-transform: translateZ(0);
+		backface-visibility: hidden;
+		perspective: 1000;
+		transform: translate3d(0,0,0);
+		transform: translateZ(0);
 
 		&.no-scroll {
 			overflow-y: hidden;
@@ -93,6 +99,9 @@ export const GlobalStyles = createGlobalStyle`
 	.type-h4 {
 		font-size: ${pxToRem(12)};
 		line-height: ${pxToRem(16)};
+		font-family: var(--font-walter);
+		text-transform: uppercase;
+		font-weight: 400;
 
 		@media ${theme.mediaBreakpoints.tabletPortrait} {
 			font-size: ${pxToRem(12)};
@@ -172,6 +181,15 @@ export const GlobalStyles = createGlobalStyle`
 	.embla__slide {
 		flex: 0 0 auto;
 		min-width: 0;
+	}
+
+	.is-wheel-dragging {
+		.image-component-wrapper,
+		.video-component-wrapper {
+			filter: saturate(0.3);
+			transform: scale(1.001);
+			transition-delay: 0ms;
+		}
 	}
 
 	.performance {

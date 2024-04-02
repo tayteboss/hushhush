@@ -95,7 +95,7 @@ export type CroppedSlideType = {
 
 export type RepresentationType = {
 	title: string;
-	heroMedia: MediaType;
+	media: MediaType;
 	excerpt: string;
 	slug: SlugType;
 	type: string;

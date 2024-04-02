@@ -15,6 +15,8 @@ import {
 } from '../lib/sanityQueries';
 import LandingSequence from '../components/blocks/LandingSequence';
 import ContentLayout from '../components/layout/ContentLayout';
+import { useState } from 'react';
+import MediaLayout from '../components/layout/MediaLayout';
 
 const PageWrapper = styled(motion.div)``;
 
@@ -27,6 +29,9 @@ type Props = {
 
 const Page = (props: Props) => {
 	const { data, siteSettings, clients, pageTransitionVariants } = props;
+
+	const [activeSlideIndex, setActiveSlideIndex] = useState(0);
+	const [activeMediaSlideIndex, setActiveMediaSlideIndex] = useState(0);
 
 	// console.log('data', data);
 	// console.log('siteSettings', siteSettings);
@@ -48,10 +53,18 @@ const Page = (props: Props) => {
 				mobileData={siteSettings?.mobileIntroMedia}
 				introStatements={siteSettings?.introStatements}
 			/>
+			<MediaLayout
+				activeSlideIndex={activeMediaSlideIndex}
+				data={clients}
+				type="clients"
+			/>
 			<ContentLayout
 				title="Selected Clients"
 				scrollList={clients}
 				type="clients"
+				activeSlideIndex={activeSlideIndex}
+				setActiveSlideIndex={setActiveSlideIndex}
+				setActiveMediaSlideIndex={setActiveMediaSlideIndex}
 			/>
 		</PageWrapper>
 	);

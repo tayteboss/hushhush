@@ -14,7 +14,7 @@ const HeaderWrapper = styled.header`
 	gap: ${pxToRem(10)};
 
 	@media ${(props) => props.theme.mediaBreakpoints.tabletPortrait} {
-		top: ${pxToRem(66)};
+		top: ${pxToRem(24)};
 		left: ${pxToRem(9)};
 	}
 `;
@@ -26,7 +26,7 @@ const LogoWrapper = styled.div`
 const MenuWrapper = styled.div`
 	padding: ${pxToRem(7)} ${pxToRem(9)};
 	background: rgba(217, 217, 217, 0.1);
-	backdrop-filter: blur(10px);
+	backdrop-filter: blur(30px);
 	display: flex;
 	flex-direction: column;
 	align-items: flex-start;

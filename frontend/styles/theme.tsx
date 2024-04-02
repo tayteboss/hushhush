@@ -6,7 +6,8 @@ export const theme = {
 		green: '#3A4B24'
 	},
 	fonts: {
-		lossy: 'HB Lossy, monospace'
+		lossy: 'HB Lossy, monospace',
+		walter: 'ABC Walter, sans-serif'
 	},
 	mediaBreakpoints: {
 		desktop: '(min-width: 1680px)',

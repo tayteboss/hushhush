@@ -20,6 +20,11 @@ const nextConfig = {
 				hostname: 'cdn.sanity.io',
 				pathname: '**',
 			},
+			{
+				protocol: 'https',
+				hostname: 'image.mux.com',
+				pathname: '**',
+			},
 		],
 	},
 };

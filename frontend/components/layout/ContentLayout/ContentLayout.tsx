@@ -4,11 +4,15 @@ import pxToRem from '../../../utils/pxToRem';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import useEmblaCarousel from 'embla-carousel-react';
 import { WheelGesturesPlugin } from 'embla-carousel-wheel-gestures';
+import { useRouter } from 'next/router';
 
 type Props = {
 	title: string;
 	scrollList: (ClientType | RepresentationType)[];
 	type: 'clients' | 'representations';
+	activeSlideIndex: number;
+	setActiveSlideIndex: (index: number) => void;
+	setActiveMediaSlideIndex: (index: number) => void;
 };
 
 const ContentLayoutWrapper = styled.div`
@@ -19,6 +23,11 @@ const ContentLayoutWrapper = styled.div`
 	display: flex;
 	flex-direction: column;
 	gap: ${pxToRem(10)};
+
+	@media ${(props) => props.theme.mediaBreakpoints.tabletPortrait} {
+		left: ${pxToRem(16)};
+		bottom: ${pxToRem(69)};
+	}
 `;
 
 const Title = styled.h1`
@@ -28,7 +37,7 @@ const Title = styled.h1`
 const Inner = styled.div`
 	padding: 0 ${pxToRem(9)};
 	background: rgba(217, 217, 217, 0.1);
-	backdrop-filter: blur(10px);
+	backdrop-filter: blur(30px);
 	display: flex;
 	flex-direction: column;
 	align-items: flex-start;
@@ -51,32 +60,57 @@ const EmblaSlide = styled.div<{ $isActive: boolean }>`
 	opacity: ${({ $isActive }) => ($isActive ? 1 : 0.4)};
 `;
 
-const WHEEL_ITEM_SIZE = 16;
-
 const ContentLayout = (props: Props) => {
-	const { title, scrollList, type } = props;
-
-	const moreScrollList = scrollList.concat(
+	const {
+		title,
 		scrollList,
-		scrollList,
-		scrollList
-	);
+		type,
+		activeSlideIndex,
+		setActiveSlideIndex,
+		setActiveMediaSlideIndex
+	} = props;
 
-	const [activeSlideIndex, setActiveSlideIndex] = useState(0);
+	const [scrollTarget, setScrollTarget] = useState<Element | undefined>();
+
+	const router = useRouter();
+	const rootNodeRef = useRef<HTMLDivElement>(null);
 
 	const [emblaRef, emblaApi] = useEmblaCarousel(
 		{
 			loop: true,
 			axis: 'y',
-			dragFree: true,
+			dragFree: false,
 			watchSlides: false,
 			watchDrag: true,
-			align: 'start'
+			align: 'start',
+			duration: 25
 		},
-		[WheelGesturesPlugin()]
+		[
+			WheelGesturesPlugin({
+				target: scrollTarget
+			})
+		]
 	);
 
-	const rootNodeRef = useRef<HTMLDivElement>(null);
+	const handleSlideClick = (index: number) => {
+		if (!emblaApi) return;
+
+		if (type === 'clients') {
+			emblaApi.scrollTo(index);
+			setActiveMediaSlideIndex(index);
+		}
+		if (type === 'representations') {
+			const representation = scrollList[index] as RepresentationType;
+			if (representation) {
+				router.push(`/representations/${representation.slug}`);
+			}
+		}
+	};
+
+	useEffect(() => {
+		const target = document.querySelector('.main');
+		setScrollTarget(target);
+	}, []);
 
 	const updateActiveSlide = useCallback(() => {
 		if (!emblaApi || !rootNodeRef.current) return;
@@ -87,11 +121,9 @@ const ContentLayout = (props: Props) => {
 			const slideTop =
 				slideElement.getBoundingClientRect().top -
 				rootNodeRef.current.getBoundingClientRect().top;
-			const distance = Math.abs(slideTop); // Distance from the top of the container
+			const distance = Math.abs(slideTop);
 
-			// Check if the distance is between 10px and 30px
 			if (distance >= 0 && distance <= 24) {
-				// Select the slide closest to 10px from the top, but not further than 30px
 				if (distance < closestDistance) {
 					closestIndex = index;
 					closestDistance = distance;
@@ -105,22 +137,19 @@ const ContentLayout = (props: Props) => {
 		if (!emblaApi) return;
 		emblaApi?.on('settle', () => {
 			const activeSlideIndex = emblaApi.selectedScrollSnap();
-			console.log('activeSlideIndex', activeSlideIndex);
+			setActiveMediaSlideIndex(activeSlideIndex);
 		});
 
 		emblaApi.on('scroll', updateActiveSlide);
 
-		emblaApi?.on('pointerUp', (emblaApi) => {
-			const { scrollTo, target, location } = emblaApi.internalEngine();
-			const diffToTarget = target.get() - location.get();
-			const factor =
-				Math.abs(diffToTarget) < WHEEL_ITEM_SIZE / 2.5 ? 10 : 0.1;
-			const distance = diffToTarget * factor;
-			scrollTo.distance(distance, true);
-
-			console.log('factor', factor);
-			console.log('distance', distance);
-		});
+		// emblaApi?.on('pointerUp', (emblaApi) => {
+		// 	const { scrollTo, target, location } = emblaApi.internalEngine();
+		// 	const diffToTarget = target.get() - location.get();
+		// 	const factor =
+		// 		Math.abs(diffToTarget) < WHEEL_ITEM_SIZE / 2.5 ? 10 : 0.1;
+		// 	const distance = diffToTarget * factor;
+		// 	scrollTo.distance(distance, true);
+		// });
 
 		return () => {
 			emblaApi.off('scroll', updateActiveSlide);
@@ -133,12 +162,13 @@ const ContentLayout = (props: Props) => {
 			<Inner ref={rootNodeRef}>
 				<EmblaCarousel className="embla" ref={emblaRef}>
 					<EmblaContainer className="embla__container">
-						{moreScrollList.map((item, index) => {
+						{scrollList.map((item, index) => {
 							return (
 								<EmblaSlide
 									key={index}
 									className="embla__slide"
 									$isActive={activeSlideIndex === index}
+									onClick={() => handleSlideClick(index)}
 								>
 									{type === 'clients' && <>{item.title}</>}
 								</EmblaSlide>

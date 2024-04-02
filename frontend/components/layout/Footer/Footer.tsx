@@ -11,7 +11,7 @@ const FooterWrapper = styled.footer`
 
 	@media ${(props) => props.theme.mediaBreakpoints.tabletPortrait} {
 		left: ${pxToRem(9)};
-		bottom: ${pxToRem(57)};
+		bottom: ${pxToRem(24)};
 	}
 `;
 
