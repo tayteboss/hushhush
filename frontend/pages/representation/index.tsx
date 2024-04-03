@@ -14,10 +14,17 @@ import {
 import MediaLayout from '../../components/layout/MediaLayout';
 import ContentLayout from '../../components/layout/ContentLayout';
 import { useState } from 'react';
+import pxToRem from '../../utils/pxToRem';
 
 const PageWrapper = styled(motion.div)`
 	height: 100vh;
 	overflow: hidden;
+
+	.content-layout {
+		.embla__container {
+			height: ${pxToRem(110)};
+		}
+	}
 `;
 
 type Props = {

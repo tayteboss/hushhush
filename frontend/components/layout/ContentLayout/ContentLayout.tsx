@@ -10,6 +10,11 @@ import useEmblaCarousel from 'embla-carousel-react';
 import { WheelGesturesPlugin } from 'embla-carousel-wheel-gestures';
 import { useRouter } from 'next/router';
 
+type StyledProps = {
+	$containerWidth: number;
+	$useFullMobile: boolean;
+};
+
 type Props = {
 	title: string;
 	scrollList: (ClientType | RepresentationType | CaseStudyType)[];
@@ -32,6 +37,10 @@ const ContentLayoutWrapper = styled.div`
 		left: ${pxToRem(16)};
 		bottom: ${pxToRem(69)};
 	}
+
+	@media ${(props) => props.theme.mediaBreakpoints.mobile} {
+		width: calc(100% - 32px);
+	}
 `;
 
 const Title = styled.h1`
@@ -39,7 +48,7 @@ const Title = styled.h1`
 	color: var(--fg-colour);
 `;
 
-const Inner = styled.div<{ $containerWidth: number }>`
+const Inner = styled.div<StyledProps>`
 	padding: 0 ${pxToRem(9)};
 	background: rgba(217, 217, 217, 0.1);
 	backdrop-filter: blur(30px);
@@ -48,6 +57,11 @@ const Inner = styled.div<{ $containerWidth: number }>`
 	align-items: flex-start;
 	border-radius: ${pxToRem(5)};
 	width: ${(props) => props.$containerWidth}px;
+
+	@media ${(props) => props.theme.mediaBreakpoints.mobile} {
+		width: ${(props) =>
+			props.$useFullMobile ? '100%' : `${props.$containerWidth}px`};
+	}
 `;
 
 const EmblaCarousel = styled.div`
@@ -70,6 +84,10 @@ const EmblaSlide = styled.div<{ $isActive: boolean }>`
 
 	&:hover {
 		opacity: ${({ $isActive }) => ($isActive ? 1 : 0.75)};
+
+		@media ${(props) => props.theme.mediaBreakpoints.mobile} {
+			opacity: ${({ $isActive }) => ($isActive ? 1 : 0.4)};
+		}
 	}
 `;
 
@@ -145,7 +163,6 @@ const ContentLayout = (props: Props) => {
 				slideElement.getBoundingClientRect().top -
 				rootNodeRef.current.getBoundingClientRect().top;
 			const distance = Math.abs(slideTop);
-			console.log('slideElement', slideElement);
 
 			if (distance >= 0 && distance <= 20) {
 				if (distance < closestDistance) {
@@ -154,9 +171,8 @@ const ContentLayout = (props: Props) => {
 				}
 			}
 		});
-		console.log('closestIndex', closestIndex);
 
-		setActiveSlideIndex(closestIndex);
+		setActiveSlideIndex(closestIndex ? closestIndex : 0);
 	}, [emblaApi]);
 
 	useEffect(() => {
@@ -183,9 +199,15 @@ const ContentLayout = (props: Props) => {
 	}, [emblaApi]);
 
 	return (
-		<ContentLayoutWrapper>
+		<ContentLayoutWrapper className="content-layout">
 			<Title className="text-colour">{title || ''}</Title>
-			<Inner ref={rootNodeRef} $containerWidth={containerWidth}>
+			<Inner
+				ref={rootNodeRef}
+				$containerWidth={containerWidth}
+				$useFullMobile={
+					type === 'representations' || type === 'case-study'
+				}
+			>
 				<EmblaCarousel className="embla" ref={emblaRef}>
 					<EmblaContainer className="embla__container">
 						{scrollList.map((item, index) => {

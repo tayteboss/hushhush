@@ -38,6 +38,12 @@ const ClientMediaWrapper = styled.div`
 
 const RepresentationMediaWrapper = styled.a`
 	width: 33.333vw;
+	position: relative;
+
+	@media ${(props) => props.theme.mediaBreakpoints.mobile} {
+		width: 50vw;
+		top: -5%;
+	}
 
 	.image-component-wrapper,
 	.video-component-wrapper {
@@ -53,16 +59,6 @@ const CaseStudyMediaWrapper = styled.a`
 		height: 100%;
 		width: 100%;
 	}
-`;
-
-const CursorPanel = styled.div`
-	position: fixed;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-	z-index: 60;
-	height: 100%;
-	width: 100%;
 `;
 
 const wrapperVariants = {
