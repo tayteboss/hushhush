@@ -121,8 +121,6 @@ const AboutContentLayout = (props: Props) => {
 		};
 	}, [ref]);
 
-	console.log('mobileDividerContent', mobileDividerContent);
-
 	return (
 		<AboutContentLayoutWrapper>
 			<Title>About</Title>

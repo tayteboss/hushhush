@@ -25,8 +25,6 @@ const Page = (props: Props) => {
 		phoneNumber
 	} = data;
 
-	console.log('data', data);
-
 	return (
 		<PageWrapper
 			variants={pageTransitionVariants}
