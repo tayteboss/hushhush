@@ -51,7 +51,7 @@ const Inner = styled.div<{ $containerWidth: number }>`
 `;
 
 const EmblaCarousel = styled.div`
-	padding: ${pxToRem(9)} 0;
+	padding: ${pxToRem(6)} 0;
 	width: 100%;
 `;
 
@@ -145,15 +145,18 @@ const ContentLayout = (props: Props) => {
 				slideElement.getBoundingClientRect().top -
 				rootNodeRef.current.getBoundingClientRect().top;
 			const distance = Math.abs(slideTop);
+			console.log('slideElement', slideElement);
 
-			if (distance >= 0 && distance <= 24) {
+			if (distance >= 0 && distance <= 20) {
 				if (distance < closestDistance) {
 					closestIndex = index;
 					closestDistance = distance;
 				}
 			}
 		});
-		setActiveSlideIndex(closestIndex + 1);
+		console.log('closestIndex', closestIndex);
+
+		setActiveSlideIndex(closestIndex);
 	}, [emblaApi]);
 
 	useEffect(() => {

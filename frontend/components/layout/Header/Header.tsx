@@ -19,7 +19,7 @@ const HeaderWrapper = styled.header`
 	}
 `;
 
-const LogoWrapper = styled.div`
+const LogoWrapper = styled.a`
 	padding-left: ${pxToRem(9)};
 `;
 
@@ -53,9 +53,11 @@ const Divider = styled.div`
 const Header = () => {
 	return (
 		<HeaderWrapper className="header">
-			<LogoWrapper>
-				<LogoWordmarkSvg colour="var(--fg-colour)" />
-			</LogoWrapper>
+			<Link href="/" passHref legacyBehavior>
+				<LogoWrapper>
+					<LogoWordmarkSvg colour="var(--fg-colour)" />
+				</LogoWrapper>
+			</Link>
 			<MenuWrapper>
 				<Link href="/" passHref legacyBehavior>
 					<MenuLink

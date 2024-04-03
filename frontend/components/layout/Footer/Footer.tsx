@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import LogoIconSvg from '../../svgs/LogoIconSvg';
 import pxToRem from '../../../utils/pxToRem';
+import Link from 'next/link';
 
 const FooterWrapper = styled.footer`
 	position: fixed;
@@ -15,10 +16,16 @@ const FooterWrapper = styled.footer`
 	}
 `;
 
+const LinkTag = styled.a``;
+
 const Footer = () => {
 	return (
 		<FooterWrapper>
-			<LogoIconSvg colour="var(--fg-colour)" />
+			<Link href="/" passHref legacyBehavior>
+				<LinkTag>
+					<LogoIconSvg colour="var(--fg-colour)" />
+				</LinkTag>
+			</Link>
 		</FooterWrapper>
 	);
 };
