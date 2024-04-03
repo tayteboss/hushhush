@@ -1,30 +1,31 @@
 import styled from 'styled-components';
 import { NextSeo } from 'next-seo';
-import {
-	AboutPageType,
-	SiteSettingsType,
-	TransitionsType
-} from '../shared/types/types';
+import { AboutPageType, TransitionsType } from '../shared/types/types';
 import { motion } from 'framer-motion';
 import client from '../client';
-import {
-	aboutPagePageQueryString,
-	siteSettingsQueryString
-} from '../lib/sanityQueries';
+import { aboutPagePageQueryString } from '../lib/sanityQueries';
+import AboutContentLayout from '../components/layout/AboutContentLayout';
 
 const PageWrapper = styled(motion.div)``;
 
 type Props = {
 	data: AboutPageType;
-	siteSettings: SiteSettingsType;
 	pageTransitionVariants: TransitionsType;
 };
 
 const Page = (props: Props) => {
-	const { data, siteSettings, pageTransitionVariants } = props;
+	const { data, pageTransitionVariants } = props;
+
+	const {
+		aboutDescription,
+		enquiriesCTA,
+		googleMapsLink,
+		jobsCTA,
+		office,
+		phoneNumber
+	} = data;
 
 	console.log('data', data);
-	console.log('siteSettings', siteSettings);
 
 	return (
 		<PageWrapper
@@ -37,19 +38,24 @@ const Page = (props: Props) => {
 				title={data?.seoTitle || ''}
 				description={data?.seoDescription || ''}
 			/>
-			About
+			<AboutContentLayout
+				aboutDescription={aboutDescription}
+				enquiriesCTA={enquiriesCTA}
+				googleMapsLink={googleMapsLink}
+				jobsCTA={jobsCTA}
+				office={office}
+				phoneNumber={phoneNumber}
+			/>
 		</PageWrapper>
 	);
 };
 
 export async function getStaticProps() {
-	const siteSettings = await client.fetch(siteSettingsQueryString);
 	const data = await client.fetch(aboutPagePageQueryString);
 
 	return {
 		props: {
-			data,
-			siteSettings
+			data
 		}
 	};
 }

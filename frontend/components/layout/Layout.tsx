@@ -29,7 +29,7 @@ const Layout = (props: Props) => {
 		);
 		document.documentElement.style.setProperty(
 			'--blurred-bg-colour',
-			'rgba(217, 217, 217, 0.25)'
+			'rgba(217, 217, 217, 0.1)'
 		);
 	};
 
@@ -44,7 +44,7 @@ const Layout = (props: Props) => {
 		);
 		document.documentElement.style.setProperty(
 			'--blurred-bg-colour',
-			'rgba(217, 217, 217, 0.1)'
+			'rgba(217, 217, 217, 0.25)'
 		);
 	};
 
@@ -56,7 +56,7 @@ const Layout = (props: Props) => {
 		} else if (router.pathname.includes('/case-studies')) {
 			setWhiteTheme();
 		} else if (router.pathname === '/about') {
-			setWhiteTheme();
+			setGreyTheme();
 		} else {
 			setWhiteTheme();
 		}

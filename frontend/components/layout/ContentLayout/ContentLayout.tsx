@@ -50,7 +50,7 @@ const Title = styled.h1`
 
 const Inner = styled.div<StyledProps>`
 	padding: 0 ${pxToRem(9)};
-	background: rgba(217, 217, 217, 0.1);
+	background: var(--blurred-bg-colour);
 	backdrop-filter: blur(30px);
 	display: flex;
 	flex-direction: column;
