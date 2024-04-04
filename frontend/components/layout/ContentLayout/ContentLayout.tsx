@@ -19,8 +19,6 @@ type Props = {
 	title: string;
 	scrollList: (ClientType | RepresentationType | CaseStudyType)[];
 	type: 'clients' | 'representations' | 'case-study';
-	activeSlideIndex: number;
-	setActiveSlideIndex: (index: number) => void;
 	setActiveMediaSlideIndex: (index: number) => void;
 };
 
@@ -94,16 +92,10 @@ const EmblaSlide = styled.div<{ $isActive: boolean }>`
 const SlideText = styled.p``;
 
 const ContentLayout = (props: Props) => {
-	const {
-		title,
-		scrollList,
-		type,
-		activeSlideIndex,
-		setActiveSlideIndex,
-		setActiveMediaSlideIndex
-	} = props;
+	const { title, scrollList, type, setActiveMediaSlideIndex } = props;
 
 	const [scrollTarget, setScrollTarget] = useState<Element | undefined>();
+	const [activeSlideIndex, setActiveSlideIndex] = useState(0);
 
 	const router = useRouter();
 	const rootNodeRef = useRef<HTMLDivElement>(null);
@@ -141,9 +133,7 @@ const ContentLayout = (props: Props) => {
 		if (type === 'representations') {
 			const representation = scrollList[index] as RepresentationType;
 			if (representation) {
-				router.push(
-					`/representations/${representation?.slug?.current}`
-				);
+				router.push(`/representation/${representation?.slug?.current}`);
 			}
 		}
 	};

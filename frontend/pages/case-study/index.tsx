@@ -29,7 +29,6 @@ type Props = {
 const Page = (props: Props) => {
 	const { data, caseStudies, pageTransitionVariants } = props;
 
-	const [activeSlideIndex, setActiveSlideIndex] = useState(0);
 	const [activeMediaSlideIndex, setActiveMediaSlideIndex] = useState(0);
 
 	return (
@@ -52,8 +51,6 @@ const Page = (props: Props) => {
 				title="Case Studies"
 				scrollList={caseStudies}
 				type="case-study"
-				activeSlideIndex={activeSlideIndex}
-				setActiveSlideIndex={setActiveSlideIndex}
 				setActiveMediaSlideIndex={setActiveMediaSlideIndex}
 			/>
 		</PageWrapper>

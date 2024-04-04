@@ -92,7 +92,7 @@ export const representationsQueryString = `
 `;
 
 export const caseStudiesQueryString = `
-	*[_type == 'caseStudy'] | order(title asc) [0...100] {
+	*[_type == 'caseStudy'] | order(year desc) [0...100] {
 		title,
 		year,
 		'media': heroMedia {

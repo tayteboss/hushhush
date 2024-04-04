@@ -17,6 +17,7 @@ const VideoComponentWrapper = styled.div`
 
 	mux-player,
 	img {
+		transform: scale(1.001);
 		transition: all var(--transition-speed-extra-slow)
 			var(--transition-ease);
 	}
@@ -41,8 +42,6 @@ const Inner = styled.div`
 const wrapperVariants = {
 	hidden: {
 		opacity: 1,
-		filter: 'blur(10px)',
-		scale: 1.05,
 		transition: {
 			duration: 2,
 			ease: 'easeInOut'
@@ -50,8 +49,6 @@ const wrapperVariants = {
 	},
 	visible: {
 		opacity: 0,
-		filter: 'blur(0px)',
-		scale: 1,
 		transition: {
 			duration: 2,
 			ease: 'easeInOut',
@@ -78,8 +75,8 @@ const VideoComponent = (props: Props) => {
 			: data?.video?.asset?.playbackId;
 	const posterUrl =
 		isMobile && data?.mobileVideo?.asset?.playbackId
-			? `https://image.mux.com/${data.mobileVideo.asset.playbackId}/thumbnail.png?width=214&height=121&time=1`
-			: `https://image.mux.com/${data?.video?.asset?.playbackId}/thumbnail.png?width=214&height=121&time=1`;
+			? `https://image.mux.com/${data.mobileVideo.asset.playbackId}/thumbnail.png?width=214&height=121&time=0`
+			: `https://image.mux.com/${data?.video?.asset?.playbackId}/thumbnail.png?width=214&height=121&time=0`;
 
 	return (
 		<VideoComponentWrapper className="video-component-wrapper">

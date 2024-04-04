@@ -1,7 +1,6 @@
 import Image from 'next/image';
 import styled from 'styled-components';
 import { MediaType } from '../../../shared/types/types';
-import { AnimatePresence, motion } from 'framer-motion';
 import useViewportWidth from '../../../hooks/useViewportWidth';
 
 const ImageComponentWrapper = styled.div`
@@ -30,59 +29,12 @@ const ImageComponentWrapper = styled.div`
 	}
 `;
 
-const InnerBlur = styled(motion.div)`
-	position: absolute;
-	inset: 0;
-	height: 100%;
-	width: 100%;
-	z-index: 1;
-`;
-
-const Inner = styled(motion.div)`
+const Inner = styled.div`
 	position: absolute;
 	inset: 0;
 	height: 100%;
 	width: 100%;
 `;
-
-const wrapperVariants = {
-	hidden: {
-		opacity: 1,
-		filter: 'blur(3px)',
-		transition: {
-			duration: 0.1,
-			ease: 'easeInOut'
-		}
-	},
-	visible: {
-		opacity: 0,
-		filter: 'blur(0px)',
-		transition: {
-			duration: 0.1,
-			ease: 'easeInOut',
-			delay: 0
-		}
-	}
-};
-
-const defaultVariants = {
-	hidden: {
-		opacity: 0,
-		filter: 'blur(3px)',
-		transition: {
-			duration: 0.3,
-			ease: 'easeInOut'
-		}
-	},
-	visible: {
-		opacity: 1,
-		filter: 'blur(0px)',
-		transition: {
-			duration: 0.3,
-			ease: 'easeInOut'
-		}
-	}
-};
 
 type Props = {
 	data: MediaType;
@@ -107,36 +59,14 @@ const ImageComponent = (props: Props) => {
 
 	return (
 		<ImageComponentWrapper className="image-component-wrapper">
-			<AnimatePresence initial={false}>
-				{inView && data?.image?.asset?.metadata?.lqip && (
-					<InnerBlur
-						variants={wrapperVariants}
-						initial="hidden"
-						animate="visible"
-						exit="hidden"
-					>
-						<Image
-							src={blurDataURL}
-							alt={data?.image?.alt || ''}
-							fill
-							priority={isPriority}
-							blurDataURL={blurDataURL}
-						/>
-					</InnerBlur>
-				)}
-			</AnimatePresence>
-			<Inner
-				variants={defaultVariants}
-				initial="hidden"
-				animate={inView ? 'visible' : 'hidden'}
-			>
+			<Inner>
 				{imageUrl && (
 					<Image
 						src={imageUrl}
 						alt={data?.image?.alt || ''}
 						fill
 						priority={isPriority}
-						blurDataURL={blurDataURL}
+						// blurDataURL={blurDataURL}
 					/>
 				)}
 			</Inner>

@@ -13,8 +13,8 @@ import useHeaderHeight from '../hooks/useHeaderHeight';
 import Cursor from '../components/elements/Cursor';
 
 const pageTransitionVariants: TransitionsType = {
-	hidden: { opacity: 0, transition: { duration: 0.3 } },
-	visible: { opacity: 1, transition: { duration: 0.3, delay: 0.25 } }
+	hidden: { opacity: 0, transition: { duration: 0 } },
+	visible: { opacity: 1, transition: { duration: 0 } }
 };
 
 type Props = {
@@ -34,14 +34,6 @@ const App = (props: Props) => {
 	const handleExitComplete = () => {
 		window.scrollTo(0, 0);
 		setAppCursorRefresh(appCursorRefresh + 1);
-
-		const timer = setTimeout(() => {
-			setAppCursorRefresh(appCursorRefresh + 1);
-		}, 1000);
-
-		return () => {
-			clearTimeout(timer);
-		};
 	};
 
 	use1vh();
@@ -76,6 +68,7 @@ const App = (props: Props) => {
 							{...pageProps}
 							key={router.asPath}
 							pageTransitionVariants={pageTransitionVariants}
+							cursorRefresh={() => handleExitComplete()}
 						/>
 					</AnimatePresence>
 				</Layout>

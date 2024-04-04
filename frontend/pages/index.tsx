@@ -33,7 +33,6 @@ type Props = {
 const Page = (props: Props) => {
 	const { data, siteSettings, clients, pageTransitionVariants } = props;
 
-	const [activeSlideIndex, setActiveSlideIndex] = useState(0);
 	const [activeMediaSlideIndex, setActiveMediaSlideIndex] = useState(0);
 
 	return (
@@ -61,8 +60,6 @@ const Page = (props: Props) => {
 				title="Selected Clients"
 				scrollList={clients}
 				type="clients"
-				activeSlideIndex={activeSlideIndex}
-				setActiveSlideIndex={setActiveSlideIndex}
 				setActiveMediaSlideIndex={setActiveMediaSlideIndex}
 			/>
 		</PageWrapper>

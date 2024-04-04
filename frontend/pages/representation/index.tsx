@@ -35,8 +35,6 @@ type Props = {
 
 const Page = (props: Props) => {
 	const { data, representations, pageTransitionVariants } = props;
-
-	const [activeSlideIndex, setActiveSlideIndex] = useState(0);
 	const [activeMediaSlideIndex, setActiveMediaSlideIndex] = useState(0);
 
 	return (
@@ -59,8 +57,6 @@ const Page = (props: Props) => {
 				title="Representation"
 				scrollList={representations}
 				type="representations"
-				activeSlideIndex={activeSlideIndex}
-				setActiveSlideIndex={setActiveSlideIndex}
 				setActiveMediaSlideIndex={setActiveMediaSlideIndex}
 			/>
 		</PageWrapper>

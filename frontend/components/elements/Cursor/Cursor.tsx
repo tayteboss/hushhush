@@ -52,12 +52,23 @@ const CursorRing = styled(motion.div)<StyledProps>`
 
 const Text = styled(motion.div)`
 	line-height: 1;
-	color: var(--colour-white);
+	color: var(--fg-colour);
+	position: absolute;
+	text-align: right;
+	top: -14px;
+	right: 15px;
+	white-space: nowrap;
+`;
+
+const Chevron = styled(motion.div)`
+	line-height: 1;
+	color: var(--fg-colour);
 	position: absolute;
 	text-align: right;
 	top: -14px;
 	right: 5px;
 	white-space: nowrap;
+	transform: rotate(90deg);
 `;
 
 const Cursor = ({ cursorRefresh }: Props) => {
@@ -66,7 +77,7 @@ const Cursor = ({ cursorRefresh }: Props) => {
 		boolean | string
 	>(false);
 	const [isOnDevice, setIsOnDevice] = useState(false);
-	const [buttonTheme, setButtonTheme] = useState('default');
+	const [isHoveringPrevLink, setIsHoveringPrevLink] = useState(false);
 
 	const position = useMousePosition();
 	const router = useRouter();
@@ -108,7 +119,6 @@ const Cursor = ({ cursorRefresh }: Props) => {
 	const clearCursor = () => {
 		setIsHoveringLink(false);
 		setIsHoveringTextLink(false);
-		setButtonTheme('default');
 		setIsOnDevice(false);
 	};
 
@@ -151,15 +161,24 @@ const Cursor = ({ cursorRefresh }: Props) => {
 				const title = (e.target as HTMLElement).getAttribute(
 					'data-text'
 				);
+				const type = (e.target as HTMLElement).getAttribute(
+					'data-type'
+				);
 				setIsHoveringTextLink(title);
+
+				if (type === 'prev') {
+					setIsHoveringPrevLink(true);
+				} else {
+					setIsHoveringPrevLink(false);
+				}
 			});
 			link.addEventListener('mouseleave', () => {
 				setIsHoveringTextLink(false);
-				setButtonTheme('default');
+				setIsHoveringPrevLink(false);
 			});
 			link.addEventListener('click', () => {
 				setIsHoveringTextLink(false);
-				setButtonTheme('default');
+				setIsHoveringPrevLink(false);
 			});
 		});
 
@@ -206,6 +225,17 @@ const Cursor = ({ cursorRefresh }: Props) => {
 							>
 								{isHoveringTextLink}
 							</Text>
+						)}
+						{isHoveringPrevLink && (
+							<Chevron
+								key={2}
+								variants={textVariants}
+								initial="hidden"
+								animate="visible"
+								exit="hidden"
+							>
+								{`>`}
+							</Chevron>
 						)}
 					</AnimatePresence>
 				</CursorRing>
