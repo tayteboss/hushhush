@@ -78,8 +78,6 @@ const wrapperVariants = {
 const ProjectContentLayout = (props: Props) => {
 	const { title, galleryBlocks, activeSlideIndex } = props;
 
-	console.log('galleryBlocks', galleryBlocks);
-
 	const hasGalleryBlocks = galleryBlocks?.length > 0;
 
 	if (!hasGalleryBlocks || !galleryBlocks) return null;

@@ -4,6 +4,7 @@ import Footer from './Footer';
 import { ReactNode, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import {
+	setGreenTheme,
 	setGreyTheme,
 	setProjectTheme,
 	setWhiteTheme
@@ -32,7 +33,7 @@ const Layout = (props: Props) => {
 		} else if (router.pathname.includes('/case-studies')) {
 			setWhiteTheme();
 		} else if (router.pathname === '/about') {
-			setGreyTheme();
+			setGreenTheme();
 		} else {
 			setWhiteTheme();
 		}

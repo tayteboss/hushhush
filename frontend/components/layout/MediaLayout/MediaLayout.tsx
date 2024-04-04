@@ -208,8 +208,6 @@ const MediaLayout = (props: Props) => {
 			type === 'representation-project' ||
 			type === 'case-study-project'
 		) {
-			console.log('hello');
-
 			if (
 				(
 					data[activeSlideIndex] as

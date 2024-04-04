@@ -30,6 +30,21 @@ export const setGreyTheme = () => {
 	);
 };
 
+export const setGreenTheme = () => {
+	document.documentElement.style.setProperty(
+		'--fg-colour',
+		theme.colours.white
+	);
+	document.documentElement.style.setProperty(
+		'--bg-colour',
+		theme.colours.green
+	);
+	document.documentElement.style.setProperty(
+		'--blurred-bg-colour',
+		'rgba(217, 217, 217, 0.1)'
+	);
+};
+
 export const setWhiteProjectTheme = () => {
 	document.documentElement.style.setProperty(
 		'--fg-colour',

@@ -1,18 +1,25 @@
 import styled from 'styled-components';
 import client from '../../client';
-import { CaseStudyType, TransitionsType } from '../../shared/types/types';
-import { motion } from 'framer-motion';
+import {
+	CaseStudyType,
+	SiteSettingsType,
+	TransitionsType
+} from '../../shared/types/types';
+import { AnimatePresence, motion } from 'framer-motion';
 import { NextSeo } from 'next-seo';
-import { mediaString } from '../../lib/sanityQueries';
+import { mediaString, siteSettingsQueryString } from '../../lib/sanityQueries';
 import { useState, useEffect } from 'react';
 import MediaLayout from '../../components/layout/MediaLayout';
 import ProjectContentLayout from '../../components/layout/ProjectContentLayout';
+import Cookies from 'js-cookie';
+import Authentication from '../../components/blocks/Authentication';
 
 type Props = {
 	currentProject: CaseStudyType;
 	nextProjectSlug: string;
 	prevProjectSlug: string;
 	pageTransitionVariants: TransitionsType;
+	siteSettings: SiteSettingsType;
 	cursorRefresh: () => void;
 };
 
@@ -28,16 +35,26 @@ const Page = (props: Props) => {
 		nextProjectSlug,
 		prevProjectSlug,
 		pageTransitionVariants,
+		siteSettings,
 		cursorRefresh
 	} = props;
 
 	const [activeSlideIndex, setActiveSlideIndex] = useState(0);
+	const [isAuthenticated, setIsAuthenticated] = useState(true);
+
+	useEffect(() => {
+		const hasCookies = Cookies.get('authenticated');
+
+		if (hasCookies) {
+			setIsAuthenticated(true);
+		} else {
+			setIsAuthenticated(false);
+		}
+	}, []);
 
 	useEffect(() => {
 		cursorRefresh();
-	}, [activeSlideIndex]);
-
-	console.log('currentProject', currentProject);
+	}, [activeSlideIndex, isAuthenticated]);
 
 	return (
 		<PageWrapper
@@ -50,19 +67,31 @@ const Page = (props: Props) => {
 				title={currentProject?.title || ''}
 				description={currentProject?.seoDescription || ''}
 			/>
-			<MediaLayout
-				data={currentProject.galleryBlocks}
-				nextProjectSlug={nextProjectSlug}
-				prevProjectSlug={prevProjectSlug}
-				activeSlideIndex={activeSlideIndex}
-				setActiveSlideIndex={setActiveSlideIndex}
-				type="case-study-project"
-			/>
-			<ProjectContentLayout
-				title={currentProject?.title}
-				galleryBlocks={currentProject?.galleryBlocks}
-				activeSlideIndex={activeSlideIndex}
-			/>
+			{isAuthenticated && (
+				<>
+					<MediaLayout
+						data={currentProject.galleryBlocks}
+						nextProjectSlug={nextProjectSlug}
+						prevProjectSlug={prevProjectSlug}
+						activeSlideIndex={activeSlideIndex}
+						setActiveSlideIndex={setActiveSlideIndex}
+						type="case-study-project"
+					/>
+					<ProjectContentLayout
+						title={currentProject?.title}
+						galleryBlocks={currentProject?.galleryBlocks}
+						activeSlideIndex={activeSlideIndex}
+					/>
+				</>
+			)}
+			<AnimatePresence>
+				{!isAuthenticated && (
+					<Authentication
+						password={siteSettings?.password}
+						setIsAuthenticated={setIsAuthenticated}
+					/>
+				)}
+			</AnimatePresence>
 		</PageWrapper>
 	);
 };
@@ -114,6 +143,7 @@ export async function getStaticProps({ params }: any) {
 	`;
 
 	const currentProject = await client.fetch(currentProjectQuery);
+	const siteSettings = await client.fetch(siteSettingsQueryString);
 
 	const projectsQuery = `
 	        *[_type == 'caseStudy'] | order(year desc) {
@@ -141,7 +171,8 @@ export async function getStaticProps({ params }: any) {
 		props: {
 			currentProject,
 			nextProjectSlug,
-			prevProjectSlug
+			prevProjectSlug,
+			siteSettings
 		}
 	};
 }

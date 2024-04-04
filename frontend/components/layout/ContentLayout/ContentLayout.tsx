@@ -136,6 +136,12 @@ const ContentLayout = (props: Props) => {
 				router.push(`/representation/${representation?.slug?.current}`);
 			}
 		}
+		if (type === 'case-study') {
+			const caseStudy = scrollList[index] as CaseStudyType;
+			if (caseStudy) {
+				router.push(`/case-study/${caseStudy?.slug?.current}`);
+			}
+		}
 	};
 
 	useEffect(() => {
