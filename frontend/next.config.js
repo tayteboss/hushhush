@@ -27,6 +27,13 @@ const nextConfig = {
 			},
 		],
 	},
+	compiler: {
+		styledComponents: {
+		  displayName: true,
+		  ssr: true,
+		  fileName: true,
+		},
+	},
 };
 
 module.exports = nextConfig;

@@ -179,7 +179,7 @@ const MediaLayout = (props: Props) => {
 		prevProjectSlug
 	} = props;
 
-	if (!data) return null;
+	if (!data || data.length <= 0) return null;
 
 	const router = useRouter();
 

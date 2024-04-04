@@ -49,7 +49,7 @@ const Page = (props: Props) => {
 				description={currentProject?.excerpt || ''}
 			/>
 			<MediaLayout
-				data={currentProject.galleryBlocks}
+				data={currentProject?.galleryBlocks}
 				nextProjectSlug={nextProjectSlug}
 				prevProjectSlug={prevProjectSlug}
 				activeSlideIndex={activeSlideIndex}

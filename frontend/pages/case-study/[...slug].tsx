@@ -70,7 +70,7 @@ const Page = (props: Props) => {
 			{isAuthenticated && (
 				<>
 					<MediaLayout
-						data={currentProject.galleryBlocks}
+						data={currentProject?.galleryBlocks}
 						nextProjectSlug={nextProjectSlug}
 						prevProjectSlug={prevProjectSlug}
 						activeSlideIndex={activeSlideIndex}
