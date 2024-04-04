@@ -68,6 +68,7 @@ type Props = {
 	data: MediaType;
 	isPriority: boolean;
 	inView: boolean;
+	isFullScreen: boolean;
 };
 
 const wrapperVariants = {
@@ -88,7 +89,7 @@ const wrapperVariants = {
 };
 
 const ImageComponent = (props: Props) => {
-	const { data, isPriority, inView } = props;
+	const { data, isPriority, inView, isFullScreen } = props;
 
 	const [isComplete, setIsComplete] = useState(false);
 
@@ -121,6 +122,7 @@ const ImageComponent = (props: Props) => {
 								fill
 								priority={true}
 								blurDataURL={blurDataURL}
+								sizes={isFullScreen ? '100vw' : '50vw'}
 							/>
 						</PosterImage>
 					)}

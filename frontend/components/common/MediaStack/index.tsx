@@ -9,10 +9,11 @@ const MediaStackWrapper = styled.div``;
 type Props = {
 	data: MediaType;
 	isPriority?: boolean;
+	isFullScreen?: boolean;
 };
 
 const MediaStack = (props: Props) => {
-	const { data, isPriority = false } = props ?? {};
+	const { data, isPriority = false, isFullScreen = true } = props ?? {};
 
 	const useVideo = data?.mediaType === 'video';
 
@@ -36,6 +37,7 @@ const MediaStack = (props: Props) => {
 					data={data}
 					isPriority={isPriority}
 					inView={inView}
+					isFullScreen={isFullScreen}
 				/>
 			)}
 		</MediaStackWrapper>

@@ -98,7 +98,7 @@ const Authentication = (props: Props) => {
 	const router = useRouter();
 
 	const handleGoBack = () => {
-		router.back();
+		router.push('/case-studies');
 	};
 
 	const handlePasswordChange = (event: ChangeEvent<HTMLInputElement>) => {

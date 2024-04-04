@@ -82,7 +82,7 @@ const RepresentationMediaWrapper = styled.a`
 
 	.image-component-wrapper,
 	.video-component-wrapper {
-		padding-top: 133.8%;
+		padding-top: 125%;
 	}
 `;
 
@@ -97,7 +97,7 @@ const CaseStudyMediaWrapper = styled.a`
 `;
 
 const CroppedProjectWrapper = styled.div<{ $usePortrait: boolean }>`
-	width: 33.333vw;
+	width: ${(props) => (props.$usePortrait ? '33.333vw' : '42vw')};
 	position: relative;
 
 	@media ${(props) => props.theme.mediaBreakpoints.mobile} {
@@ -107,7 +107,7 @@ const CroppedProjectWrapper = styled.div<{ $usePortrait: boolean }>`
 
 	.image-component-wrapper,
 	.video-component-wrapper {
-		padding-top: ${(props) => (props.$usePortrait ? '133.8%' : '80%')};
+		padding-top: ${(props) => (props.$usePortrait ? '125%' : '80%')};
 	}
 `;
 
@@ -189,7 +189,7 @@ const MediaLayout = (props: Props) => {
 		}
 
 		if (type === 'case-study-project') {
-			router.push(`/case-study/${nextProjectSlug}`);
+			router.push(`/case-studies/${nextProjectSlug}`);
 		}
 	};
 
@@ -199,7 +199,7 @@ const MediaLayout = (props: Props) => {
 		}
 
 		if (type === 'case-study-project') {
-			router.push(`/case-study/${prevProjectSlug}`);
+			router.push(`/case-studies/${prevProjectSlug}`);
 		}
 	};
 
@@ -266,6 +266,7 @@ const MediaLayout = (props: Props) => {
 											).media
 										}
 										isPriority
+										isFullScreen={false}
 									/>
 								)}
 							</RepresentationMediaWrapper>
@@ -273,7 +274,7 @@ const MediaLayout = (props: Props) => {
 					)}
 					{type === 'case-study' && (
 						<Link
-							href={`/case-study/${
+							href={`/case-studies/${
 								(data[activeSlideIndex] as CaseStudyType)?.slug
 									?.current
 							}`}
@@ -331,6 +332,7 @@ const MediaLayout = (props: Props) => {
 														.croppedSlide.media
 												}
 												isPriority
+												isFullScreen={false}
 											/>
 										)}
 									</CroppedProjectWrapper>

@@ -75,7 +75,7 @@ const Header = () => {
 						representation
 					</MenuLink>
 				</Link>
-				<Link href="/case-study" passHref legacyBehavior>
+				<Link href="/case-studies" passHref legacyBehavior>
 					<MenuLink
 						className="type-p"
 						$isActive={useActiveLink() === 'case-study'}

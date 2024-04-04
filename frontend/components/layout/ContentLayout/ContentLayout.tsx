@@ -139,7 +139,7 @@ const ContentLayout = (props: Props) => {
 		if (type === 'case-study') {
 			const caseStudy = scrollList[index] as CaseStudyType;
 			if (caseStudy) {
-				router.push(`/case-study/${caseStudy?.slug?.current}`);
+				router.push(`/case-studies/${caseStudy?.slug?.current}`);
 			}
 		}
 	};
