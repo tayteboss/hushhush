@@ -14,6 +14,7 @@ type Props = {
 	data: VideoType;
 	mobileData: VideoType;
 	introStatements: StatementType[];
+	cursorRefresh: () => void;
 };
 
 const LandingSequenceWrapper = styled(motion.section)`
@@ -92,7 +93,7 @@ const wrapperVariants = {
 };
 
 const LandingSequence = (props: Props) => {
-	const { data, mobileData, introStatements } = props;
+	const { data, mobileData, introStatements, cursorRefresh } = props;
 
 	const hasData = data?.asset?.playbackId;
 
@@ -106,6 +107,10 @@ const LandingSequence = (props: Props) => {
 	const [finishSequence, setFinishSequence] = useState(false);
 
 	useEffect(() => {
+		cursorRefresh();
+	}, [showTextBanners]);
+
+	useEffect(() => {
 		const hasCookies = Cookies.get('visited');
 
 		if (hasCookies) {
@@ -113,6 +118,7 @@ const LandingSequence = (props: Props) => {
 			setFinishSequence(true);
 		} else {
 			setShowVideo(true);
+			cursorRefresh();
 		}
 	}, []);
 
@@ -135,6 +141,13 @@ const LandingSequence = (props: Props) => {
 					animate="visible"
 					exit="hidden"
 					key="landing-sequence-wrapper"
+					onClick={() => {
+						if (showTextBanners) {
+							setShowVideo(false);
+							setShowTextBanners(false);
+							setFinishSequence(true);
+						}
+					}}
 				>
 					{showVideo && (
 						<MediaWrapper
@@ -170,11 +183,6 @@ const LandingSequence = (props: Props) => {
 					)}
 					{showTextBanners && (
 						<ContentWrapper
-							onClick={() => {
-								setShowVideo(false);
-								setShowTextBanners(false);
-								setFinishSequence(true);
-							}}
 							variants={wrapperVariants}
 							initial="hidden"
 							animate="visible"

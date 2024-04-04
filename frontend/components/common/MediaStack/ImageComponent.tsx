@@ -2,10 +2,12 @@ import Image from 'next/image';
 import styled from 'styled-components';
 import { MediaType } from '../../../shared/types/types';
 import useViewportWidth from '../../../hooks/useViewportWidth';
+import { AnimatePresence, motion } from 'framer-motion';
+import { useState } from 'react';
 
 const ImageComponentWrapper = styled.div`
 	position: relative;
-	background-color: rgba(0, 0, 0, 0.1);
+	background-color: var(--colour-green);
 	overflow: hidden;
 
 	transition: all var(--transition-speed-slow) var(--transition-ease);
@@ -36,14 +38,59 @@ const Inner = styled.div`
 	width: 100%;
 `;
 
+const PosterImage = styled(motion.div)`
+	position: absolute;
+	inset: 0;
+	height: 100%;
+	width: 100%;
+	z-index: 3;
+
+	&::before {
+		content: '';
+		position: absolute;
+		inset: 0;
+		height: 100%;
+		width: 100%;
+		background: var(--green);
+		z-index: 1;
+	}
+`;
+
+const FullImage = styled.div`
+	position: absolute;
+	inset: 0;
+	height: 100%;
+	width: 100%;
+	z-index: 2;
+`;
+
 type Props = {
 	data: MediaType;
 	isPriority: boolean;
 	inView: boolean;
 };
 
+const wrapperVariants = {
+	hidden: {
+		opacity: 0,
+		transition: {
+			duration: 0.1,
+			ease: 'easeInOut'
+		}
+	},
+	visible: {
+		opacity: 1,
+		transition: {
+			duration: 0.1,
+			ease: 'easeInOut'
+		}
+	}
+};
+
 const ImageComponent = (props: Props) => {
 	const { data, isPriority, inView } = props;
+
+	const [isComplete, setIsComplete] = useState(false);
 
 	const viewport = useViewportWidth();
 	const isMobile = viewport === 'mobile';
@@ -60,14 +107,34 @@ const ImageComponent = (props: Props) => {
 	return (
 		<ImageComponentWrapper className="image-component-wrapper">
 			<Inner>
+				<AnimatePresence>
+					{!isComplete && (
+						<PosterImage
+							variants={wrapperVariants}
+							initial="hidden"
+							animate="visible"
+							exit="hidden"
+						>
+							<Image
+								src={blurDataURL}
+								alt={data?.image?.alt || ''}
+								fill
+								priority={true}
+								blurDataURL={blurDataURL}
+							/>
+						</PosterImage>
+					)}
+				</AnimatePresence>
 				{imageUrl && (
-					<Image
-						src={imageUrl}
-						alt={data?.image?.alt || ''}
-						fill
-						priority={isPriority}
-						// blurDataURL={blurDataURL}
-					/>
+					<FullImage>
+						<Image
+							src={imageUrl}
+							alt={data?.image?.alt || ''}
+							fill
+							priority={isPriority}
+							onLoad={() => setIsComplete(true)}
+						/>
+					</FullImage>
 				)}
 			</Inner>
 		</ImageComponentWrapper>

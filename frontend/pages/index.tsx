@@ -28,10 +28,17 @@ type Props = {
 	siteSettings: SiteSettingsType;
 	clients: ClientType[];
 	pageTransitionVariants: TransitionsType;
+	cursorRefresh: () => void;
 };
 
 const Page = (props: Props) => {
-	const { data, siteSettings, clients, pageTransitionVariants } = props;
+	const {
+		data,
+		siteSettings,
+		clients,
+		pageTransitionVariants,
+		cursorRefresh
+	} = props;
 
 	const [activeMediaSlideIndex, setActiveMediaSlideIndex] = useState(0);
 
@@ -50,6 +57,7 @@ const Page = (props: Props) => {
 				data={siteSettings?.introMedia}
 				mobileData={siteSettings?.mobileIntroMedia}
 				introStatements={siteSettings?.introStatements}
+				cursorRefresh={cursorRefresh}
 			/>
 			<MediaLayout
 				activeSlideIndex={activeMediaSlideIndex}
@@ -71,7 +79,7 @@ export async function getStaticProps() {
 	const data = await client.fetch(clientsPageQueryString);
 	let clients = await client.fetch(clientsQueryString);
 
-	while (clients.length < 10) {
+	while (clients.length < 13) {
 		clients = [...clients, ...clients];
 	}
 
