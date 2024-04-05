@@ -10,7 +10,6 @@ import MediaStack from '../../common/MediaStack';
 import { AnimatePresence, motion } from 'framer-motion';
 import Link from 'next/link';
 import randomIntFromInterval from '../../../utils/randomIntFromInterval';
-import MobileProjectMedia from '../../blocks/MobileProjectMedia';
 import DesktopProjectMedia from '../../blocks/DesktopProjectMedia';
 import ProjectCursorLayout from '../../blocks/ProjectCursorLayout';
 
@@ -44,6 +43,7 @@ const MediaLayoutWrapper = styled(motion.section)`
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	overflow: hidden;
 `;
 
 const ClientMediaWrapper = styled.div`

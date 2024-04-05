@@ -28,20 +28,23 @@ type Props = {
 	activeSlideIndex: number;
 };
 
-const DesktopProjectMediaWrapper = styled.div``;
+const DesktopProjectMediaWrapper = styled.div`
+	width: 100%;
+	height: 100vh;
+
+	@media ${(props) => props.theme.mediaBreakpoints.tabletPortrait} {
+		display: none;
+	}
+`;
 
 const ProjectMediaWrapper = styled(motion.div)`
 	width: 100%;
-	height: 100vh;
+	height: 100%;
 	z-index: 40;
 	position: relative;
 	display: flex;
 	justify-content: center;
 	align-items: center;
-
-	@media ${(props) => props.theme.mediaBreakpoints.tabletPortrait} {
-		display: none;
-	}
 `;
 
 const CroppedProjectWrapper = styled.div<{ $usePortrait: boolean }>`

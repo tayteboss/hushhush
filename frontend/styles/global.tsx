@@ -47,6 +47,7 @@ export const GlobalStyles = createGlobalStyle`
 		perspective: 1000;
 		transform: translate3d(0,0,0);
 		transform: translateZ(0);
+		overflow: hidden;
 
 		&.no-scroll {
 			overflow-y: hidden;

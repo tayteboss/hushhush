@@ -1,10 +1,13 @@
 import styled from 'styled-components';
 import {
+	CaseStudyType,
+	ClientType,
 	CroppedSlideType,
-	FullBleedSlideType
+	FullBleedSlideType,
+	RepresentationType
 } from '../../../shared/types/types';
 import useEmblaCarousel from 'embla-carousel-react';
-import { useCallback, useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import MediaStack from '../../common/MediaStack';
 
 type Props = {
@@ -19,15 +22,19 @@ type Props = {
 };
 
 const MobileProjectMediaWrapper = styled.div`
-	position: fixed;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100dvh;
-	z-index: 50;
-	display: flex;
-	justify-content: center;
-	align-items: center;
+	display: none;
+
+	@media ${(props) => props.theme.mediaBreakpoints.tabletPortrait} {
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100dvh;
+		z-index: 50;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
 `;
 
 const Embla = styled.div`
