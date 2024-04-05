@@ -30,7 +30,10 @@ const Footer = () => {
 	const [isActive, setIsActive] = useState(true);
 
 	useEffect(() => {
-		if (router.pathname === '/representation/[...slug]') {
+		if (
+			router.pathname === '/representation/[...slug]' ||
+			router.pathname === '/case-studies/[...slug]'
+		) {
 			setIsActive(false);
 		} else {
 			setIsActive(true);

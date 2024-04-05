@@ -7,6 +7,10 @@ import { mediaString } from '../../lib/sanityQueries';
 import ProjectContentLayout from '../../components/layout/ProjectContentLayout';
 import { useEffect, useState } from 'react';
 import MediaLayout from '../../components/layout/MediaLayout';
+import useViewportWidth from '../../hooks/useViewportWidth';
+import MobileProjectMedia from '../../components/blocks/MobileProjectMedia';
+import { setGreyTheme, setWhiteTheme } from '../../utils/setTheme';
+import { useRouter } from 'next/router';
 
 type Props = {
 	currentProject: RepresentationType;
@@ -33,9 +37,26 @@ const Page = (props: Props) => {
 
 	const [activeSlideIndex, setActiveSlideIndex] = useState(0);
 
+	const router = useRouter();
+
+	const viewportWidth = useViewportWidth();
+	const isOnDevice =
+		viewportWidth === 'mobile' || viewportWidth === 'tabletPortrait';
+
 	useEffect(() => {
-		cursorRefresh();
-	}, [activeSlideIndex]);
+		if (isOnDevice) {
+			if (
+				currentProject.galleryBlocks[activeSlideIndex]
+					.galleryComponent === 'croppedSlide'
+			) {
+				setGreyTheme();
+			} else {
+				setWhiteTheme();
+			}
+		} else {
+			cursorRefresh();
+		}
+	}, [activeSlideIndex, router, isOnDevice]);
 
 	return (
 		<PageWrapper
@@ -56,10 +77,17 @@ const Page = (props: Props) => {
 				setActiveSlideIndex={setActiveSlideIndex}
 				type="representation-project"
 			/>
+			<MobileProjectMedia
+				data={currentProject?.galleryBlocks}
+				setActiveSlideIndex={setActiveSlideIndex}
+			/>
 			<ProjectContentLayout
 				title={currentProject?.title}
 				galleryBlocks={currentProject?.galleryBlocks}
 				activeSlideIndex={activeSlideIndex}
+				nextProjectSlug={nextProjectSlug}
+				prevProjectSlug={prevProjectSlug}
+				type="representation"
 			/>
 		</PageWrapper>
 	);

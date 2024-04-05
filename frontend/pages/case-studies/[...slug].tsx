@@ -13,6 +13,10 @@ import MediaLayout from '../../components/layout/MediaLayout';
 import ProjectContentLayout from '../../components/layout/ProjectContentLayout';
 import Cookies from 'js-cookie';
 import Authentication from '../../components/blocks/Authentication';
+import useViewportWidth from '../../hooks/useViewportWidth';
+import router from 'next/router';
+import { setGreyTheme, setWhiteTheme } from '../../utils/setTheme';
+import MobileProjectMedia from '../../components/blocks/MobileProjectMedia';
 
 type Props = {
 	currentProject: CaseStudyType;
@@ -42,19 +46,32 @@ const Page = (props: Props) => {
 	const [activeSlideIndex, setActiveSlideIndex] = useState(0);
 	const [isAuthenticated, setIsAuthenticated] = useState(true);
 
+	const viewportWidth = useViewportWidth();
+	const isOnDevice =
+		viewportWidth === 'mobile' || viewportWidth === 'tabletPortrait';
+
 	useEffect(() => {
 		const hasCookies = Cookies.get('authenticated');
 
-		if (hasCookies) {
-			setIsAuthenticated(true);
-		} else {
+		if (!hasCookies) {
 			setIsAuthenticated(false);
 		}
 	}, []);
 
 	useEffect(() => {
-		cursorRefresh();
-	}, [activeSlideIndex, isAuthenticated]);
+		if (isOnDevice) {
+			if (
+				currentProject.galleryBlocks[activeSlideIndex]
+					.galleryComponent === 'croppedSlide'
+			) {
+				setGreyTheme();
+			} else {
+				setWhiteTheme();
+			}
+		} else {
+			cursorRefresh();
+		}
+	}, [activeSlideIndex, router, isOnDevice, isAuthenticated]);
 
 	return (
 		<PageWrapper
@@ -77,10 +94,17 @@ const Page = (props: Props) => {
 						setActiveSlideIndex={setActiveSlideIndex}
 						type="case-study-project"
 					/>
+					<MobileProjectMedia
+						data={currentProject?.galleryBlocks}
+						setActiveSlideIndex={setActiveSlideIndex}
+					/>
 					<ProjectContentLayout
 						title={currentProject?.title}
 						galleryBlocks={currentProject?.galleryBlocks}
 						activeSlideIndex={activeSlideIndex}
+						nextProjectSlug={nextProjectSlug}
+						prevProjectSlug={prevProjectSlug}
+						type="case-study"
 					/>
 				</>
 			)}

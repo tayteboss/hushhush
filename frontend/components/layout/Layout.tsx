@@ -30,8 +30,10 @@ const Layout = (props: Props) => {
 			setGreyTheme();
 		} else if (router.pathname === '/representation/[...slug]') {
 			setProjectTheme();
-		} else if (router.pathname.includes('/case-studies')) {
+		} else if (router.pathname === '/case-studies') {
 			setWhiteTheme();
+		} else if (router.pathname === '/case-studies/[...slug]') {
+			setProjectTheme();
 		} else if (router.pathname === '/about') {
 			setGreenTheme();
 		} else {
@@ -41,6 +43,12 @@ const Layout = (props: Props) => {
 
 	useEffect(() => {
 		checkRoute();
+
+		const timer = setTimeout(() => {
+			checkRoute();
+		}, 100);
+
+		return () => clearTimeout(timer);
 	}, [router]);
 
 	return (

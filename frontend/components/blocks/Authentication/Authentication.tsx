@@ -6,6 +6,7 @@ import Cookies from 'js-cookie';
 import pxToRem from '../../../utils/pxToRem';
 import CrossSvg from '../../svgs/CrossSvg';
 import { useRouter } from 'next/router';
+import { motion } from 'framer-motion';
 
 type StyledProps = {
 	$isFocused: boolean;
@@ -17,7 +18,7 @@ type Props = {
 	setIsAuthenticated: (isAuthenticated: boolean) => void;
 };
 
-const AuthenticationWrapper = styled.div`
+const AuthenticationWrapper = styled(motion.div)`
 	position: fixed;
 	top: 0;
 	left: 0;

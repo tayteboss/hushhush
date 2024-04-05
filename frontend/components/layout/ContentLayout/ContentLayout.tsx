@@ -180,15 +180,6 @@ const ContentLayout = (props: Props) => {
 
 		emblaApi.on('scroll', updateActiveSlide);
 
-		// emblaApi?.on('pointerUp', (emblaApi) => {
-		// 	const { scrollTo, target, location } = emblaApi.internalEngine();
-		// 	const diffToTarget = target.get() - location.get();
-		// 	const factor =
-		// 		Math.abs(diffToTarget) < WHEEL_ITEM_SIZE / 2.5 ? 10 : 0.1;
-		// 	const distance = diffToTarget * factor;
-		// 	scrollTo.distance(distance, true);
-		// });
-
 		return () => {
 			emblaApi.off('scroll', updateActiveSlide);
 		};

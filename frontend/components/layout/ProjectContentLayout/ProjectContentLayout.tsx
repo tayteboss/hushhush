@@ -6,11 +6,15 @@ import {
 } from '../../../shared/types/types';
 import { PortableText } from '@portabletext/react';
 import { AnimatePresence, motion } from 'framer-motion';
+import { useRouter } from 'next/router';
 
 type Props = {
 	title: string;
 	galleryBlocks: (FullBleedSlideType | CroppedSlideType)[];
 	activeSlideIndex: number;
+	prevProjectSlug: string;
+	nextProjectSlug: string;
+	type: 'representation' | 'case-study';
 };
 
 const ProjectContentLayoutWrapper = styled.div`
@@ -28,13 +32,33 @@ const ProjectContentLayoutWrapper = styled.div`
 	}
 
 	@media ${(props) => props.theme.mediaBreakpoints.mobile} {
-		width: calc(100% - 32px);
+		width: calc(100% - 30px);
+		bottom: ${pxToRem(36)};
 	}
 `;
 
+const TitleWrapper = styled.div`
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 0 ${pxToRem(9)};
+`;
+
 const Title = styled.h1`
-	padding-left: ${pxToRem(9)};
 	color: var(--fg-colour);
+	padding-right: ${pxToRem(10)};
+`;
+
+const Hint = styled.p<{ $isActive: boolean }>`
+	display: none;
+
+	@media ${(props) => props.theme.mediaBreakpoints.tabletPortrait} {
+		display: block;
+		color: var(--fg-colour);
+		opacity: ${(props) => (props.$isActive ? 1 : 0)};
+
+		transition: all var(--transition-speed-default) var(--transition-ease);
+	}
 `;
 
 const Inner = styled(motion.div)`
@@ -49,6 +73,7 @@ const Inner = styled(motion.div)`
 
 	@media ${(props) => props.theme.mediaBreakpoints.mobile} {
 		width: 100%;
+		overflow: auto;
 	}
 `;
 
@@ -56,6 +81,27 @@ const RichTextWrapper = styled.div`
 	* {
 		color: var(--fg-colour);
 	}
+`;
+
+const PaginationWrapper = styled.div`
+	display: none;
+
+	@media ${(props) => props.theme.mediaBreakpoints.tabletPortrait} {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		padding-top: ${pxToRem(10)};
+	}
+`;
+
+const PrevProjectLink = styled.button`
+	padding-left: ${pxToRem(9)};
+	color: var(--fg-colour);
+`;
+
+const NextProjectLink = styled.button`
+	padding-right: ${pxToRem(9)};
+	color: var(--fg-colour);
 `;
 
 const wrapperVariants = {
@@ -76,7 +122,18 @@ const wrapperVariants = {
 };
 
 const ProjectContentLayout = (props: Props) => {
-	const { title, galleryBlocks, activeSlideIndex } = props;
+	const {
+		title,
+		galleryBlocks,
+		activeSlideIndex,
+		prevProjectSlug,
+		nextProjectSlug,
+		type
+	} = props;
+
+	const router = useRouter();
+
+	const isRepresentation = type === 'representation';
 
 	const hasGalleryBlocks = galleryBlocks?.length > 0;
 
@@ -88,12 +145,36 @@ const ProjectContentLayout = (props: Props) => {
 
 	const galleryCount = `(${activeSlideIndex + 1}/${galleryBlocks.length})`;
 
+	const handleNextProject = () => {
+		if (type === 'representation') {
+			router.push(`/representation/${nextProjectSlug}`);
+		}
+
+		if (type === 'case-study') {
+			router.push(`/case-studies/${nextProjectSlug}`);
+		}
+	};
+
+	const handlePreviousProject = () => {
+		if (type === 'representation') {
+			router.push(`/representation/${prevProjectSlug}`);
+		}
+
+		if (type === 'case-study') {
+			router.push(`/case-studies/${prevProjectSlug}`);
+		}
+	};
+
 	return (
 		<ProjectContentLayoutWrapper>
-			<Title>
-				{galleryBlocks[activeSlideIndex][slideType].slideTitle || title}{' '}
-				- {galleryCount}
-			</Title>
+			<TitleWrapper>
+				<Title>
+					{galleryBlocks[activeSlideIndex][slideType].slideTitle ||
+						title}{' '}
+					- {galleryCount}
+				</Title>
+				<Hint $isActive={activeSlideIndex === 0}>Scroll</Hint>
+			</TitleWrapper>
 			<AnimatePresence>
 				{galleryBlocks[activeSlideIndex][slideType].content && (
 					<Inner
@@ -113,6 +194,20 @@ const ProjectContentLayout = (props: Props) => {
 					</Inner>
 				)}
 			</AnimatePresence>
+			<PaginationWrapper>
+				<PrevProjectLink
+					className="type-h1"
+					onClick={() => handlePreviousProject()}
+				>
+					{`<`} Prev {isRepresentation ? 'Talent' : 'Case'}
+				</PrevProjectLink>
+				<NextProjectLink
+					className="type-h1"
+					onClick={() => handleNextProject()}
+				>
+					Next {isRepresentation ? 'Talent' : 'Case'} {`>`}
+				</NextProjectLink>
+			</PaginationWrapper>
 		</ProjectContentLayoutWrapper>
 	);
 };

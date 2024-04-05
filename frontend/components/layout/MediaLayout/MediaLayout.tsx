@@ -10,14 +10,9 @@ import MediaStack from '../../common/MediaStack';
 import { AnimatePresence, motion } from 'framer-motion';
 import Link from 'next/link';
 import randomIntFromInterval from '../../../utils/randomIntFromInterval';
-import { useEffect } from 'react';
-import {
-	setGreyProjectTheme,
-	setGreyTheme,
-	setWhiteProjectTheme,
-	setWhiteTheme
-} from '../../../utils/setTheme';
-import { useRouter } from 'next/router';
+import MobileProjectMedia from '../../blocks/MobileProjectMedia';
+import DesktopProjectMedia from '../../blocks/DesktopProjectMedia';
+import ProjectCursorLayout from '../../blocks/ProjectCursorLayout';
 
 type Props = {
 	activeSlideIndex: number;
@@ -61,16 +56,6 @@ const ClientMediaWrapper = styled.div`
 	}
 `;
 
-const ProjectMediaWrapper = styled(motion.div)`
-	width: 100%;
-	height: 100vh;
-	z-index: 40;
-	position: relative;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-`;
-
 const RepresentationMediaWrapper = styled.a`
 	width: 33.333vw;
 	position: relative;
@@ -94,62 +79,6 @@ const CaseStudyMediaWrapper = styled.a`
 		height: 100%;
 		width: 100%;
 	}
-`;
-
-const CroppedProjectWrapper = styled.div<{ $usePortrait: boolean }>`
-	width: ${(props) => (props.$usePortrait ? '33.333vw' : '42vw')};
-	position: relative;
-
-	@media ${(props) => props.theme.mediaBreakpoints.mobile} {
-		width: 50vw;
-		top: -8%;
-	}
-
-	.image-component-wrapper,
-	.video-component-wrapper {
-		padding-top: ${(props) => (props.$usePortrait ? '125%' : '80%')};
-	}
-`;
-
-const FullProjectWrapper = styled.div`
-	height: 100%;
-	width: 100%;
-
-	* {
-		height: 100%;
-		width: 100%;
-	}
-`;
-
-const ProjectCursorLayout = styled.div`
-	position: fixed;
-	top: 0;
-	left: 0;
-	height: 100vh;
-	width: 100%;
-	z-index: 50;
-	display: flex;
-	flex-direction: column;
-`;
-
-const ProjectCursorTop = styled.div`
-	display: flex;
-	justify-content: space-between;
-	height: 70vh;
-`;
-
-const ProjectCursorBottom = styled.div`
-	height: 30vh;
-`;
-
-const HalfCursorTrigger = styled.div`
-	width: 50%;
-	height: 100%;
-`;
-
-const FullCursorTrigger = styled.div`
-	width: 100%;
-	height: 100%;
 `;
 
 const wrapperVariants = {
@@ -180,49 +109,6 @@ const MediaLayout = (props: Props) => {
 	} = props;
 
 	if (!data || data.length <= 0) return null;
-
-	const router = useRouter();
-
-	const handleNextProject = () => {
-		if (type === 'representation-project') {
-			router.push(`/representation/${nextProjectSlug}`);
-		}
-
-		if (type === 'case-study-project') {
-			router.push(`/case-studies/${nextProjectSlug}`);
-		}
-	};
-
-	const handlePreviousProject = () => {
-		if (type === 'representation-project') {
-			router.push(`/representation/${prevProjectSlug}`);
-		}
-
-		if (type === 'case-study-project') {
-			router.push(`/case-studies/${prevProjectSlug}`);
-		}
-	};
-
-	useEffect(() => {
-		if (
-			type === 'representation-project' ||
-			type === 'case-study-project'
-		) {
-			if (
-				(
-					data[activeSlideIndex] as
-						| FullBleedSlideType
-						| CroppedSlideType
-				).galleryComponent === 'croppedSlide'
-			) {
-				setGreyProjectTheme();
-			} else {
-				setWhiteProjectTheme();
-			}
-		} else {
-			return;
-		}
-	}, [data[activeSlideIndex], router]);
 
 	return (
 		<AnimatePresence>
@@ -301,103 +187,19 @@ const MediaLayout = (props: Props) => {
 					{(type === 'representation-project' ||
 						type === 'case-study-project') && (
 						<>
-							<ProjectMediaWrapper
-								onClick={() =>
-									setActiveSlideIndex &&
-									setActiveSlideIndex(
-										activeSlideIndex + 1 === data.length
-											? 0
-											: activeSlideIndex + 1
-									)
-								}
-								variants={wrapperVariants}
-								key={randomIntFromInterval(0, 10000)}
-							>
-								{(
-									data[activeSlideIndex] as
-										| FullBleedSlideType
-										| CroppedSlideType
-								)?.galleryComponent === 'croppedSlide' && (
-									<CroppedProjectWrapper
-										$usePortrait={
-											data[activeSlideIndex]?.croppedSlide
-												?.orientationType === 'portrait'
-										}
-									>
-										{data[activeSlideIndex]?.croppedSlide
-											.media && (
-											<MediaStack
-												data={
-													data[activeSlideIndex]
-														.croppedSlide.media
-												}
-												isPriority
-												isFullScreen={false}
-											/>
-										)}
-									</CroppedProjectWrapper>
-								)}
-								{(
-									data[activeSlideIndex] as
-										| FullBleedSlideType
-										| CroppedSlideType
-								)?.galleryComponent === 'fullBleedSlide' && (
-									<FullProjectWrapper>
-										{data[activeSlideIndex]?.fullBleedSlide
-											?.media && (
-											<MediaStack
-												data={
-													data[activeSlideIndex]
-														?.fullBleedSlide?.media
-												}
-												isPriority
-											/>
-										)}
-									</FullProjectWrapper>
-								)}
-							</ProjectMediaWrapper>
-							<ProjectCursorLayout>
-								<ProjectCursorTop>
-									<HalfCursorTrigger
-										className="cursor-text"
-										data-text={
-											type === 'representations'
-												? 'Prev talent <'
-												: 'Prev study <'
-										}
-										onClick={() => {
-											handlePreviousProject();
-										}}
-									/>
-									<HalfCursorTrigger
-										className="cursor-text"
-										data-text={
-											type === 'representations'
-												? 'Next talent >'
-												: 'Next study >'
-										}
-										onClick={() => {
-											handleNextProject();
-										}}
-									/>
-								</ProjectCursorTop>
-								<ProjectCursorBottom>
-									<FullCursorTrigger
-										className="cursor-text"
-										data-text="Next slide"
-										data-type="prev"
-										onClick={() =>
-											setActiveSlideIndex &&
-											setActiveSlideIndex(
-												activeSlideIndex + 1 ===
-													data.length
-													? 0
-													: activeSlideIndex + 1
-											)
-										}
-									/>
-								</ProjectCursorBottom>
-							</ProjectCursorLayout>
+							<DesktopProjectMedia
+								data={data}
+								activeSlideIndex={activeSlideIndex}
+								wrapperVariants={wrapperVariants}
+							/>
+							<ProjectCursorLayout
+								nextProjectSlug={nextProjectSlug}
+								prevProjectSlug={prevProjectSlug}
+								setActiveSlideIndex={setActiveSlideIndex}
+								activeSlideIndex={activeSlideIndex}
+								type={type}
+								data={data}
+							/>
 						</>
 					)}
 				</MediaLayoutWrapper>

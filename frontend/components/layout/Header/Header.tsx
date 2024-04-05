@@ -15,7 +15,7 @@ const HeaderWrapper = styled.header`
 
 	@media ${(props) => props.theme.mediaBreakpoints.tabletPortrait} {
 		top: ${pxToRem(24)};
-		left: ${pxToRem(9)};
+		left: ${pxToRem(15)};
 	}
 `;
 
