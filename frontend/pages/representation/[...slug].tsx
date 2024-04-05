@@ -18,7 +18,7 @@ type Props = {
 
 const PageWrapper = styled(motion.div)`
 	background: var(--colour-white);
-	height: 100vh;
+	height: 100dvh;
 	overflow: hidden;
 `;
 

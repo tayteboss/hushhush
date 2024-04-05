@@ -19,7 +19,7 @@ import { useState } from 'react';
 import MediaLayout from '../components/layout/MediaLayout';
 
 const PageWrapper = styled(motion.div)`
-	height: 100vh;
+	height: 100dvh;
 	overflow: hidden;
 `;
 

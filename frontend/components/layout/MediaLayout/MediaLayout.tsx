@@ -77,7 +77,7 @@ const RepresentationMediaWrapper = styled.a`
 
 	@media ${(props) => props.theme.mediaBreakpoints.mobile} {
 		width: 50vw;
-		top: -5%;
+		top: -8%;
 	}
 
 	.image-component-wrapper,
@@ -102,7 +102,7 @@ const CroppedProjectWrapper = styled.div<{ $usePortrait: boolean }>`
 
 	@media ${(props) => props.theme.mediaBreakpoints.mobile} {
 		width: 50vw;
-		top: -5%;
+		top: -8%;
 	}
 
 	.image-component-wrapper,

@@ -17,7 +17,7 @@ import { useState } from 'react';
 import pxToRem from '../../utils/pxToRem';
 
 const PageWrapper = styled(motion.div)`
-	height: 100vh;
+	height: 100dvh;
 	overflow: hidden;
 
 	.content-layout {

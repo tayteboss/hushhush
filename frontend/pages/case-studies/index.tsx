@@ -16,7 +16,7 @@ import { useState } from 'react';
 import ContentLayout from '../../components/layout/ContentLayout';
 
 const PageWrapper = styled(motion.div)`
-	height: 100vh;
+	height: 100dvh;
 	overflow: hidden;
 `;
 
