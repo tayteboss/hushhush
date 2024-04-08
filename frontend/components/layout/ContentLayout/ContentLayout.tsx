@@ -114,7 +114,7 @@ const ContentLayout = (props: Props) => {
 			watchSlides: false,
 			watchDrag: true,
 			align: 'start',
-			duration: 25
+			skipSnaps: true
 		},
 		[
 			WheelGesturesPlugin({
