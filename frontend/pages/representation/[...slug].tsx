@@ -39,6 +39,27 @@ const Page = (props: Props) => {
 
 	const [activeSlideIndex, setActiveSlideIndex] = useState(0);
 
+	const router = useRouter();
+
+	const viewportWidth = useViewportWidth();
+	const isOnDevice =
+		viewportWidth === 'mobile' || viewportWidth === 'tabletPortrait';
+
+	useEffect(() => {
+		if (isOnDevice) {
+			if (
+				currentProject.galleryBlocks[activeSlideIndex]
+					.galleryComponent === 'croppedSlide'
+			) {
+				setGreyTheme();
+			} else {
+				setWhiteTheme();
+			}
+		} else {
+			cursorRefresh();
+		}
+	}, [activeSlideIndex, router, isOnDevice]);
+
 	return (
 		<PageWrapper
 			variants={pageTransitionVariants}
@@ -52,16 +73,10 @@ const Page = (props: Props) => {
 			/>
 			<MediaLayout
 				data={currentProject?.galleryBlocks}
-				activeSlideIndex={activeSlideIndex}
-				type="representation-project"
-			/>
-			<DesktopProjectMedia
-				data={currentProject?.galleryBlocks}
 				nextProjectSlug={nextProjectSlug}
 				prevProjectSlug={prevProjectSlug}
 				activeSlideIndex={activeSlideIndex}
 				setActiveSlideIndex={setActiveSlideIndex}
-				cursorRefresh={cursorRefresh}
 				type="representation-project"
 			/>
 			<MobileProjectMedia
