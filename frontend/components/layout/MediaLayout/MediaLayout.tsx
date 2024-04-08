@@ -28,9 +28,6 @@ type Props = {
 		| 'case-study'
 		| 'representation-project'
 		| 'case-study-project';
-	setActiveSlideIndex?: (index: number) => void;
-	nextProjectSlug?: string;
-	prevProjectSlug?: string;
 };
 
 const MediaLayoutWrapper = styled(motion.section)`
@@ -99,14 +96,7 @@ const wrapperVariants = {
 };
 
 const MediaLayout = (props: Props) => {
-	const {
-		activeSlideIndex,
-		setActiveSlideIndex,
-		data,
-		type,
-		nextProjectSlug,
-		prevProjectSlug
-	} = props;
+	const { activeSlideIndex, data, type } = props;
 
 	if (!data || data.length <= 0) return null;
 
@@ -183,24 +173,6 @@ const MediaLayout = (props: Props) => {
 								)}
 							</CaseStudyMediaWrapper>
 						</Link>
-					)}
-					{(type === 'representation-project' ||
-						type === 'case-study-project') && (
-						<>
-							<DesktopProjectMedia
-								data={data}
-								activeSlideIndex={activeSlideIndex}
-								wrapperVariants={wrapperVariants}
-							/>
-							<ProjectCursorLayout
-								nextProjectSlug={nextProjectSlug}
-								prevProjectSlug={prevProjectSlug}
-								setActiveSlideIndex={setActiveSlideIndex}
-								activeSlideIndex={activeSlideIndex}
-								type={type}
-								data={data}
-							/>
-						</>
 					)}
 				</MediaLayoutWrapper>
 			)}

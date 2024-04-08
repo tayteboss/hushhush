@@ -9,6 +9,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import useEmblaCarousel from 'embla-carousel-react';
 import { WheelGesturesPlugin } from 'embla-carousel-wheel-gestures';
 import { useRouter } from 'next/router';
+import throttle from 'lodash.throttle';
 
 type StyledProps = {
 	$containerWidth: number;
@@ -149,34 +150,33 @@ const ContentLayout = (props: Props) => {
 		setScrollTarget(target);
 	}, []);
 
-	const updateActiveSlide = useCallback(() => {
-		if (!emblaApi || !rootNodeRef.current) return;
-		let closestIndex = null;
-		let closestDistance = Infinity;
-		emblaApi.scrollSnapList().forEach((snap, index) => {
-			const slideElement = emblaApi.slideNodes()[index];
-			const slideTop =
-				slideElement.getBoundingClientRect().top -
-				rootNodeRef.current.getBoundingClientRect().top;
-			const distance = Math.abs(slideTop);
+	const updateActiveSlide = useCallback(
+		throttle(() => {
+			if (!emblaApi || !rootNodeRef.current) return;
+			let closestIndex = null;
+			let closestDistance = Infinity;
+			emblaApi.scrollSnapList().forEach((snap, index) => {
+				const slideElement = emblaApi.slideNodes()[index];
+				const slideTop =
+					slideElement.getBoundingClientRect().top -
+					rootNodeRef.current.getBoundingClientRect().top;
+				const distance = Math.abs(slideTop);
 
-			if (distance >= 0 && distance <= 20) {
-				if (distance < closestDistance) {
-					closestIndex = index;
-					closestDistance = distance;
+				if (distance >= 0 && distance <= 20) {
+					if (distance < closestDistance) {
+						closestIndex = index;
+						closestDistance = distance;
+					}
 				}
-			}
-		});
+			});
 
-		setActiveSlideIndex(closestIndex ? closestIndex : 0);
-	}, [emblaApi]);
+			setActiveSlideIndex(closestIndex ? closestIndex : 0);
+		}, 100),
+		[emblaApi]
+	);
 
 	useEffect(() => {
 		if (!emblaApi) return;
-		emblaApi?.on('settle', () => {
-			const activeSlideIndex = emblaApi.selectedScrollSnap();
-			setActiveMediaSlideIndex(activeSlideIndex);
-		});
 
 		emblaApi.on('scroll', updateActiveSlide);
 

@@ -78,7 +78,7 @@ const ProjectCursorLayout = (props: Props) => {
 	};
 
 	return (
-		<ProjectCursorLayoutWrapper>
+		<ProjectCursorLayoutWrapper className="project-cursor-layout">
 			<ProjectCursorTop>
 				<HalfCursorTrigger
 					className="cursor-text"
