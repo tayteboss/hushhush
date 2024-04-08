@@ -104,14 +104,14 @@ const Page = (props: Props) => {
 						data={currentProject?.galleryBlocks}
 						activeSlideIndex={activeSlideIndex}
 					/>
-					{/* <ProjectCursorLayout
+					<ProjectCursorLayout
 						nextProjectSlug={nextProjectSlug}
 						prevProjectSlug={prevProjectSlug}
 						setActiveSlideIndex={setActiveSlideIndex}
 						activeSlideIndex={activeSlideIndex}
 						type="case-study-project"
 						data={currentProject?.galleryBlocks}
-					/> */}
+					/>
 					<ProjectContentLayout
 						title={currentProject?.title}
 						galleryBlocks={currentProject?.galleryBlocks}
