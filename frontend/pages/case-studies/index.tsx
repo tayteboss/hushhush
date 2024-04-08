@@ -31,6 +31,8 @@ const Page = (props: Props) => {
 
 	const [activeMediaSlideIndex, setActiveMediaSlideIndex] = useState(0);
 
+	console.log('caseStudies', caseStudies);
+
 	return (
 		<PageWrapper
 			variants={pageTransitionVariants}

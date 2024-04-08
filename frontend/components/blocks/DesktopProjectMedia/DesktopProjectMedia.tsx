@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import randomIntFromInterval from '../../../utils/randomIntFromInterval';
-import { motion } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 import {
 	FullBleedSlideType,
 	CroppedSlideType,
@@ -87,51 +87,29 @@ const FullProjectWrapper = styled.div`
 	}
 `;
 
-const ProjectCursorLayoutWrapper = styled.div`
-	position: fixed;
-	top: 0;
-	left: 0;
-	height: 100dvh;
-	width: 100%;
-	z-index: 50;
-	display: flex;
-	flex-direction: column;
-
-	@media ${(props) => props.theme.mediaBreakpoints.tabletPortrait} {
-		display: none;
+const wrapperVariants = {
+	hidden: {
+		opacity: 0,
+		transition: {
+			duration: 0.2,
+			ease: 'easeInOut'
+		}
+	},
+	visible: {
+		opacity: 1,
+		transition: {
+			duration: 0.2,
+			ease: 'easeInOut'
+		}
 	}
-`;
-
-const ProjectCursorTop = styled.div`
-	display: flex;
-	justify-content: space-between;
-	height: 70vh;
-`;
-
-const ProjectCursorBottom = styled.div`
-	height: 30vh;
-`;
-
-const HalfCursorTrigger = styled.div`
-	width: 50%;
-	height: 100%;
-`;
-
-const FullCursorTrigger = styled.div`
-	width: 100%;
-	height: 100%;
-`;
+};
 
 const DesktopProjectMedia = (props: Props) => {
-	const {
-		data,
-		type,
-		nextProjectSlug,
-		prevProjectSlug,
-		setActiveSlideIndex,
-		activeSlideIndex,
-		cursorRefresh
-	} = props;
+	const { data, activeSlideIndex } = props;
+
+	const hasData = data && data?.length > 0;
+
+	if (!hasData) return <></>;
 
 	const router = useRouter();
 	const rootNodeRef = useRef<HTMLDivElement>(null);
@@ -233,90 +211,54 @@ const DesktopProjectMedia = (props: Props) => {
 	}, [emblaApi]);
 
 	return (
-		<DesktopProjectMediaWrapper ref={rootNodeRef}>
-			<Embla className="embla" ref={emblaRef}>
-				<EmblaContainer className="embla__container">
-					{hasData &&
-						data.map((item, i) => (
-							<EmblaSlide key={i} className="embla__slide">
-								{(item as FullBleedSlideType | CroppedSlideType)
-									?.galleryComponent === 'croppedSlide' && (
-									<CroppedProjectWrapper
-										$usePortrait={
-											item?.croppedSlide
-												?.orientationType === 'portrait'
-										}
-									>
-										{item?.croppedSlide.media && (
-											<MediaStack
-												data={item.croppedSlide.media}
-												isPriority
-												isFullScreen={false}
-											/>
-										)}
-									</CroppedProjectWrapper>
-								)}
-								{(item as FullBleedSlideType | CroppedSlideType)
-									?.galleryComponent === 'fullBleedSlide' && (
-									<FullProjectWrapper>
-										{item?.fullBleedSlide?.media && (
-											<MediaStack
-												data={
-													item?.fullBleedSlide?.media
-												}
-												isPriority
-											/>
-										)}
-									</FullProjectWrapper>
-								)}
-							</EmblaSlide>
-						))}
-				</EmblaContainer>
-				<ProjectCursorLayoutWrapper className="project-cursor-layout">
-					<ProjectCursorTop>
-						<HalfCursorTrigger
-							className="cursor-text"
-							data-text={
-								type === 'representation-project'
-									? 'Prev talent <'
-									: 'Prev study <'
+		<DesktopProjectMediaWrapper>
+			{data && (
+				<ProjectMediaWrapper
+					variants={wrapperVariants}
+					key={randomIntFromInterval(0, 10000)}
+				>
+					{(
+						data[activeSlideIndex] as
+							| FullBleedSlideType
+							| CroppedSlideType
+					)?.galleryComponent === 'croppedSlide' && (
+						<CroppedProjectWrapper
+							$usePortrait={
+								data[activeSlideIndex]?.croppedSlide
+									?.orientationType === 'portrait'
 							}
-							onClick={() => {
-								handlePreviousProject();
-							}}
-						/>
-						<HalfCursorTrigger
-							className="cursor-text"
-							data-text={
-								type === 'representation-project'
-									? 'Next talent >'
-									: 'Next study >'
-							}
-							onClick={() => {
-								handleNextProject();
-							}}
-						/>
-					</ProjectCursorTop>
-					<ProjectCursorBottom>
-						<FullCursorTrigger
-							className="cursor-text"
-							data-text={
-								activeSlideIndex === data.length - 1
-									? type === 'representation-project'
-										? 'Next talent >'
-										: 'Next study >'
-									: 'Next slide'
-							}
-							data-type={
-								activeSlideIndex === data.length - 1
-									? ''
-									: 'prev'
-							}
-							onClick={() => handleNextSlide()}
-						/>
-					</ProjectCursorBottom>
-				</ProjectCursorLayoutWrapper>
-			</Embla>
+						>
+							{data[activeSlideIndex]?.croppedSlide.media && (
+								<MediaStack
+									data={
+										data[activeSlideIndex].croppedSlide
+											.media
+									}
+									isPriority
+									isFullScreen={false}
+								/>
+							)}
+						</CroppedProjectWrapper>
+					)}
+					{(
+						data[activeSlideIndex] as
+							| FullBleedSlideType
+							| CroppedSlideType
+					)?.galleryComponent === 'fullBleedSlide' && (
+						<FullProjectWrapper>
+							{data[activeSlideIndex]?.fullBleedSlide?.media && (
+								<MediaStack
+									data={
+										data[activeSlideIndex]?.fullBleedSlide
+											?.media
+									}
+									isPriority
+								/>
+							)}
+						</FullProjectWrapper>
+					)}
+				</ProjectMediaWrapper>
+			)}
 		</DesktopProjectMediaWrapper>
 	);
 };

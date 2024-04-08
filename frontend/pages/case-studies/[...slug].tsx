@@ -18,6 +18,7 @@ import router from 'next/router';
 import { setGreyTheme, setWhiteTheme } from '../../utils/setTheme';
 import MobileProjectMedia from '../../components/blocks/MobileProjectMedia';
 import DesktopProjectMedia from '../../components/blocks/DesktopProjectMedia';
+import ProjectCursorLayout from '../../components/blocks/ProjectCursorLayout';
 
 type Props = {
 	currentProject: CaseStudyType;
@@ -105,6 +106,18 @@ const Page = (props: Props) => {
 						data={currentProject?.galleryBlocks}
 						setActiveSlideIndex={setActiveSlideIndex}
 					/>
+					<DesktopProjectMedia
+						data={currentProject?.galleryBlocks}
+						activeSlideIndex={activeSlideIndex}
+					/>
+					{/* <ProjectCursorLayout
+						nextProjectSlug={nextProjectSlug}
+						prevProjectSlug={prevProjectSlug}
+						setActiveSlideIndex={setActiveSlideIndex}
+						activeSlideIndex={activeSlideIndex}
+						type="case-study-project"
+						data={currentProject?.galleryBlocks}
+					/> */}
 					<ProjectContentLayout
 						title={currentProject?.title}
 						galleryBlocks={currentProject?.galleryBlocks}
