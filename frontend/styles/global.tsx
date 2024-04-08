@@ -177,7 +177,6 @@ export const GlobalStyles = createGlobalStyle`
 	.embla__container {
 		display: flex;
 		flex-direction: column;
-		height: ${pxToRem(142)};
 	}
 
 	.embla__slide {

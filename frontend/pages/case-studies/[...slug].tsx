@@ -17,6 +17,7 @@ import useViewportWidth from '../../hooks/useViewportWidth';
 import router from 'next/router';
 import { setGreyTheme, setWhiteTheme } from '../../utils/setTheme';
 import MobileProjectMedia from '../../components/blocks/MobileProjectMedia';
+import DesktopProjectMedia from '../../components/blocks/DesktopProjectMedia';
 
 type Props = {
 	currentProject: CaseStudyType;
@@ -88,10 +89,16 @@ const Page = (props: Props) => {
 				<>
 					<MediaLayout
 						data={currentProject?.galleryBlocks}
+						activeSlideIndex={activeSlideIndex}
+						type="case-study-project"
+					/>
+					<DesktopProjectMedia
+						data={currentProject?.galleryBlocks}
 						nextProjectSlug={nextProjectSlug}
 						prevProjectSlug={prevProjectSlug}
 						activeSlideIndex={activeSlideIndex}
 						setActiveSlideIndex={setActiveSlideIndex}
+						cursorRefresh={cursorRefresh}
 						type="case-study-project"
 					/>
 					<MobileProjectMedia

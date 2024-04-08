@@ -70,6 +70,7 @@ const EmblaCarousel = styled.div`
 
 const EmblaContainer = styled.div`
 	width: 100%;
+	height: ${pxToRem(142)};
 `;
 
 const EmblaSlide = styled.div<{ $isActive: boolean }>`

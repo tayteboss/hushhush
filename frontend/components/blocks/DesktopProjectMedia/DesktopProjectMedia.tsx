@@ -9,14 +9,9 @@ import {
 	RepresentationType
 } from '../../../shared/types/types';
 import MediaStack from '../../common/MediaStack';
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 import { useRouter } from 'next/router';
-import {
-	setGreyProjectTheme,
-	setGreyTheme,
-	setWhiteProjectTheme,
-	setWhiteTheme
-} from '../../../utils/setTheme';
+import { setGreyTheme, setWhiteTheme } from '../../../utils/setTheme';
 import useEmblaCarousel from 'embla-carousel-react';
 import { WheelGesturesPlugin } from 'embla-carousel-wheel-gestures';
 import throttle from 'lodash.throttle';
@@ -39,21 +34,32 @@ type Props = {
 
 const DesktopProjectMediaWrapper = styled.div`
 	width: 100%;
-	height: 100vh;
+	/* height: 100vh; */
 
 	@media ${(props) => props.theme.mediaBreakpoints.tabletPortrait} {
 		display: none;
 	}
 `;
 
-const ProjectMediaWrapper = styled(motion.div)`
-	width: 100%;
+const Embla = styled.div`
 	height: 100%;
-	z-index: 40;
-	position: relative;
+	width: 100%;
+`;
+
+const EmblaContainer = styled.div`
+	width: 100%;
+	height: 100dvh;
 	display: flex;
-	justify-content: center;
+	flex-direction: column;
+	touch-action: pan-x;
+`;
+
+const EmblaSlide = styled.div`
+	height: 100dvh;
+	width: 100%;
+	display: flex;
 	align-items: center;
+	justify-content: center;
 `;
 
 const CroppedProjectWrapper = styled.div<{ $usePortrait: boolean }>`
@@ -79,24 +85,6 @@ const FullProjectWrapper = styled.div`
 		height: 100%;
 		width: 100%;
 	}
-`;
-
-const Embla = styled.div`
-	height: 100%;
-	width: 100%;
-`;
-
-const EmblaContainer = styled.div`
-	width: 100%;
-	height: 100%;
-`;
-
-const EmblaSlide = styled.div`
-	height: 100dvh;
-	width: 100%;
-	display: flex;
-	align-items: center;
-	justify-content: center;
 `;
 
 const ProjectCursorLayoutWrapper = styled.div`
@@ -155,7 +143,9 @@ const DesktopProjectMedia = (props: Props) => {
 			loop: false,
 			axis: 'y',
 			dragFree: false,
-			align: 'start'
+			align: 'start',
+			containScroll: 'trimSnaps',
+			watchDrag: true
 		},
 		[WheelGesturesPlugin()]
 	);
