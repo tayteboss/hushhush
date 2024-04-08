@@ -28,6 +28,9 @@ type Props = {
 		| 'case-study'
 		| 'representation-project'
 		| 'case-study-project';
+	setActiveSlideIndex?: (index: number) => void;
+	nextProjectSlug?: string;
+	prevProjectSlug?: string;
 };
 
 const MediaLayoutWrapper = styled(motion.section)`
@@ -95,7 +98,14 @@ const wrapperVariants = {
 };
 
 const MediaLayout = (props: Props) => {
-	const { activeSlideIndex, data, type } = props;
+	const {
+		activeSlideIndex,
+		setActiveSlideIndex,
+		data,
+		type,
+		nextProjectSlug,
+		prevProjectSlug
+	} = props;
 
 	if (!data || data.length <= 0) return null;
 
