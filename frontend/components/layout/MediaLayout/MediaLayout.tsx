@@ -61,8 +61,7 @@ const RepresentationMediaWrapper = styled.a`
 	position: relative;
 
 	@media ${(props) => props.theme.mediaBreakpoints.mobile} {
-		width: 50vw;
-		top: -8%;
+		width: 60vw;
 	}
 
 	.image-component-wrapper,
@@ -183,24 +182,6 @@ const MediaLayout = (props: Props) => {
 								)}
 							</CaseStudyMediaWrapper>
 						</Link>
-					)}
-					{(type === 'representation-project' ||
-						type === 'case-study-project') && (
-						<>
-							<DesktopProjectMedia
-								data={data}
-								activeSlideIndex={activeSlideIndex}
-								wrapperVariants={wrapperVariants}
-							/>
-							<ProjectCursorLayout
-								nextProjectSlug={nextProjectSlug}
-								prevProjectSlug={prevProjectSlug}
-								setActiveSlideIndex={setActiveSlideIndex}
-								activeSlideIndex={activeSlideIndex}
-								type={type}
-								data={data}
-							/>
-						</>
 					)}
 				</MediaLayoutWrapper>
 			)}

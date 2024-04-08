@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import randomIntFromInterval from '../../../utils/randomIntFromInterval';
-import { motion } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 import {
 	FullBleedSlideType,
 	CroppedSlideType,
@@ -24,7 +24,6 @@ type Props = {
 		| FullBleedSlideType
 		| CroppedSlideType
 	)[];
-	wrapperVariants: any;
 	activeSlideIndex: number;
 };
 
@@ -72,8 +71,29 @@ const FullProjectWrapper = styled.div`
 	}
 `;
 
+const wrapperVariants = {
+	hidden: {
+		opacity: 0,
+		transition: {
+			duration: 0.2,
+			ease: 'easeInOut'
+		}
+	},
+	visible: {
+		opacity: 1,
+		transition: {
+			duration: 0.2,
+			ease: 'easeInOut'
+		}
+	}
+};
+
 const DesktopProjectMedia = (props: Props) => {
-	const { data, wrapperVariants, activeSlideIndex } = props;
+	const { data, activeSlideIndex } = props;
+
+	const hasData = data && data?.length > 0;
+
+	if (!hasData) return <></>;
 
 	const router = useRouter();
 
@@ -90,48 +110,53 @@ const DesktopProjectMedia = (props: Props) => {
 
 	return (
 		<DesktopProjectMediaWrapper>
-			<ProjectMediaWrapper
-				variants={wrapperVariants}
-				key={randomIntFromInterval(0, 10000)}
-			>
-				{(
-					data[activeSlideIndex] as
-						| FullBleedSlideType
-						| CroppedSlideType
-				)?.galleryComponent === 'croppedSlide' && (
-					<CroppedProjectWrapper
-						$usePortrait={
-							data[activeSlideIndex]?.croppedSlide
-								?.orientationType === 'portrait'
-						}
-					>
-						{data[activeSlideIndex]?.croppedSlide.media && (
-							<MediaStack
-								data={data[activeSlideIndex].croppedSlide.media}
-								isPriority
-								isFullScreen={false}
-							/>
-						)}
-					</CroppedProjectWrapper>
-				)}
-				{(
-					data[activeSlideIndex] as
-						| FullBleedSlideType
-						| CroppedSlideType
-				)?.galleryComponent === 'fullBleedSlide' && (
-					<FullProjectWrapper>
-						{data[activeSlideIndex]?.fullBleedSlide?.media && (
-							<MediaStack
-								data={
-									data[activeSlideIndex]?.fullBleedSlide
-										?.media
-								}
-								isPriority
-							/>
-						)}
-					</FullProjectWrapper>
-				)}
-			</ProjectMediaWrapper>
+			{data && (
+				<ProjectMediaWrapper
+					variants={wrapperVariants}
+					key={randomIntFromInterval(0, 10000)}
+				>
+					{(
+						data[activeSlideIndex] as
+							| FullBleedSlideType
+							| CroppedSlideType
+					)?.galleryComponent === 'croppedSlide' && (
+						<CroppedProjectWrapper
+							$usePortrait={
+								data[activeSlideIndex]?.croppedSlide
+									?.orientationType === 'portrait'
+							}
+						>
+							{data[activeSlideIndex]?.croppedSlide.media && (
+								<MediaStack
+									data={
+										data[activeSlideIndex].croppedSlide
+											.media
+									}
+									isPriority
+									isFullScreen={false}
+								/>
+							)}
+						</CroppedProjectWrapper>
+					)}
+					{(
+						data[activeSlideIndex] as
+							| FullBleedSlideType
+							| CroppedSlideType
+					)?.galleryComponent === 'fullBleedSlide' && (
+						<FullProjectWrapper>
+							{data[activeSlideIndex]?.fullBleedSlide?.media && (
+								<MediaStack
+									data={
+										data[activeSlideIndex]?.fullBleedSlide
+											?.media
+									}
+									isPriority
+								/>
+							)}
+						</FullProjectWrapper>
+					)}
+				</ProjectMediaWrapper>
+			)}
 		</DesktopProjectMediaWrapper>
 	);
 };

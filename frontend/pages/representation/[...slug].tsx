@@ -11,6 +11,8 @@ import useViewportWidth from '../../hooks/useViewportWidth';
 import MobileProjectMedia from '../../components/blocks/MobileProjectMedia';
 import { setGreyTheme, setWhiteTheme } from '../../utils/setTheme';
 import { useRouter } from 'next/router';
+import DesktopProjectMedia from '../../components/blocks/DesktopProjectMedia';
+import ProjectCursorLayout from '../../components/blocks/ProjectCursorLayout';
 
 type Props = {
 	currentProject: RepresentationType;
@@ -80,6 +82,18 @@ const Page = (props: Props) => {
 			<MobileProjectMedia
 				data={currentProject?.galleryBlocks}
 				setActiveSlideIndex={setActiveSlideIndex}
+			/>
+			<DesktopProjectMedia
+				data={currentProject?.galleryBlocks}
+				activeSlideIndex={activeSlideIndex}
+			/>
+			<ProjectCursorLayout
+				nextProjectSlug={nextProjectSlug}
+				prevProjectSlug={prevProjectSlug}
+				setActiveSlideIndex={setActiveSlideIndex}
+				activeSlideIndex={activeSlideIndex}
+				type="representation-project"
+				data={currentProject?.galleryBlocks}
 			/>
 			<ProjectContentLayout
 				title={currentProject?.title}

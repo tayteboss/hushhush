@@ -1,4 +1,6 @@
+import debounce from 'lodash.debounce';
 import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 type Props = {
@@ -55,6 +57,10 @@ const ProjectCursorLayout = (props: Props) => {
 		setActiveSlideIndex
 	} = props;
 
+	const hasData = data && data?.length > 0;
+
+	if (!hasData) return <></>;
+
 	const router = useRouter();
 
 	const handleNextProject = () => {
@@ -76,6 +82,37 @@ const ProjectCursorLayout = (props: Props) => {
 			router.push(`/case-studies/${prevProjectSlug}`);
 		}
 	};
+
+	const [isScrollingAllowed, setIsScrollingAllowed] = useState(true);
+
+	useEffect(() => {
+		const handleWheel = (event: WheelEvent) => {
+			if (!isScrollingAllowed) return;
+
+			if (event.deltaY > 0) {
+				// Scrolling down
+				setActiveSlideIndex((prevIndex) =>
+					prevIndex + 1 === data.length ? 0 : prevIndex + 1
+				);
+			} else if (event.deltaY < 0) {
+				// Scrolling up
+				setActiveSlideIndex((prevIndex) =>
+					prevIndex - 1 < 0 ? data.length - 1 : prevIndex - 1
+				);
+			}
+
+			setIsScrollingAllowed(false);
+			setTimeout(() => setIsScrollingAllowed(true), 1500);
+		};
+
+		window.addEventListener('wheel', handleWheel, {
+			passive: false
+		});
+
+		return () => {
+			window.removeEventListener('wheel', handleWheel);
+		};
+	}, [data?.length, isScrollingAllowed]);
 
 	return (
 		<ProjectCursorLayoutWrapper>
