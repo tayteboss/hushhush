@@ -10,8 +10,6 @@ import MediaStack from '../../common/MediaStack';
 import { AnimatePresence, motion } from 'framer-motion';
 import Link from 'next/link';
 import randomIntFromInterval from '../../../utils/randomIntFromInterval';
-import DesktopProjectMedia from '../../blocks/DesktopProjectMedia';
-import ProjectCursorLayout from '../../blocks/ProjectCursorLayout';
 
 type Props = {
 	activeSlideIndex: number;
@@ -49,6 +47,23 @@ const MediaLayoutWrapper = styled(motion.section)`
 const ClientMediaWrapper = styled.div`
 	height: 100%;
 	width: 100%;
+	position: relative;
+
+	&::after {
+		content: '';
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		background: var(--colour-green);
+		z-index: 2;
+		pointer-events: none;
+		opacity: 0;
+
+		transition: all 200ms var(--transition-ease);
+		transition-delay: 2000ms;
+	}
 
 	* {
 		height: 100%;
@@ -68,11 +83,44 @@ const RepresentationMediaWrapper = styled.a`
 	.video-component-wrapper {
 		padding-top: 125%;
 	}
+
+	&::after {
+		content: '';
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		background: var(--colour-green);
+		z-index: 2;
+		pointer-events: none;
+		opacity: 0;
+
+		transition: all 200ms var(--transition-ease);
+		transition-delay: 2000ms;
+	}
 `;
 
 const CaseStudyMediaWrapper = styled.a`
 	height: 100%;
 	width: 100%;
+	position: relative;
+
+	&::after {
+		content: '';
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		background: var(--colour-green);
+		z-index: 2;
+		pointer-events: none;
+		opacity: 0;
+
+		transition: all 200ms var(--transition-ease);
+		transition-delay: 2000ms;
+	}
 
 	* {
 		height: 100%;
@@ -113,7 +161,7 @@ const MediaLayout = (props: Props) => {
 		<AnimatePresence>
 			{data && (
 				<MediaLayoutWrapper
-					className={`media-layout`}
+					className="media-layout"
 					variants={wrapperVariants}
 					initial="hidden"
 					animate="visible"
@@ -121,7 +169,7 @@ const MediaLayout = (props: Props) => {
 					key={randomIntFromInterval(0, 10000)}
 				>
 					{type === 'clients' && (
-						<ClientMediaWrapper>
+						<ClientMediaWrapper className="loading-image-layout">
 							{data[activeSlideIndex]?.media && (
 								<MediaStack
 									data={data[activeSlideIndex].media}
@@ -139,7 +187,7 @@ const MediaLayout = (props: Props) => {
 							passHref
 							legacyBehavior
 						>
-							<RepresentationMediaWrapper>
+							<RepresentationMediaWrapper className="loading-image-layout">
 								{(data[activeSlideIndex] as RepresentationType)
 									?.media && (
 									<MediaStack
@@ -166,7 +214,7 @@ const MediaLayout = (props: Props) => {
 							passHref
 							legacyBehavior
 						>
-							<CaseStudyMediaWrapper>
+							<CaseStudyMediaWrapper className="loading-image-layout">
 								{(data[activeSlideIndex] as CaseStudyType)
 									?.media && (
 									<MediaStack

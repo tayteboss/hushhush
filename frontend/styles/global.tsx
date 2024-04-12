@@ -198,6 +198,13 @@ export const GlobalStyles = createGlobalStyle`
 		.cursor-panel {
 			display: none;
 		}
+
+		.loading-image-layout {
+			&::after {
+				opacity: 1;
+				transition-delay: 0ms;
+			}
+		}
 	}
 
 	.performance {
