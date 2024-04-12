@@ -33,7 +33,7 @@ const ProjectContentLayoutWrapper = styled.div`
 
 	@media ${(props) => props.theme.mediaBreakpoints.mobile} {
 		width: calc(100% - 30px);
-		bottom: ${pxToRem(36)};
+		bottom: ${pxToRem(24)};
 	}
 `;
 

@@ -10,6 +10,7 @@ type Props = {
 	jobsCTA: ButtonType;
 	office: string;
 	phoneNumber: string;
+	socialLink: ButtonType;
 };
 
 const AboutContentLayoutWrapper = styled.div`
@@ -82,6 +83,10 @@ const Link = styled.a`
 
 	&:hover {
 		text-decoration: underline;
+
+		@media ${(props) => props.theme.mediaBreakpoints.tabletPortrait} {
+			text-decoration: none;
+		}
 	}
 `;
 
@@ -94,6 +99,7 @@ const AboutContentLayout = (props: Props) => {
 		googleMapsLink,
 		jobsCTA,
 		office,
+		socialLink,
 		phoneNumber
 	} = props || {};
 
@@ -108,7 +114,7 @@ const AboutContentLayout = (props: Props) => {
 	useEffect(() => {
 		const handleResize = () => {
 			const width = ref.current?.offsetWidth || 0;
-			const dashes = '-'.repeat(Math.floor(width / 7.1));
+			const dashes = '-'.repeat(Math.floor(width / 7.8));
 			setMobileDividerContent(dashes);
 		};
 
@@ -151,6 +157,11 @@ const AboutContentLayout = (props: Props) => {
 								}}
 							/>
 						</Link>
+						{socialLink && (
+							<Link href={socialLink?.url} target="_blank">
+								{socialLink.title}
+							</Link>
+						)}
 					</>
 				)}
 				<Divider className="type-p">{dividerContent}</Divider>

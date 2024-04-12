@@ -13,7 +13,7 @@ const FooterWrapper = styled.footer<{ $isActive: boolean }>`
 	z-index: 100;
 
 	@media ${(props) => props.theme.mediaBreakpoints.tabletPortrait} {
-		left: ${pxToRem(9)};
+		left: ${pxToRem(16)};
 		bottom: ${pxToRem(24)};
 	}
 

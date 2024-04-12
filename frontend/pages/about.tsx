@@ -22,7 +22,8 @@ const Page = (props: Props) => {
 		googleMapsLink,
 		jobsCTA,
 		office,
-		phoneNumber
+		phoneNumber,
+		socialLink
 	} = data;
 
 	return (
@@ -43,6 +44,7 @@ const Page = (props: Props) => {
 				jobsCTA={jobsCTA}
 				office={office}
 				phoneNumber={phoneNumber}
+				socialLink={socialLink}
 			/>
 		</PageWrapper>
 	);

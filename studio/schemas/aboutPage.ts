@@ -47,6 +47,12 @@ export default {
       type: 'text',
     },
     {
+      title: 'Social Link',
+      name: 'socialLink',
+      type: 'object',
+      fields: linkObject,
+    },
+    {
       title: 'Google Maps Link',
       name: 'googleMapsLink',
       type: 'url',

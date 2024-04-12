@@ -118,8 +118,12 @@ export const GlobalStyles = createGlobalStyle`
 	button,
 	div {
 		font-size: ${pxToRem(11)};
-		line-height: ${pxToRem(16)};
+		line-height: ${pxToRem(17)};
 		font-family: var(--font-lossy);
+
+		@media ${theme.mediaBreakpoints.tabletPortrait} {
+			font-size: ${pxToRem(12)};
+		}
 	}
 
 	mux-player {

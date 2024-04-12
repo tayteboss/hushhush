@@ -159,6 +159,11 @@ const ContentLayout = (props: Props) => {
 	};
 
 	useEffect(() => {
+		if (!emblaApi) return;
+		emblaApi.scrollTo(0);
+	}, [router]);
+
+	useEffect(() => {
 		const target = document.querySelector('.main');
 		setScrollTarget(target);
 	}, []);

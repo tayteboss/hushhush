@@ -62,6 +62,7 @@ export type AboutPageType = {
 	office: string;
 	googleMapsLink: string;
 	jobsCTA: ButtonType;
+	socialLink: ButtonType;
 };
 
 export type StatementType = { statement: string };
