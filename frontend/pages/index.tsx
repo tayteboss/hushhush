@@ -17,10 +17,19 @@ import LandingSequence from '../components/blocks/LandingSequence';
 import ContentLayout from '../components/layout/ContentLayout';
 import { useState } from 'react';
 import MediaLayout from '../components/layout/MediaLayout';
+import pxToRem from '../utils/pxToRem';
 
 const PageWrapper = styled(motion.div)`
 	height: 100dvh;
 	overflow: hidden;
+
+	.content-layout {
+		.embla__container {
+			@media ${(props) => props.theme.mediaBreakpoints.tabletPortrait} {
+				height: ${pxToRem(124)} !important;
+			}
+		}
+	}
 `;
 
 type Props = {

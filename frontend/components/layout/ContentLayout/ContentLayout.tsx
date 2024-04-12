@@ -57,14 +57,15 @@ const Inner = styled.div<StyledProps>`
 	width: ${(props) => props.$containerWidth}px;
 
 	@media ${(props) => props.theme.mediaBreakpoints.mobile} {
-		/* width: ${(props) =>
-			props.$useFullMobile ? '100%' : `${props.$containerWidth}px`}; */
-		width: 100%;
+		width: ${(props) =>
+			props.$useFullMobile ? '100%' : `${props.$containerWidth}px`};
 	}
 `;
 
 const EmblaCarousel = styled.div`
-	padding: ${pxToRem(6)} 0;
+	margin-top: ${pxToRem(7)};
+	padding-bottom: ${pxToRem(7)};
+	margin-bottom: ${pxToRem(4)};
 	width: 100%;
 `;
 

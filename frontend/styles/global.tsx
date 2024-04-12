@@ -177,11 +177,7 @@ export const GlobalStyles = createGlobalStyle`
 	.embla__container {
 		display: flex;
 		flex-direction: column;
-		height: ${pxToRem(142)};
-
-		@media ${theme.mediaBreakpoints.tabletPortrait} {
-			height: ${pxToRem(78)} !important;
-		}
+		height: ${pxToRem(140)};
 	}
 
 	.embla__slide {

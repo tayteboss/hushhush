@@ -14,10 +14,21 @@ import {
 import MediaLayout from '../../components/layout/MediaLayout';
 import { useState } from 'react';
 import ContentLayout from '../../components/layout/ContentLayout';
+import pxToRem from '../../utils/pxToRem';
 
 const PageWrapper = styled(motion.div)`
 	height: 100dvh;
 	overflow: hidden;
+
+	.content-layout {
+		.embla__container {
+			height: ${pxToRem(92)};
+
+			@media ${(props) => props.theme.mediaBreakpoints.tabletPortrait} {
+				height: ${pxToRem(76)} !important;
+			}
+		}
+	}
 `;
 
 type Props = {
