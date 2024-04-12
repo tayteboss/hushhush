@@ -144,7 +144,9 @@ const ProjectContentLayout = (props: Props) => {
 		galleryBlocks[activeSlideIndex].galleryComponent === 'fullBleedSlide';
 	let slideType = isFullBleedSlide ? 'fullBleedSlide' : 'croppedSlide';
 
-	const galleryCount = `(${activeSlideIndex + 1}/${galleryBlocks.length})`;
+	const galleryCount = `(${activeSlideIndex + 1}/${
+		galleryBlocks.length - 1
+	})`;
 
 	const handleNextProject = () => {
 		if (type === 'representation') {
@@ -165,6 +167,8 @@ const ProjectContentLayout = (props: Props) => {
 			router.push(`/case-studies/${prevProjectSlug}`);
 		}
 	};
+
+	console.log('galleryBlocks', galleryBlocks);
 
 	return (
 		<ProjectContentLayoutWrapper>

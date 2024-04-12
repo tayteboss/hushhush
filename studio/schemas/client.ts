@@ -6,18 +6,21 @@ import {
   selectMediaTypeObject,
   videoObject,
 } from '../objects'
+import {orderRankField, orderRankOrdering} from '@sanity/orderable-document-list'
 
 export default {
   title: 'Client',
   name: 'client',
   type: 'document',
   icon: CaseIcon,
+  orderings: [orderRankOrdering],
   preview: {
     select: {
       title: 'title',
     },
   },
   fields: [
+    orderRankField({type: 'article'}),
     {
       title: 'Title',
       name: 'title',

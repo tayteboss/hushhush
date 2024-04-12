@@ -7,8 +7,10 @@ import {
 	RepresentationType
 } from '../../../shared/types/types';
 import useEmblaCarousel from 'embla-carousel-react';
-import { useEffect, useRef } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 import MediaStack from '../../common/MediaStack';
+import { useRouter } from 'next/router';
+import { WheelGesturesPlugin } from 'embla-carousel-wheel-gestures';
 
 type Props = {
 	setActiveSlideIndex?: (index: number) => void;
@@ -19,21 +21,24 @@ type Props = {
 		| FullBleedSlideType
 		| CroppedSlideType
 	)[];
+	nextProjectGalleryBlocks?: (FullBleedSlideType | CroppedSlideType)[];
+	activeSlideIndex: number;
+	nextProjectSlug: string;
 };
 
 const MobileProjectMediaWrapper = styled.div`
-	display: none;
+	/* display: none; */
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100dvh;
+	z-index: 50;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 
 	@media ${(props) => props.theme.mediaBreakpoints.tabletPortrait} {
-		position: fixed;
-		top: 0;
-		left: 0;
-		width: 100%;
-		height: 100dvh;
-		z-index: 50;
-		display: flex;
-		justify-content: center;
-		align-items: center;
 	}
 `;
 
@@ -80,17 +85,73 @@ const FullProjectWrapper = styled.div`
 `;
 
 const MobileProjectMedia = (props: Props) => {
-	const { data, setActiveSlideIndex } = props;
+	const {
+		data,
+		nextProjectGalleryBlocks,
+		setActiveSlideIndex,
+		activeSlideIndex,
+		nextProjectSlug
+	} = props;
 
 	const hasData = data?.length > 0;
 	const rootNodeRef = useRef<HTMLDivElement>(null);
 
-	const [emblaRef, emblaApi] = useEmblaCarousel({
-		loop: false,
-		axis: 'y',
-		align: 'start',
-		containScroll: 'trimSnaps'
-	});
+	const slides = [...data, ...nextProjectGalleryBlocks];
+
+	const [emblaRef, emblaApi] = useEmblaCarousel(
+		{
+			loop: false,
+			axis: 'y',
+			align: 'start',
+			containScroll: false
+		},
+		[WheelGesturesPlugin()]
+	);
+
+	const router = useRouter();
+
+	const updateActiveSlide = useCallback(() => {
+		if (!emblaApi || !rootNodeRef.current) return;
+		let closestIndex = null;
+		let closestDistance = Infinity;
+		emblaApi.scrollSnapList().forEach((snap, index) => {
+			const slideElement = emblaApi.slideNodes()[index];
+			const slideTop =
+				slideElement.getBoundingClientRect().top -
+				rootNodeRef.current.getBoundingClientRect().top;
+			const distance = Math.abs(slideTop);
+
+			if (distance >= 0 && distance <= 20) {
+				if (distance < closestDistance) {
+					closestIndex = index;
+					closestDistance = distance;
+				}
+			}
+		});
+
+		if (closestIndex !== null) {
+			setActiveSlideIndex && setActiveSlideIndex(closestIndex);
+		}
+	}, [emblaApi]);
+
+	useEffect(() => {
+		if (!emblaApi) return;
+
+		const lastSlideIndex = slides.length - 1;
+
+		console.log('lastSlideIndex', lastSlideIndex);
+		console.log('activeSlideIndex', activeSlideIndex);
+
+		if (activeSlideIndex === lastSlideIndex) {
+			const timer = setTimeout(() => {
+				router.push(`/representation/${nextProjectSlug}`);
+			}, 300);
+
+			return () => {
+				clearTimeout(timer);
+			};
+		}
+	}, [activeSlideIndex]);
 
 	useEffect(() => {
 		if (!emblaApi) return;
@@ -98,6 +159,7 @@ const MobileProjectMedia = (props: Props) => {
 			const activeSlideIndex = emblaApi.selectedScrollSnap();
 			setActiveSlideIndex && setActiveSlideIndex(activeSlideIndex);
 		});
+		emblaApi.on('scroll', updateActiveSlide);
 		emblaApi?.on('settle', () => {
 			const activeSlideIndex = emblaApi.selectedScrollSnap();
 			setActiveSlideIndex && setActiveSlideIndex(activeSlideIndex);
@@ -109,7 +171,7 @@ const MobileProjectMedia = (props: Props) => {
 			<Embla className="embla" ref={emblaRef}>
 				<EmblaContainer className="embla__container">
 					{hasData &&
-						data.map((item, i) => (
+						slides.map((item, i) => (
 							<EmblaSlide key={i} className="embla__slide">
 								{(item as FullBleedSlideType | CroppedSlideType)
 									?.galleryComponent === 'croppedSlide' && (

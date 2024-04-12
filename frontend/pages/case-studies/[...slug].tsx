@@ -184,7 +184,7 @@ export async function getStaticProps({ params }: any) {
 	const siteSettings = await client.fetch(siteSettingsQueryString);
 
 	const projectsQuery = `
-	        *[_type == 'caseStudy'] | order(year desc) {
+	        *[_type == 'caseStudy'] | order(orderRank) {
 				year,
 	            "slug": slug.current
 	        }

@@ -13,8 +13,8 @@ import useHeaderHeight from '../hooks/useHeaderHeight';
 import Cursor from '../components/elements/Cursor';
 
 const pageTransitionVariants: TransitionsType = {
-	hidden: { opacity: 0, transition: { duration: 0 } },
-	visible: { opacity: 1, transition: { duration: 0 } }
+	hidden: { opacity: 0, transition: { duration: 0.1 } },
+	visible: { opacity: 1, transition: { duration: 0.1 } }
 };
 
 type Props = {

@@ -26,6 +26,7 @@ type Props = {
 	prevProjectSlug: string;
 	pageTransitionVariants: TransitionsType;
 	siteSettings: SiteSettingsType;
+	nextProjectGalleryBlocks: (any | any)[];
 	cursorRefresh: () => void;
 };
 
@@ -42,7 +43,8 @@ const Page = (props: Props) => {
 		prevProjectSlug,
 		pageTransitionVariants,
 		cursorRefresh,
-		siteSettings
+		siteSettings,
+		nextProjectGalleryBlocks
 	} = props;
 
 	const [activeSlideIndex, setActiveSlideIndex] = useState(0);
@@ -63,17 +65,14 @@ const Page = (props: Props) => {
 	}, []);
 
 	useEffect(() => {
-		if (isOnDevice) {
-			if (
-				currentProject.galleryBlocks[activeSlideIndex]
-					.galleryComponent === 'croppedSlide'
-			) {
-				setGreyTheme();
-			} else {
-				setWhiteTheme();
-			}
+		if (
+			[...currentProject.galleryBlocks, ...nextProjectGalleryBlocks][
+				activeSlideIndex
+			].galleryComponent === 'croppedSlide'
+		) {
+			setGreyTheme();
 		} else {
-			cursorRefresh();
+			setWhiteTheme();
 		}
 	}, [activeSlideIndex, router, isOnDevice]);
 
@@ -91,7 +90,10 @@ const Page = (props: Props) => {
 			{isAuthenticated && (
 				<>
 					<MediaLayout
-						data={currentProject?.galleryBlocks}
+						data={[
+							...currentProject?.galleryBlocks,
+							...nextProjectGalleryBlocks
+						]}
 						nextProjectSlug={nextProjectSlug}
 						prevProjectSlug={prevProjectSlug}
 						activeSlideIndex={activeSlideIndex}
@@ -101,22 +103,31 @@ const Page = (props: Props) => {
 					<MobileProjectMedia
 						data={currentProject?.galleryBlocks}
 						setActiveSlideIndex={setActiveSlideIndex}
-					/>
-					<DesktopProjectMedia
-						data={currentProject?.galleryBlocks}
+						nextProjectGalleryBlocks={nextProjectGalleryBlocks}
+						nextProjectSlug={nextProjectSlug}
 						activeSlideIndex={activeSlideIndex}
 					/>
-					<ProjectCursorLayout
+					{/* <DesktopProjectMedia
+						data={[
+							...currentProject?.galleryBlocks,
+							...nextProjectGalleryBlocks
+						]}
+						activeSlideIndex={activeSlideIndex}
+					/> */}
+					{/* <ProjectCursorLayout
 						nextProjectSlug={nextProjectSlug}
 						prevProjectSlug={prevProjectSlug}
 						setActiveSlideIndex={setActiveSlideIndex}
 						activeSlideIndex={activeSlideIndex}
 						type="representation-project"
 						data={currentProject?.galleryBlocks}
-					/>
+					/> */}
 					<ProjectContentLayout
 						title={currentProject?.title}
-						galleryBlocks={currentProject?.galleryBlocks}
+						galleryBlocks={[
+							...currentProject?.galleryBlocks,
+							...nextProjectGalleryBlocks
+						]}
 						activeSlideIndex={activeSlideIndex}
 						nextProjectSlug={nextProjectSlug}
 						prevProjectSlug={prevProjectSlug}
@@ -184,9 +195,24 @@ export async function getStaticProps({ params }: any) {
 	const currentProject = await client.fetch(currentProjectQuery);
 
 	const projectsQuery = `
-	        *[_type == 'representation'] | order(title asc) {
+	        *[_type == 'representation'] | order(orderRank) {
 				title,
-	            "slug": slug.current
+	            "slug": slug.current,
+				galleryBlocks[] {
+					...,
+					fullBleedSlide {
+						...,
+						media {
+							${mediaString}
+						}
+					},
+					croppedSlide {
+						...,
+						media {
+							${mediaString}
+						}
+					}
+				},
 	        }
 	    `;
 	const projects = await client.fetch(projectsQuery);
@@ -204,6 +230,7 @@ export async function getStaticProps({ params }: any) {
 	// Extract next and previous project slugs
 	const nextProjectSlug = projects[nextIndex].slug;
 	const prevProjectSlug = projects[prevIndex].slug;
+	const nextProjectGalleryBlocks = projects[nextIndex].galleryBlocks;
 
 	const siteSettings = await client.fetch(siteSettingsQueryString);
 
@@ -212,7 +239,8 @@ export async function getStaticProps({ params }: any) {
 			currentProject,
 			nextProjectSlug,
 			prevProjectSlug,
-			siteSettings
+			siteSettings,
+			nextProjectGalleryBlocks
 		}
 	};
 }
