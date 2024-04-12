@@ -121,8 +121,8 @@ const ProjectCursorLayout = (props: Props) => {
 					className="cursor-text"
 					data-text={
 						type === 'representation-project'
-							? 'Prev talent <'
-							: 'Prev study <'
+							? 'Prev talent ←'
+							: 'Prev study ←'
 					}
 					onClick={() => {
 						handlePreviousProject();
@@ -132,8 +132,8 @@ const ProjectCursorLayout = (props: Props) => {
 					className="cursor-text"
 					data-text={
 						type === 'representation-project'
-							? 'Next talent >'
-							: 'Next study >'
+							? 'Next talent →'
+							: 'Next study →'
 					}
 					onClick={() => {
 						handleNextProject();

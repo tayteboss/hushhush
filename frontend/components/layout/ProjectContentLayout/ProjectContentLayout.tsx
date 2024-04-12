@@ -203,13 +203,13 @@ const ProjectContentLayout = (props: Props) => {
 					className="type-h1"
 					onClick={() => handlePreviousProject()}
 				>
-					{`<`} Prev {isRepresentation ? 'Talent' : 'Case'}
+					{`←`} Prev {isRepresentation ? 'Talent' : 'Case'}
 				</PrevProjectLink>
 				<NextProjectLink
 					className="type-h1"
 					onClick={() => handleNextProject()}
 				>
-					Next {isRepresentation ? 'Talent' : 'Case'} {`>`}
+					Next {isRepresentation ? 'Talent' : 'Case'} {`→`}
 				</NextProjectLink>
 			</PaginationWrapper>
 		</ProjectContentLayoutWrapper>

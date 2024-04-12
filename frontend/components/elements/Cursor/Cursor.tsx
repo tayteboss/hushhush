@@ -237,7 +237,7 @@ const Cursor = ({ cursorRefresh }: Props) => {
 								animate="visible"
 								exit="hidden"
 							>
-								{`>`}
+								{`→`}
 							</Chevron>
 						)}
 					</AnimatePresence>
