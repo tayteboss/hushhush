@@ -119,6 +119,7 @@ const Cursor = ({ cursorRefresh }: Props) => {
 	const clearCursor = () => {
 		setIsHoveringLink(false);
 		setIsHoveringTextLink(false);
+		setIsHoveringPrevLink(false);
 		setIsOnDevice(false);
 	};
 
@@ -196,6 +197,8 @@ const Cursor = ({ cursorRefresh }: Props) => {
 
 		return function cleanUp() {
 			setIsHoveringLink(false);
+			setIsHoveringTextLink(false);
+			setIsHoveringPrevLink(false);
 			setIsOnDevice(false);
 		};
 	}, [cursorRefresh]);

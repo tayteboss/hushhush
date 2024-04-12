@@ -99,7 +99,9 @@ const Authentication = (props: Props) => {
 	const router = useRouter();
 
 	const handleGoBack = () => {
-		router.push('/case-studies');
+		const currentPath = router.pathname.split('/')[1];
+		if (currentPath === 'representation') router.push('/representation');
+		else router.push('/case-studies');
 	};
 
 	const handlePasswordChange = (event: ChangeEvent<HTMLInputElement>) => {

@@ -42,7 +42,7 @@ export default {
       description: 'e.g. Artist, Stylist, Food Collective...',
     },
     {
-      title: 'Excerpt',
+      title: 'SEO Description',
       name: 'excerpt',
       type: 'text',
     },

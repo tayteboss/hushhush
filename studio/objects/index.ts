@@ -17,7 +17,6 @@ const slideTitleBlock = {
   title: 'Slide Title',
   name: 'slideTitle',
   type: 'string',
-  description: 'HINT: Optional. This title will override the representation/case study title',
 }
 
 const contentBlock = {

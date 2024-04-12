@@ -53,9 +53,10 @@ const Hint = styled.p<{ $isActive: boolean }>`
 	display: none;
 
 	@media ${(props) => props.theme.mediaBreakpoints.tabletPortrait} {
-		display: block;
+		display: ${(props) => (props.$isActive ? 'block' : 'none')};
 		color: var(--fg-colour);
 		opacity: ${(props) => (props.$isActive ? 1 : 0)};
+		padding-top: ${pxToRem(16)};
 
 		transition: all var(--transition-speed-default) var(--transition-ease);
 	}
@@ -173,7 +174,6 @@ const ProjectContentLayout = (props: Props) => {
 						title}{' '}
 					- {galleryCount}
 				</Title>
-				<Hint $isActive={activeSlideIndex === 0}>Scroll</Hint>
 			</TitleWrapper>
 			<AnimatePresence>
 				{galleryBlocks[activeSlideIndex][slideType].content && (
@@ -190,6 +190,10 @@ const ProjectContentLayout = (props: Props) => {
 										.content
 								}
 							/>
+							<Hint $isActive={activeSlideIndex === 0}>
+								Scroll up to view{' '}
+								{type === 'representation' ? 'talent' : 'case'}
+							</Hint>
 						</RichTextWrapper>
 					</Inner>
 				)}

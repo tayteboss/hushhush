@@ -1,9 +1,13 @@
 import styled from 'styled-components';
 import client from '../../client';
-import { RepresentationType, TransitionsType } from '../../shared/types/types';
-import { motion } from 'framer-motion';
+import {
+	RepresentationType,
+	SiteSettingsType,
+	TransitionsType
+} from '../../shared/types/types';
+import { AnimatePresence, motion } from 'framer-motion';
 import { NextSeo } from 'next-seo';
-import { mediaString } from '../../lib/sanityQueries';
+import { mediaString, siteSettingsQueryString } from '../../lib/sanityQueries';
 import ProjectContentLayout from '../../components/layout/ProjectContentLayout';
 import { useEffect, useState } from 'react';
 import MediaLayout from '../../components/layout/MediaLayout';
@@ -13,12 +17,15 @@ import { setGreyTheme, setWhiteTheme } from '../../utils/setTheme';
 import { useRouter } from 'next/router';
 import DesktopProjectMedia from '../../components/blocks/DesktopProjectMedia';
 import ProjectCursorLayout from '../../components/blocks/ProjectCursorLayout';
+import Cookies from 'js-cookie';
+import Authentication from '../../components/blocks/Authentication';
 
 type Props = {
 	currentProject: RepresentationType;
 	nextProjectSlug: string;
 	prevProjectSlug: string;
 	pageTransitionVariants: TransitionsType;
+	siteSettings: SiteSettingsType;
 	cursorRefresh: () => void;
 };
 
@@ -34,16 +41,26 @@ const Page = (props: Props) => {
 		nextProjectSlug,
 		prevProjectSlug,
 		pageTransitionVariants,
-		cursorRefresh
+		cursorRefresh,
+		siteSettings
 	} = props;
 
 	const [activeSlideIndex, setActiveSlideIndex] = useState(0);
+	const [isAuthenticated, setIsAuthenticated] = useState(true);
 
 	const router = useRouter();
 
 	const viewportWidth = useViewportWidth();
 	const isOnDevice =
 		viewportWidth === 'mobile' || viewportWidth === 'tabletPortrait';
+
+	useEffect(() => {
+		const hasCookies = Cookies.get('authenticated');
+
+		if (!hasCookies) {
+			setIsAuthenticated(false);
+		}
+	}, []);
 
 	useEffect(() => {
 		if (isOnDevice) {
@@ -71,38 +88,50 @@ const Page = (props: Props) => {
 				title={currentProject?.title || ''}
 				description={currentProject?.excerpt || ''}
 			/>
-			<MediaLayout
-				data={currentProject?.galleryBlocks}
-				nextProjectSlug={nextProjectSlug}
-				prevProjectSlug={prevProjectSlug}
-				activeSlideIndex={activeSlideIndex}
-				setActiveSlideIndex={setActiveSlideIndex}
-				type="representation-project"
-			/>
-			<MobileProjectMedia
-				data={currentProject?.galleryBlocks}
-				setActiveSlideIndex={setActiveSlideIndex}
-			/>
-			<DesktopProjectMedia
-				data={currentProject?.galleryBlocks}
-				activeSlideIndex={activeSlideIndex}
-			/>
-			<ProjectCursorLayout
-				nextProjectSlug={nextProjectSlug}
-				prevProjectSlug={prevProjectSlug}
-				setActiveSlideIndex={setActiveSlideIndex}
-				activeSlideIndex={activeSlideIndex}
-				type="representation-project"
-				data={currentProject?.galleryBlocks}
-			/>
-			<ProjectContentLayout
-				title={currentProject?.title}
-				galleryBlocks={currentProject?.galleryBlocks}
-				activeSlideIndex={activeSlideIndex}
-				nextProjectSlug={nextProjectSlug}
-				prevProjectSlug={prevProjectSlug}
-				type="representation"
-			/>
+			{isAuthenticated && (
+				<>
+					<MediaLayout
+						data={currentProject?.galleryBlocks}
+						nextProjectSlug={nextProjectSlug}
+						prevProjectSlug={prevProjectSlug}
+						activeSlideIndex={activeSlideIndex}
+						setActiveSlideIndex={setActiveSlideIndex}
+						type="representation-project"
+					/>
+					<MobileProjectMedia
+						data={currentProject?.galleryBlocks}
+						setActiveSlideIndex={setActiveSlideIndex}
+					/>
+					<DesktopProjectMedia
+						data={currentProject?.galleryBlocks}
+						activeSlideIndex={activeSlideIndex}
+					/>
+					<ProjectCursorLayout
+						nextProjectSlug={nextProjectSlug}
+						prevProjectSlug={prevProjectSlug}
+						setActiveSlideIndex={setActiveSlideIndex}
+						activeSlideIndex={activeSlideIndex}
+						type="representation-project"
+						data={currentProject?.galleryBlocks}
+					/>
+					<ProjectContentLayout
+						title={currentProject?.title}
+						galleryBlocks={currentProject?.galleryBlocks}
+						activeSlideIndex={activeSlideIndex}
+						nextProjectSlug={nextProjectSlug}
+						prevProjectSlug={prevProjectSlug}
+						type="representation"
+					/>
+				</>
+			)}
+			<AnimatePresence>
+				{!isAuthenticated && (
+					<Authentication
+						password={siteSettings?.password}
+						setIsAuthenticated={setIsAuthenticated}
+					/>
+				)}
+			</AnimatePresence>
 		</PageWrapper>
 	);
 };
@@ -176,11 +205,14 @@ export async function getStaticProps({ params }: any) {
 	const nextProjectSlug = projects[nextIndex].slug;
 	const prevProjectSlug = projects[prevIndex].slug;
 
+	const siteSettings = await client.fetch(siteSettingsQueryString);
+
 	return {
 		props: {
 			currentProject,
 			nextProjectSlug,
-			prevProjectSlug
+			prevProjectSlug,
+			siteSettings
 		}
 	};
 }

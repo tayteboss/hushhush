@@ -57,8 +57,9 @@ const Inner = styled.div<StyledProps>`
 	width: ${(props) => props.$containerWidth}px;
 
 	@media ${(props) => props.theme.mediaBreakpoints.mobile} {
-		width: ${(props) =>
-			props.$useFullMobile ? '100%' : `${props.$containerWidth}px`};
+		/* width: ${(props) =>
+			props.$useFullMobile ? '100%' : `${props.$containerWidth}px`}; */
+		width: 100%;
 	}
 `;
 
@@ -131,15 +132,27 @@ const ContentLayout = (props: Props) => {
 			setActiveMediaSlideIndex(index);
 		}
 		if (type === 'representations') {
-			const representation = scrollList[index] as RepresentationType;
-			if (representation) {
-				router.push(`/representation/${representation?.slug?.current}`);
+			if (index !== activeSlideIndex) {
+				emblaApi.scrollTo(index);
+				setActiveMediaSlideIndex(index);
+			} else {
+				const representation = scrollList[index] as RepresentationType;
+				if (representation) {
+					router.push(
+						`/representation/${representation?.slug?.current}`
+					);
+				}
 			}
 		}
 		if (type === 'case-study') {
-			const caseStudy = scrollList[index] as CaseStudyType;
-			if (caseStudy) {
-				router.push(`/case-studies/${caseStudy?.slug?.current}`);
+			if (index !== activeSlideIndex) {
+				emblaApi.scrollTo(index);
+				setActiveMediaSlideIndex(index);
+			} else {
+				const caseStudy = scrollList[index] as CaseStudyType;
+				if (caseStudy) {
+					router.push(`/case-studies/${caseStudy?.slug?.current}`);
+				}
 			}
 		}
 	};
