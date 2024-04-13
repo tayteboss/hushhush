@@ -89,7 +89,7 @@ const Page = (props: Props) => {
 			/>
 			{isAuthenticated && (
 				<>
-					<MediaLayout
+					{/* <MediaLayout
 						data={[
 							...currentProject?.galleryBlocks,
 							...nextProjectGalleryBlocks
@@ -99,7 +99,7 @@ const Page = (props: Props) => {
 						activeSlideIndex={activeSlideIndex}
 						setActiveSlideIndex={setActiveSlideIndex}
 						type="representation-project"
-					/>
+					/> */}
 					<MobileProjectMedia
 						data={currentProject?.galleryBlocks}
 						setActiveSlideIndex={setActiveSlideIndex}
@@ -107,27 +107,10 @@ const Page = (props: Props) => {
 						nextProjectSlug={nextProjectSlug}
 						activeSlideIndex={activeSlideIndex}
 					/>
-					{/* <DesktopProjectMedia
-						data={[
-							...currentProject?.galleryBlocks,
-							...nextProjectGalleryBlocks
-						]}
-						activeSlideIndex={activeSlideIndex}
-					/> */}
-					{/* <ProjectCursorLayout
-						nextProjectSlug={nextProjectSlug}
-						prevProjectSlug={prevProjectSlug}
-						setActiveSlideIndex={setActiveSlideIndex}
-						activeSlideIndex={activeSlideIndex}
-						type="representation-project"
-						data={currentProject?.galleryBlocks}
-					/> */}
 					<ProjectContentLayout
 						title={currentProject?.title}
-						galleryBlocks={[
-							...currentProject?.galleryBlocks,
-							...nextProjectGalleryBlocks
-						]}
+						galleryBlocks={currentProject?.galleryBlocks}
+						nextProjectGalleryBlocks={nextProjectGalleryBlocks}
 						activeSlideIndex={activeSlideIndex}
 						nextProjectSlug={nextProjectSlug}
 						prevProjectSlug={prevProjectSlug}

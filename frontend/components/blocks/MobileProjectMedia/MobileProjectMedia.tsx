@@ -21,13 +21,12 @@ type Props = {
 		| FullBleedSlideType
 		| CroppedSlideType
 	)[];
-	nextProjectGalleryBlocks?: (FullBleedSlideType | CroppedSlideType)[];
+	nextProjectGalleryBlocks: (any | any)[];
 	activeSlideIndex: number;
 	nextProjectSlug: string;
 };
 
 const MobileProjectMediaWrapper = styled.div`
-	/* display: none; */
 	position: fixed;
 	top: 0;
 	left: 0;
@@ -37,9 +36,6 @@ const MobileProjectMediaWrapper = styled.div`
 	display: flex;
 	justify-content: center;
 	align-items: center;
-
-	@media ${(props) => props.theme.mediaBreakpoints.tabletPortrait} {
-	}
 `;
 
 const Embla = styled.div`
@@ -96,7 +92,7 @@ const MobileProjectMedia = (props: Props) => {
 	const hasData = data?.length > 0;
 	const rootNodeRef = useRef<HTMLDivElement>(null);
 
-	const slides = [...data, ...nextProjectGalleryBlocks];
+	const slides = [...(data ?? []), ...(nextProjectGalleryBlocks ?? [])];
 
 	const [emblaRef, emblaApi] = useEmblaCarousel(
 		{
@@ -139,9 +135,6 @@ const MobileProjectMedia = (props: Props) => {
 
 		const lastSlideIndex = slides.length - 1;
 
-		console.log('lastSlideIndex', lastSlideIndex);
-		console.log('activeSlideIndex', activeSlideIndex);
-
 		if (activeSlideIndex === lastSlideIndex) {
 			const timer = setTimeout(() => {
 				router.push(`/representation/${nextProjectSlug}`);
@@ -171,7 +164,7 @@ const MobileProjectMedia = (props: Props) => {
 			<Embla className="embla" ref={emblaRef}>
 				<EmblaContainer className="embla__container">
 					{hasData &&
-						slides.map((item, i) => (
+						data.map((item, i) => (
 							<EmblaSlide key={i} className="embla__slide">
 								{(item as FullBleedSlideType | CroppedSlideType)
 									?.galleryComponent === 'croppedSlide' && (

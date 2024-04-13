@@ -161,6 +161,7 @@ export const galleryBlocks = {
             list: slideList,
             layout: 'dropdown',
           },
+          validation: (Rule: any) => Rule.required(),
         },
         {
           name: 'fullBleedSlide',

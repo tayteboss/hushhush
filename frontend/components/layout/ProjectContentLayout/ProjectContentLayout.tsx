@@ -15,6 +15,7 @@ type Props = {
 	prevProjectSlug: string;
 	nextProjectSlug: string;
 	type: 'representation' | 'case-study';
+	nextProjectGalleryBlocks: (any | any)[];
 };
 
 const ProjectContentLayoutWrapper = styled.div`
@@ -129,24 +130,29 @@ const ProjectContentLayout = (props: Props) => {
 		activeSlideIndex,
 		prevProjectSlug,
 		nextProjectSlug,
+		nextProjectGalleryBlocks,
 		type
 	} = props;
+
+	// console.log('galleryBlocks', galleryBlocks);
+	const slides = [
+		...(galleryBlocks ?? []),
+		...(nextProjectGalleryBlocks ?? [])
+	];
 
 	const router = useRouter();
 
 	const isRepresentation = type === 'representation';
 
-	const hasGalleryBlocks = galleryBlocks?.length > 0;
+	const hasGalleryBlocks = slides?.length > 0;
 
-	if (!hasGalleryBlocks || !galleryBlocks) return null;
+	if (!hasGalleryBlocks || !slides) return null;
 
 	const isFullBleedSlide =
-		galleryBlocks[activeSlideIndex].galleryComponent === 'fullBleedSlide';
+		slides[activeSlideIndex].galleryComponent === 'fullBleedSlide';
 	let slideType = isFullBleedSlide ? 'fullBleedSlide' : 'croppedSlide';
 
-	const galleryCount = `(${activeSlideIndex + 1}/${
-		galleryBlocks.length - 1
-	})`;
+	const galleryCount = `(${activeSlideIndex + 1}/${slides.length - 1})`;
 
 	const handleNextProject = () => {
 		if (type === 'representation') {
@@ -168,19 +174,16 @@ const ProjectContentLayout = (props: Props) => {
 		}
 	};
 
-	console.log('galleryBlocks', galleryBlocks);
-
 	return (
 		<ProjectContentLayoutWrapper>
 			<TitleWrapper>
 				<Title>
-					{galleryBlocks[activeSlideIndex][slideType].slideTitle ||
-						title}{' '}
-					- {galleryCount}
+					{slides[activeSlideIndex][slideType].slideTitle || title} -{' '}
+					{galleryCount}
 				</Title>
 			</TitleWrapper>
 			<AnimatePresence>
-				{galleryBlocks[activeSlideIndex][slideType].content && (
+				{slides[activeSlideIndex][slideType].content && (
 					<Inner
 						variants={wrapperVariants}
 						initial="hidden"
@@ -190,8 +193,7 @@ const ProjectContentLayout = (props: Props) => {
 						<RichTextWrapper>
 							<PortableText
 								value={
-									galleryBlocks[activeSlideIndex][slideType]
-										.content
+									slides[activeSlideIndex][slideType].content
 								}
 							/>
 							<Hint $isActive={activeSlideIndex === 0}>

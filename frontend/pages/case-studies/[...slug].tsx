@@ -27,6 +27,7 @@ type Props = {
 	pageTransitionVariants: TransitionsType;
 	siteSettings: SiteSettingsType;
 	cursorRefresh: () => void;
+	nextProjectGalleryBlocks: (any | any)[];
 };
 
 const PageWrapper = styled(motion.div)`
@@ -42,7 +43,7 @@ const Page = (props: Props) => {
 		prevProjectSlug,
 		pageTransitionVariants,
 		siteSettings,
-		cursorRefresh
+		nextProjectGalleryBlocks
 	} = props;
 
 	const [activeSlideIndex, setActiveSlideIndex] = useState(0);
@@ -61,19 +62,16 @@ const Page = (props: Props) => {
 	}, []);
 
 	useEffect(() => {
-		if (isOnDevice) {
-			if (
-				currentProject.galleryBlocks[activeSlideIndex]
-					.galleryComponent === 'croppedSlide'
-			) {
-				setGreyTheme();
-			} else {
-				setWhiteTheme();
-			}
+		if (
+			[...currentProject.galleryBlocks, ...nextProjectGalleryBlocks][
+				activeSlideIndex
+			].galleryComponent === 'croppedSlide'
+		) {
+			setGreyTheme();
 		} else {
-			cursorRefresh();
+			setWhiteTheme();
 		}
-	}, [activeSlideIndex, router, isOnDevice, isAuthenticated]);
+	}, [activeSlideIndex, router, isOnDevice]);
 
 	return (
 		<PageWrapper
@@ -88,33 +86,28 @@ const Page = (props: Props) => {
 			/>
 			{isAuthenticated && (
 				<>
-					<MediaLayout
-						data={currentProject?.galleryBlocks}
+					{/* <MediaLayout
+						data={[
+							...currentProject?.galleryBlocks,
+							nextProjectGalleryBlocks
+						]}
 						nextProjectSlug={nextProjectSlug}
 						prevProjectSlug={prevProjectSlug}
 						activeSlideIndex={activeSlideIndex}
 						setActiveSlideIndex={setActiveSlideIndex}
 						type="case-study-project"
-					/>
+					/> */}
 					<MobileProjectMedia
 						data={currentProject?.galleryBlocks}
 						setActiveSlideIndex={setActiveSlideIndex}
-					/>
-					<DesktopProjectMedia
-						data={currentProject?.galleryBlocks}
-						activeSlideIndex={activeSlideIndex}
-					/>
-					<ProjectCursorLayout
+						nextProjectGalleryBlocks={nextProjectGalleryBlocks}
 						nextProjectSlug={nextProjectSlug}
-						prevProjectSlug={prevProjectSlug}
-						setActiveSlideIndex={setActiveSlideIndex}
 						activeSlideIndex={activeSlideIndex}
-						type="case-study-project"
-						data={currentProject?.galleryBlocks}
 					/>
 					<ProjectContentLayout
 						title={currentProject?.title}
 						galleryBlocks={currentProject?.galleryBlocks}
+						nextProjectGalleryBlocks={nextProjectGalleryBlocks}
 						activeSlideIndex={activeSlideIndex}
 						nextProjectSlug={nextProjectSlug}
 						prevProjectSlug={prevProjectSlug}
@@ -186,7 +179,22 @@ export async function getStaticProps({ params }: any) {
 	const projectsQuery = `
 	        *[_type == 'caseStudy'] | order(orderRank) {
 				year,
-	            "slug": slug.current
+	            "slug": slug.current,
+				galleryBlocks[] {
+					...,
+					fullBleedSlide {
+						...,
+						media {
+							${mediaString}
+						}
+					},
+					croppedSlide {
+						...,
+						media {
+							${mediaString}
+						}
+					}
+				},
 	        }
 	    `;
 	const projects = await client.fetch(projectsQuery);
@@ -205,12 +213,15 @@ export async function getStaticProps({ params }: any) {
 	const nextProjectSlug = projects[nextIndex].slug;
 	const prevProjectSlug = projects[prevIndex].slug;
 
+	const nextProjectGalleryBlocks = projects[nextIndex].galleryBlocks;
+
 	return {
 		props: {
 			currentProject,
 			nextProjectSlug,
 			prevProjectSlug,
-			siteSettings
+			siteSettings,
+			nextProjectGalleryBlocks
 		}
 	};
 }

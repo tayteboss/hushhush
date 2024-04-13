@@ -146,14 +146,7 @@ const wrapperVariants = {
 };
 
 const MediaLayout = (props: Props) => {
-	const {
-		activeSlideIndex,
-		setActiveSlideIndex,
-		data,
-		type,
-		nextProjectSlug,
-		prevProjectSlug
-	} = props;
+	const { activeSlideIndex, data, type } = props;
 
 	if (!data || data.length <= 0) return null;
 

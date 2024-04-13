@@ -48,6 +48,7 @@ export default {
       name: 'year',
       type: 'string',
       description: 'e.g. 2024',
+      validation: (Rule: any) => Rule.required(),
     },
     {
       title: 'Hero Media',
