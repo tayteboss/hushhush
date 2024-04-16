@@ -86,14 +86,10 @@ const RichTextWrapper = styled.div`
 `;
 
 const PaginationWrapper = styled.div`
-	display: none;
-
-	@media ${(props) => props.theme.mediaBreakpoints.tabletPortrait} {
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-		padding-top: ${pxToRem(10)};
-	}
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding-top: ${pxToRem(10)};
 `;
 
 const PrevProjectLink = styled.button`
@@ -134,7 +130,6 @@ const ProjectContentLayout = (props: Props) => {
 		type
 	} = props;
 
-	// console.log('galleryBlocks', galleryBlocks);
 	const slides = [
 		...(galleryBlocks ?? []),
 		...(nextProjectGalleryBlocks ?? [])
@@ -176,12 +171,15 @@ const ProjectContentLayout = (props: Props) => {
 
 	return (
 		<ProjectContentLayoutWrapper>
-			<TitleWrapper>
-				<Title>
-					{slides[activeSlideIndex][slideType].slideTitle || title} -{' '}
-					{galleryCount}
-				</Title>
-			</TitleWrapper>
+			{activeSlideIndex < slides.length - 1 && (
+				<TitleWrapper>
+					<Title>
+						{slides[activeSlideIndex][slideType].slideTitle ||
+							title}{' '}
+						- {galleryCount}
+					</Title>
+				</TitleWrapper>
+			)}
 			<AnimatePresence>
 				{slides[activeSlideIndex][slideType].content && (
 					<Inner

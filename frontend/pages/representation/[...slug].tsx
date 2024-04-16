@@ -10,13 +10,10 @@ import { NextSeo } from 'next-seo';
 import { mediaString, siteSettingsQueryString } from '../../lib/sanityQueries';
 import ProjectContentLayout from '../../components/layout/ProjectContentLayout';
 import { useEffect, useState } from 'react';
-import MediaLayout from '../../components/layout/MediaLayout';
 import useViewportWidth from '../../hooks/useViewportWidth';
 import MobileProjectMedia from '../../components/blocks/MobileProjectMedia';
 import { setGreyTheme, setWhiteTheme } from '../../utils/setTheme';
 import { useRouter } from 'next/router';
-import DesktopProjectMedia from '../../components/blocks/DesktopProjectMedia';
-import ProjectCursorLayout from '../../components/blocks/ProjectCursorLayout';
 import Cookies from 'js-cookie';
 import Authentication from '../../components/blocks/Authentication';
 
@@ -89,23 +86,13 @@ const Page = (props: Props) => {
 			/>
 			{isAuthenticated && (
 				<>
-					{/* <MediaLayout
-						data={[
-							...currentProject?.galleryBlocks,
-							...nextProjectGalleryBlocks
-						]}
-						nextProjectSlug={nextProjectSlug}
-						prevProjectSlug={prevProjectSlug}
-						activeSlideIndex={activeSlideIndex}
-						setActiveSlideIndex={setActiveSlideIndex}
-						type="representation-project"
-					/> */}
 					<MobileProjectMedia
 						data={currentProject?.galleryBlocks}
 						setActiveSlideIndex={setActiveSlideIndex}
 						nextProjectGalleryBlocks={nextProjectGalleryBlocks}
 						nextProjectSlug={nextProjectSlug}
 						activeSlideIndex={activeSlideIndex}
+						type="representation"
 					/>
 					<ProjectContentLayout
 						title={currentProject?.title}

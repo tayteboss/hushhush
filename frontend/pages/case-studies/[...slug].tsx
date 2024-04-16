@@ -86,23 +86,13 @@ const Page = (props: Props) => {
 			/>
 			{isAuthenticated && (
 				<>
-					{/* <MediaLayout
-						data={[
-							...currentProject?.galleryBlocks,
-							nextProjectGalleryBlocks
-						]}
-						nextProjectSlug={nextProjectSlug}
-						prevProjectSlug={prevProjectSlug}
-						activeSlideIndex={activeSlideIndex}
-						setActiveSlideIndex={setActiveSlideIndex}
-						type="case-study-project"
-					/> */}
 					<MobileProjectMedia
 						data={currentProject?.galleryBlocks}
 						setActiveSlideIndex={setActiveSlideIndex}
 						nextProjectGalleryBlocks={nextProjectGalleryBlocks}
 						nextProjectSlug={nextProjectSlug}
 						activeSlideIndex={activeSlideIndex}
+						type="case-studies"
 					/>
 					<ProjectContentLayout
 						title={currentProject?.title}

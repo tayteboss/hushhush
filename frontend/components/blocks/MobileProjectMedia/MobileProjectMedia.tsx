@@ -24,6 +24,7 @@ type Props = {
 	nextProjectGalleryBlocks: (any | any)[];
 	activeSlideIndex: number;
 	nextProjectSlug: string;
+	type: 'case-studies' | 'representation';
 };
 
 const MobileProjectMediaWrapper = styled.div`
@@ -86,7 +87,8 @@ const MobileProjectMedia = (props: Props) => {
 		nextProjectGalleryBlocks,
 		setActiveSlideIndex,
 		activeSlideIndex,
-		nextProjectSlug
+		nextProjectSlug,
+		type
 	} = props;
 
 	const hasData = data?.length > 0;
@@ -137,8 +139,8 @@ const MobileProjectMedia = (props: Props) => {
 
 		if (activeSlideIndex === lastSlideIndex) {
 			const timer = setTimeout(() => {
-				router.push(`/representation/${nextProjectSlug}`);
-			}, 300);
+				router.push(`/${type}/${nextProjectSlug}`);
+			}, 200);
 
 			return () => {
 				clearTimeout(timer);
@@ -164,7 +166,7 @@ const MobileProjectMedia = (props: Props) => {
 			<Embla className="embla" ref={emblaRef}>
 				<EmblaContainer className="embla__container">
 					{hasData &&
-						data.map((item, i) => (
+						slides.map((item, i) => (
 							<EmblaSlide key={i} className="embla__slide">
 								{(item as FullBleedSlideType | CroppedSlideType)
 									?.galleryComponent === 'croppedSlide' && (
