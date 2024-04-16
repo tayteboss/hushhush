@@ -154,7 +154,7 @@ const MobileProjectMedia = (props: Props) => {
 			const activeSlideIndex = emblaApi.selectedScrollSnap();
 			setActiveSlideIndex && setActiveSlideIndex(activeSlideIndex);
 		});
-		emblaApi.on('scroll', updateActiveSlide);
+		// emblaApi.on('scroll', updateActiveSlide);
 		emblaApi?.on('settle', () => {
 			const activeSlideIndex = emblaApi.selectedScrollSnap();
 			setActiveSlideIndex && setActiveSlideIndex(activeSlideIndex);
