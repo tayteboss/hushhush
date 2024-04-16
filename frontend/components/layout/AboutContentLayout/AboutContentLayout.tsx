@@ -105,27 +105,44 @@ const AboutContentLayout = (props: Props) => {
 
 	const [mobileDividerContent, setMobileDividerContent] = useState('---');
 
-	const dividerContent = '------------------------------------------------';
-
+	const dividerContent = '--------------------------------------------';
 	const formattedOffice: string = `<p>${office.replace(/\n/g, '<br />')}</p>`;
 
 	const ref = useRef<HTMLDivElement>(null);
+	const mobileDividerRef = useRef<HTMLDivElement>(null);
 
 	useEffect(() => {
 		const handleResize = () => {
-			const width = ref.current?.offsetWidth || 0;
-			const dashes = '-'.repeat(Math.floor(width / 7.8));
-			setMobileDividerContent(dashes);
+			if (ref.current && mobileDividerRef.current) {
+				const containerWidth = ref.current.offsetWidth;
+				const characterWidth = 7.7; // Approximate width of a dash character
+				let newDashes = Math.floor(containerWidth / characterWidth);
+
+				mobileDividerRef.current.innerHTML = '-'.repeat(newDashes);
+				if (
+					mobileDividerRef.current.offsetHeight >
+					mobileDividerRef.current.scrollHeight
+				) {
+					while (
+						mobileDividerRef.current.offsetHeight >
+						mobileDividerRef.current.scrollHeight
+					) {
+						newDashes--;
+						mobileDividerRef.current.innerHTML = '-'.repeat(
+							newDashes
+						);
+					}
+				}
+				setMobileDividerContent(mobileDividerRef.current.innerHTML);
+			}
 		};
 
 		handleResize();
-
 		window.addEventListener('resize', handleResize);
-
 		return () => {
 			window.removeEventListener('resize', handleResize);
 		};
-	}, [ref]);
+	}, [ref, mobileDividerRef]);
 
 	return (
 		<AboutContentLayoutWrapper>
@@ -133,7 +150,9 @@ const AboutContentLayout = (props: Props) => {
 			<Inner ref={ref}>
 				{aboutDescription && <Text>{aboutDescription}</Text>}
 				<Divider className="type-p">{dividerContent}</Divider>
-				<MobileDivider>{mobileDividerContent}</MobileDivider>
+				<MobileDivider ref={mobileDividerRef}>
+					{mobileDividerContent}
+				</MobileDivider>
 				<SubTitle>Inquiries</SubTitle>
 				{enquiriesCTA?.title && enquiriesCTA?.url && (
 					<Link href={enquiriesCTA?.url} target="_blank">
@@ -148,7 +167,9 @@ const AboutContentLayout = (props: Props) => {
 				{googleMapsLink && office && (
 					<>
 						<Divider className="type-p">{dividerContent}</Divider>
-						<MobileDivider>{mobileDividerContent}</MobileDivider>
+						<MobileDivider ref={mobileDividerRef}>
+							{mobileDividerContent}
+						</MobileDivider>
 						<SubTitle>Office</SubTitle>
 						<Link href={googleMapsLink} target="_blank">
 							<FormattedText
@@ -165,7 +186,9 @@ const AboutContentLayout = (props: Props) => {
 					</>
 				)}
 				<Divider className="type-p">{dividerContent}</Divider>
-				<MobileDivider>{mobileDividerContent}</MobileDivider>
+				<MobileDivider ref={mobileDividerRef}>
+					{mobileDividerContent}
+				</MobileDivider>
 				{jobsCTA?.title && jobsCTA?.url && (
 					<>
 						<SubTitle>Jobs</SubTitle>
