@@ -51,16 +51,12 @@ const Title = styled.h1`
 `;
 
 const Hint = styled.p<{ $isActive: boolean }>`
-	display: none;
+	display: ${(props) => (props.$isActive ? 'block' : 'none')};
+	color: var(--fg-colour);
+	opacity: ${(props) => (props.$isActive ? 1 : 0)};
+	padding-top: ${pxToRem(16)};
 
-	@media ${(props) => props.theme.mediaBreakpoints.tabletPortrait} {
-		display: ${(props) => (props.$isActive ? 'block' : 'none')};
-		color: var(--fg-colour);
-		opacity: ${(props) => (props.$isActive ? 1 : 0)};
-		padding-top: ${pxToRem(16)};
-
-		transition: all var(--transition-speed-default) var(--transition-ease);
-	}
+	transition: all var(--transition-speed-default) var(--transition-ease);
 `;
 
 const Inner = styled(motion.div)`
