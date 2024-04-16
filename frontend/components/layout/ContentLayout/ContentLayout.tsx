@@ -196,6 +196,10 @@ const ContentLayout = (props: Props) => {
 		emblaApi?.on('settle', () => {
 			const activeSlideIndex = emblaApi.selectedScrollSnap();
 			setActiveMediaSlideIndex(activeSlideIndex);
+
+			if (activeSlideIndex === scrollList.length - 1) {
+				emblaApi.scrollTo(activeSlideIndex);
+			}
 		});
 
 		emblaApi.on('scroll', updateActiveSlide);
