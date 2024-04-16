@@ -20,7 +20,7 @@ type Props = {
 
 const ProjectContentLayoutWrapper = styled.div`
 	position: fixed;
-	bottom: ${pxToRem(80)};
+	bottom: ${pxToRem(30)};
 	left: ${pxToRem(25)};
 	z-index: 100;
 	display: flex;

@@ -11,14 +11,11 @@ const FooterWrapper = styled.footer<{ $isActive: boolean }>`
 	left: ${pxToRem(25)};
 	padding-left: ${pxToRem(9)};
 	z-index: 100;
+	display: ${(props) => (props.$isActive ? 'flex' : 'none')};
 
 	@media ${(props) => props.theme.mediaBreakpoints.tabletPortrait} {
 		left: ${pxToRem(16)};
 		bottom: ${pxToRem(24)};
-	}
-
-	@media ${(props) => props.theme.mediaBreakpoints.mobile} {
-		display: ${(props) => (props.$isActive ? 'flex' : 'none')};
 	}
 `;
 
