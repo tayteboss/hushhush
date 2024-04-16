@@ -110,13 +110,14 @@ const ContentLayout = (props: Props) => {
 
 	const [emblaRef, emblaApi] = useEmblaCarousel(
 		{
-			loop: true,
+			loop: false,
 			axis: 'y',
 			dragFree: false,
 			watchSlides: false,
 			watchDrag: true,
 			align: 'start',
-			skipSnaps: true
+			skipSnaps: true,
+			containScroll: false
 		},
 		[
 			WheelGesturesPlugin({

@@ -70,7 +70,7 @@ export const GlobalStyles = createGlobalStyle`
 	body {
 		font-family: var(--font-lossy);
 		color: var(--colour-white);
-		line-height: normal;
+		line-height: ${pxToRem(16)};
 	}
 
 	strong,
@@ -117,8 +117,8 @@ export const GlobalStyles = createGlobalStyle`
 	span,
 	button,
 	div {
-		font-size: ${pxToRem(11)};
-		line-height: ${pxToRem(17)};
+		font-size: ${pxToRem(12)};
+		line-height: ${pxToRem(16)};
 		font-family: var(--font-lossy);
 
 		@media ${theme.mediaBreakpoints.tabletPortrait} {

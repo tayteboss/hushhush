@@ -71,10 +71,6 @@ export async function getStaticProps() {
 	const data = await client.fetch(representationPageQueryString);
 	let representations = await client.fetch(representationsQueryString);
 
-	while (representations.length < 13) {
-		representations = [...representations, ...representations];
-	}
-
 	return {
 		props: {
 			data,
