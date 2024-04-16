@@ -22,11 +22,7 @@ const PageWrapper = styled(motion.div)`
 
 	.content-layout {
 		.embla__container {
-			height: ${pxToRem(90)};
-
-			@media ${(props) => props.theme.mediaBreakpoints.tabletPortrait} {
-				height: ${pxToRem(76)} !important;
-			}
+			height: ${pxToRem(76)} !important;
 		}
 	}
 `;
