@@ -226,6 +226,16 @@ const ContentLayout = (props: Props) => {
 			emblaApi.internalEngine().scrollBody.useFriction(friction);
 		});
 
+		emblaApi.on('scroll', (emblaApi) => {
+			emblaApi
+				.internalEngine()
+				.scrollBody.useFriction(0.3)
+				.useDuration(25);
+
+			// or just:
+			emblaApi.internalEngine().scrollBody.useFriction(friction);
+		});
+
 		return () => {
 			emblaApi.off('scroll', updateActiveSlide);
 		};
