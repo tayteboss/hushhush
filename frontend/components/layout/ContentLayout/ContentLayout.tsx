@@ -204,6 +204,28 @@ const ContentLayout = (props: Props) => {
 
 		emblaApi.on('scroll', updateActiveSlide);
 
+		const friction = 0.8;
+
+		emblaApi.on('pointerUp', (emblaApi) => {
+			emblaApi
+				.internalEngine()
+				.scrollBody.useFriction(friction)
+				.useDuration(25);
+
+			// or just:
+			emblaApi.internalEngine().scrollBody.useFriction(friction);
+		});
+
+		emblaApi.on('select', (emblaApi) => {
+			emblaApi
+				.internalEngine()
+				.scrollBody.useFriction(friction)
+				.useDuration(25);
+
+			// or just:
+			emblaApi.internalEngine().scrollBody.useFriction(friction);
+		});
+
 		return () => {
 			emblaApi.off('scroll', updateActiveSlide);
 		};
