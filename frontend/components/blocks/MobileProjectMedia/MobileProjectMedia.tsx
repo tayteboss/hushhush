@@ -28,15 +28,20 @@ type Props = {
 };
 
 const MobileProjectMediaWrapper = styled.div`
-	position: fixed;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100dvh;
-	z-index: 50;
-	display: flex;
-	justify-content: center;
-	align-items: center;
+	display: none;
+
+	@media ${(props) => props.theme.mediaBreakpoints.tabletPortrait} {
+		display: block;
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100dvh;
+		z-index: 50;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
 `;
 
 const Embla = styled.div`
@@ -108,30 +113,6 @@ const MobileProjectMedia = (props: Props) => {
 
 	const router = useRouter();
 
-	const updateActiveSlide = useCallback(() => {
-		if (!emblaApi || !rootNodeRef.current) return;
-		let closestIndex = null;
-		let closestDistance = Infinity;
-		emblaApi.scrollSnapList().forEach((snap, index) => {
-			const slideElement = emblaApi.slideNodes()[index];
-			const slideTop =
-				slideElement.getBoundingClientRect().top -
-				rootNodeRef.current.getBoundingClientRect().top;
-			const distance = Math.abs(slideTop);
-
-			if (distance >= 0 && distance <= 20) {
-				if (distance < closestDistance) {
-					closestIndex = index;
-					closestDistance = distance;
-				}
-			}
-		});
-
-		if (closestIndex !== null) {
-			setActiveSlideIndex && setActiveSlideIndex(closestIndex);
-		}
-	}, [emblaApi]);
-
 	useEffect(() => {
 		if (!emblaApi) return;
 
@@ -154,7 +135,6 @@ const MobileProjectMedia = (props: Props) => {
 			const activeSlideIndex = emblaApi.selectedScrollSnap();
 			setActiveSlideIndex && setActiveSlideIndex(activeSlideIndex);
 		});
-		// emblaApi.on('scroll', updateActiveSlide);
 		emblaApi?.on('settle', () => {
 			const activeSlideIndex = emblaApi.selectedScrollSnap();
 			setActiveSlideIndex && setActiveSlideIndex(activeSlideIndex);

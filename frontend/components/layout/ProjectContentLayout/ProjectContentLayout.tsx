@@ -177,41 +177,47 @@ const ProjectContentLayout = (props: Props) => {
 				</TitleWrapper>
 			)}
 			<AnimatePresence>
-				{slides[activeSlideIndex][slideType].content && (
-					<Inner
-						variants={wrapperVariants}
-						initial="hidden"
-						animate="visible"
-						exit="hidden"
-					>
-						<RichTextWrapper>
-							<PortableText
-								value={
-									slides[activeSlideIndex][slideType].content
-								}
-							/>
-							<Hint $isActive={activeSlideIndex === 0}>
-								Scroll up to view{' '}
-								{type === 'representation' ? 'talent' : 'case'}
-							</Hint>
-						</RichTextWrapper>
-					</Inner>
-				)}
+				{activeSlideIndex < slides.length - 1 &&
+					slides[activeSlideIndex][slideType].content && (
+						<Inner
+							variants={wrapperVariants}
+							initial="hidden"
+							animate="visible"
+							exit="hidden"
+						>
+							<RichTextWrapper>
+								<PortableText
+									value={
+										slides[activeSlideIndex][slideType]
+											.content
+									}
+								/>
+								<Hint $isActive={activeSlideIndex === 0}>
+									Scroll up to view{' '}
+									{type === 'representation'
+										? 'talent'
+										: 'case'}
+								</Hint>
+							</RichTextWrapper>
+						</Inner>
+					)}
 			</AnimatePresence>
-			<PaginationWrapper>
-				<PrevProjectLink
-					className="type-h1"
-					onClick={() => handlePreviousProject()}
-				>
-					{`←`} Prev {isRepresentation ? 'Talent' : 'Case'}
-				</PrevProjectLink>
-				<NextProjectLink
-					className="type-h1"
-					onClick={() => handleNextProject()}
-				>
-					Next {isRepresentation ? 'Talent' : 'Case'} {`→`}
-				</NextProjectLink>
-			</PaginationWrapper>
+			{activeSlideIndex < slides.length - 1 && (
+				<PaginationWrapper>
+					<PrevProjectLink
+						className="type-h1"
+						onClick={() => handlePreviousProject()}
+					>
+						{`←`} Prev {isRepresentation ? 'Talent' : 'Case'}
+					</PrevProjectLink>
+					<NextProjectLink
+						className="type-h1"
+						onClick={() => handleNextProject()}
+					>
+						Next {isRepresentation ? 'Talent' : 'Case'} {`→`}
+					</NextProjectLink>
+				</PaginationWrapper>
+			)}
 		</ProjectContentLayoutWrapper>
 	);
 };

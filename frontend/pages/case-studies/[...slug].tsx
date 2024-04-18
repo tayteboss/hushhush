@@ -86,6 +86,14 @@ const Page = (props: Props) => {
 			/>
 			{isAuthenticated && (
 				<>
+					<DesktopProjectMedia
+						data={currentProject?.galleryBlocks}
+						setActiveSlideIndex={setActiveSlideIndex}
+						nextProjectGalleryBlocks={nextProjectGalleryBlocks}
+						nextProjectSlug={nextProjectSlug}
+						activeSlideIndex={activeSlideIndex}
+						type="representation"
+					/>
 					<MobileProjectMedia
 						data={currentProject?.galleryBlocks}
 						setActiveSlideIndex={setActiveSlideIndex}

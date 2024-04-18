@@ -16,6 +16,7 @@ import { setGreyTheme, setWhiteTheme } from '../../utils/setTheme';
 import { useRouter } from 'next/router';
 import Cookies from 'js-cookie';
 import Authentication from '../../components/blocks/Authentication';
+import DesktopProjectMedia from '../../components/blocks/DesktopProjectMedia';
 
 type Props = {
 	currentProject: RepresentationType;
@@ -29,8 +30,11 @@ type Props = {
 
 const PageWrapper = styled(motion.div)`
 	background: var(--colour-white);
-	height: 100dvh;
-	overflow: hidden;
+
+	@media ${(props) => props.theme.mediaBreakpoints.tabletPortrait} {
+		height: 100dvh;
+		overflow: hidden;
+	}
 `;
 
 const Page = (props: Props) => {
@@ -39,7 +43,6 @@ const Page = (props: Props) => {
 		nextProjectSlug,
 		prevProjectSlug,
 		pageTransitionVariants,
-		cursorRefresh,
 		siteSettings,
 		nextProjectGalleryBlocks
 	} = props;
@@ -86,6 +89,14 @@ const Page = (props: Props) => {
 			/>
 			{isAuthenticated && (
 				<>
+					<DesktopProjectMedia
+						data={currentProject?.galleryBlocks}
+						setActiveSlideIndex={setActiveSlideIndex}
+						nextProjectGalleryBlocks={nextProjectGalleryBlocks}
+						nextProjectSlug={nextProjectSlug}
+						activeSlideIndex={activeSlideIndex}
+						type="representation"
+					/>
 					<MobileProjectMedia
 						data={currentProject?.galleryBlocks}
 						setActiveSlideIndex={setActiveSlideIndex}
