@@ -105,7 +105,7 @@ const AboutContentLayout = (props: Props) => {
 
 	const [mobileDividerContent, setMobileDividerContent] = useState('---');
 
-	const dividerContent = '--------------------------------------------';
+	const dividerContent = '----------------------------------------';
 	const formattedOffice: string = `<p>${office.replace(/\n/g, '<br />')}</p>`;
 
 	const ref = useRef<HTMLDivElement>(null);
@@ -115,7 +115,7 @@ const AboutContentLayout = (props: Props) => {
 		const handleResize = () => {
 			if (ref.current && mobileDividerRef.current) {
 				const containerWidth = ref.current.offsetWidth;
-				const characterWidth = 7.7; // Approximate width of a dash character
+				const characterWidth = 8.4; // Approximate width of a dash character
 				let newDashes = Math.floor(containerWidth / characterWidth);
 
 				mobileDividerRef.current.innerHTML = '-'.repeat(newDashes);
