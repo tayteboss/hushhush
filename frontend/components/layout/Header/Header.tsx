@@ -24,7 +24,7 @@ const LogoWrapper = styled.a`
 
 	@media ${(props) => props.theme.mediaBreakpoints.tabletPortrait} {
 		svg {
-			width: ${pxToRem(95)};
+			width: ${pxToRem(100)};
 			height: auto;
 		}
 	}
