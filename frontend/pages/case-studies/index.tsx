@@ -22,7 +22,7 @@ const PageWrapper = styled(motion.div)`
 
 	.content-layout {
 		.embla__container {
-			height: ${pxToRem(76)} !important;
+			height: ${pxToRem(90)} !important;
 		}
 	}
 `;

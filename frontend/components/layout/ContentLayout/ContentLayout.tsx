@@ -75,7 +75,7 @@ const EmblaContainer = styled.div`
 
 const EmblaSlide = styled.div<{ $isActive: boolean }>`
 	width: 100%;
-	height: ${pxToRem(16)};
+	height: ${pxToRem(19)};
 	opacity: ${({ $isActive }) => ($isActive ? 1 : 0.4)};
 	color: var(--fg-colour);
 	cursor: pointer;
