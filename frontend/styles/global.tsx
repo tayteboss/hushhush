@@ -100,8 +100,8 @@ export const GlobalStyles = createGlobalStyle`
 		font-weight: 400;
 
 		@media ${theme.mediaBreakpoints.tabletPortrait} {
-			font-size: ${pxToRem(16)};
-			line-height: ${pxToRem(18)};
+			font-size: ${pxToRem(15)};
+			line-height: ${pxToRem(17)};
 		}
 	}
 
