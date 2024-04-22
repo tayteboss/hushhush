@@ -75,12 +75,16 @@ const EmblaContainer = styled.div`
 
 const EmblaSlide = styled.div<{ $isActive: boolean }>`
 	width: 100%;
-	height: ${pxToRem(19)};
+	height: ${pxToRem(16)};
 	opacity: ${({ $isActive }) => ($isActive ? 1 : 0.4)};
 	color: var(--fg-colour);
 	cursor: pointer;
 	display: flex;
 	justify-content: space-between;
+
+	@media ${(props) => props.theme.mediaBreakpoints.mobile} {
+		height: ${pxToRem(19)};
+	}
 
 	&:hover {
 		opacity: ${({ $isActive }) => ($isActive ? 1 : 0.75)};

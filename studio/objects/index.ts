@@ -27,7 +27,7 @@ const contentBlock = {
     {
       type: 'block',
       styles: [{title: 'Normal', value: 'normal'}],
-      lists: [{title: 'Bullet', value: 'bullet'}],
+      lists: [],
       marks: {
         decorators: [],
         annotations: [],

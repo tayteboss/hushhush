@@ -21,6 +21,13 @@ const HeaderWrapper = styled.header`
 
 const LogoWrapper = styled.a`
 	padding-left: ${pxToRem(9)};
+
+	@media ${(props) => props.theme.mediaBreakpoints.tabletPortrait} {
+		svg {
+			width: ${pxToRem(110)};
+			height: auto;
+		}
+	}
 `;
 
 const MenuWrapper = styled.div`

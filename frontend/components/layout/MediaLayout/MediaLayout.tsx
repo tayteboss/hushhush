@@ -76,7 +76,7 @@ const RepresentationMediaWrapper = styled.a`
 	position: relative;
 
 	@media ${(props) => props.theme.mediaBreakpoints.mobile} {
-		width: 60vw;
+		width: 55vw;
 	}
 
 	.image-component-wrapper,
