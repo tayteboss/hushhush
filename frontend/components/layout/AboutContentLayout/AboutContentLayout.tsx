@@ -164,6 +164,11 @@ const AboutContentLayout = (props: Props) => {
 						{phoneNumber}
 					</Link>
 				)}
+				{socialLink && (
+					<Link href={socialLink?.url} target="_blank">
+						{socialLink.title}
+					</Link>
+				)}
 				{googleMapsLink && office && (
 					<>
 						<Divider className="type-p">{dividerContent}</Divider>
@@ -178,11 +183,6 @@ const AboutContentLayout = (props: Props) => {
 								}}
 							/>
 						</Link>
-						{socialLink && (
-							<Link href={socialLink?.url} target="_blank">
-								{socialLink.title}
-							</Link>
-						)}
 					</>
 				)}
 				<Divider className="type-p">{dividerContent}</Divider>
