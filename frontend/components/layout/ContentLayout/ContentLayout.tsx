@@ -206,8 +206,6 @@ const ContentLayout = (props: Props) => {
 			}
 		});
 
-		emblaApi.on('scroll', updateActiveSlide);
-
 		const friction = 0.8;
 
 		emblaApi.on('pointerUp', (emblaApi) => {
@@ -239,6 +237,37 @@ const ContentLayout = (props: Props) => {
 			// or just:
 			emblaApi.internalEngine().scrollBody.useFriction(friction);
 		});
+
+		emblaApi.on('scroll', (emblaApi) => {
+			const {
+				limit,
+				target,
+				location,
+				offsetLocation,
+				scrollTo,
+				translate,
+				scrollBody
+			} = emblaApi.internalEngine();
+
+			let edge: number | null = null;
+
+			if (limit.reachedMax(target.get())) edge = limit.max;
+			if (limit.reachedMin(target.get())) edge = limit.min;
+
+			if (edge !== null) {
+				offsetLocation.set(edge);
+				location.set(edge);
+				target.set(edge);
+				translate.to(edge);
+				translate.toggleActive(false);
+				scrollBody.useDuration(0).useFriction(0);
+				scrollTo.distance(0, false);
+			} else {
+				translate.toggleActive(true);
+			}
+		});
+
+		emblaApi.on('scroll', updateActiveSlide);
 
 		return () => {
 			emblaApi.off('scroll', updateActiveSlide);
