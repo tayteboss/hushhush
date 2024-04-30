@@ -72,6 +72,11 @@ const ContentInner = styled.div`
 const LogoWrapper = styled.div`
 	@media ${(props) => props.theme.mediaBreakpoints.tabletPortrait} {
 		padding-left: ${pxToRem(10)};
+
+		svg {
+			width: ${pxToRem(105)};
+			height: auto;
+		}
 	}
 `;
 
