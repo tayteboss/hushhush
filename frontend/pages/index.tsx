@@ -18,6 +18,13 @@ import ContentLayout from '../components/layout/ContentLayout';
 import { useState } from 'react';
 import MediaLayout from '../components/layout/MediaLayout';
 import pxToRem from '../utils/pxToRem';
+import {
+	countPlans,
+	getResidentialPlans,
+	getUniqueResidentialDisplayNames,
+	getVictorianPlanIds,
+	returnDummyData
+} from '../utils/dummy';
 
 const PageWrapper = styled(motion.div)`
 	height: 100dvh;
@@ -50,6 +57,17 @@ const Page = (props: Props) => {
 	} = props;
 
 	const [activeMediaSlideIndex, setActiveMediaSlideIndex] = useState(0);
+
+	// const victoriaPlanIds = getVictorianPlanIds();
+	// const plansLength = countPlans();
+	// const residentialPlans = getResidentialPlans();
+	// const uniqueResidentialDisplayNames = getUniqueResidentialDisplayNames();
+
+	// console.log('victoriaPlanIds', victoriaPlanIds);
+	// console.log('plansLength', plansLength);
+	// console.log('residentialPlans', residentialPlans);
+	// console.log('residentialPlans.length', residentialPlans.length);
+	// console.log('uniqueResidentialDisplayNames', uniqueResidentialDisplayNames);
 
 	return (
 		<PageWrapper

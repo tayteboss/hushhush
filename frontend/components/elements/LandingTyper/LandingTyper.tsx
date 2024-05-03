@@ -40,6 +40,7 @@ const LandingTyperWrapper = styled.div`
 
 const MotionWrapper = styled(motion.div)`
 	padding: ${pxToRem(8)} ${pxToRem(10)} ${pxToRem(5)};
+	line-height: ${pxToRem(16)};
 `;
 
 const Word = styled.span`
@@ -147,7 +148,7 @@ const Statement = (props: WordProps) => {
 			animate={animationState}
 			exit="exit"
 			key={`statement-${index}`}
-			onAnimationComplete={onAnimationComplete}
+			// onAnimationComplete={onAnimationComplete}
 			layout
 		>
 			{words.map((word, i) => (
