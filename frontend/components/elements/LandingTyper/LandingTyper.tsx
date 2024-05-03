@@ -40,7 +40,10 @@ const LandingTyperWrapper = styled.div`
 
 const MotionWrapper = styled(motion.div)`
 	padding: ${pxToRem(8)} ${pxToRem(10)} ${pxToRem(5)};
-	line-height: ${pxToRem(16)};
+
+	@media ${(props) => props.theme.mediaBreakpoints.tabletPortrait} {
+		line-height: ${pxToRem(10)};
+	}
 `;
 
 const Word = styled.span`
