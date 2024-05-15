@@ -151,7 +151,7 @@ const Statement = (props: WordProps) => {
 			animate={animationState}
 			exit="exit"
 			key={`statement-${index}`}
-			// onAnimationComplete={onAnimationComplete}
+			onAnimationComplete={onAnimationComplete}
 			layout
 		>
 			{words.map((word, i) => (
