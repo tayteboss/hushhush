@@ -58,17 +58,6 @@ const Page = (props: Props) => {
 
 	const [activeMediaSlideIndex, setActiveMediaSlideIndex] = useState(0);
 
-	// const victoriaPlanIds = getVictorianPlanIds();
-	// const plansLength = countPlans();
-	// const residentialPlans = getResidentialPlans();
-	// const uniqueResidentialDisplayNames = getUniqueResidentialDisplayNames();
-
-	// console.log('victoriaPlanIds', victoriaPlanIds);
-	// console.log('plansLength', plansLength);
-	// console.log('residentialPlans', residentialPlans);
-	// console.log('residentialPlans.length', residentialPlans.length);
-	// console.log('uniqueResidentialDisplayNames', uniqueResidentialDisplayNames);
-
 	return (
 		<PageWrapper
 			variants={pageTransitionVariants}

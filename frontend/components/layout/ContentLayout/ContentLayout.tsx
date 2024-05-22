@@ -203,12 +203,13 @@ const ContentLayout = (props: Props) => {
 		});
 
 		const friction = 0.8;
+		const duration = 10;
 
 		emblaApi.on('pointerUp', (emblaApi) => {
 			emblaApi
 				.internalEngine()
 				.scrollBody.useFriction(friction)
-				.useDuration(25);
+				.useDuration(duration);
 
 			// or just:
 			emblaApi.internalEngine().scrollBody.useFriction(friction);
@@ -218,7 +219,7 @@ const ContentLayout = (props: Props) => {
 			emblaApi
 				.internalEngine()
 				.scrollBody.useFriction(friction)
-				.useDuration(25);
+				.useDuration(duration);
 
 			// or just:
 			emblaApi.internalEngine().scrollBody.useFriction(friction);
@@ -227,8 +228,8 @@ const ContentLayout = (props: Props) => {
 		emblaApi.on('scroll', (emblaApi) => {
 			emblaApi
 				.internalEngine()
-				.scrollBody.useFriction(0.3)
-				.useDuration(25);
+				.scrollBody.useFriction(friction)
+				.useDuration(duration);
 
 			// or just:
 			emblaApi.internalEngine().scrollBody.useFriction(friction);
