@@ -87,43 +87,31 @@ const Page = (props: Props) => {
 				title={currentProject?.title || ''}
 				description={currentProject?.excerpt || ''}
 			/>
-			{isAuthenticated && (
-				<>
-					<DesktopProjectMedia
-						data={currentProject?.galleryBlocks}
-						setActiveSlideIndex={setActiveSlideIndex}
-						nextProjectGalleryBlocks={nextProjectGalleryBlocks}
-						nextProjectSlug={nextProjectSlug}
-						activeSlideIndex={activeSlideIndex}
-						type="representation"
-					/>
-					<MobileProjectMedia
-						data={currentProject?.galleryBlocks}
-						setActiveSlideIndex={setActiveSlideIndex}
-						nextProjectGalleryBlocks={nextProjectGalleryBlocks}
-						nextProjectSlug={nextProjectSlug}
-						activeSlideIndex={activeSlideIndex}
-						type="representation"
-					/>
-					<ProjectContentLayout
-						title={currentProject?.title}
-						galleryBlocks={currentProject?.galleryBlocks}
-						nextProjectGalleryBlocks={nextProjectGalleryBlocks}
-						activeSlideIndex={activeSlideIndex}
-						nextProjectSlug={nextProjectSlug}
-						prevProjectSlug={prevProjectSlug}
-						type="representation"
-					/>
-				</>
-			)}
-			<AnimatePresence>
-				{!isAuthenticated && (
-					<Authentication
-						password={siteSettings?.password}
-						setIsAuthenticated={setIsAuthenticated}
-					/>
-				)}
-			</AnimatePresence>
+			<DesktopProjectMedia
+				data={currentProject?.galleryBlocks}
+				setActiveSlideIndex={setActiveSlideIndex}
+				nextProjectGalleryBlocks={nextProjectGalleryBlocks}
+				nextProjectSlug={nextProjectSlug}
+				activeSlideIndex={activeSlideIndex}
+				type="representation"
+			/>
+			<MobileProjectMedia
+				data={currentProject?.galleryBlocks}
+				setActiveSlideIndex={setActiveSlideIndex}
+				nextProjectGalleryBlocks={nextProjectGalleryBlocks}
+				nextProjectSlug={nextProjectSlug}
+				activeSlideIndex={activeSlideIndex}
+				type="representation"
+			/>
+			<ProjectContentLayout
+				title={currentProject?.title}
+				galleryBlocks={currentProject?.galleryBlocks}
+				nextProjectGalleryBlocks={nextProjectGalleryBlocks}
+				activeSlideIndex={activeSlideIndex}
+				nextProjectSlug={nextProjectSlug}
+				prevProjectSlug={prevProjectSlug}
+				type="representation"
+			/>
 		</PageWrapper>
 	);
 };
