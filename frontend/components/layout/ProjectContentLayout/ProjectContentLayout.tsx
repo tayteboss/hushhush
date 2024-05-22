@@ -128,8 +128,11 @@ const ProjectContentLayout = (props: Props) => {
 
 	const slides = [
 		...(galleryBlocks ?? []),
-		...(nextProjectGalleryBlocks ?? [])
+		nextProjectGalleryBlocks[0] ?? []
 	];
+
+	console.log('slides', slides);
+	console.log('nextProjectGalleryBlocks', nextProjectGalleryBlocks);
 
 	const router = useRouter();
 
