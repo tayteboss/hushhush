@@ -195,10 +195,7 @@ const ProjectContentLayout = (props: Props) => {
 									}
 								/>
 								<Hint $isActive={activeSlideIndex === 0}>
-									Scroll up to view{' '}
-									{type === 'representation'
-										? 'talent'
-										: 'case'}
+									Scroll down to continue reading
 								</Hint>
 							</RichTextWrapper>
 						</Inner>
@@ -210,13 +207,13 @@ const ProjectContentLayout = (props: Props) => {
 						className="type-h1"
 						onClick={() => handlePreviousProject()}
 					>
-						{`←`} Prev {isRepresentation ? 'Talent' : 'Case'}
+						{`←`} Prev {isRepresentation ? 'Artist' : 'Case'}
 					</PrevProjectLink>
 					<NextProjectLink
 						className="type-h1"
 						onClick={() => handleNextProject()}
 					>
-						Next {isRepresentation ? 'Talent' : 'Case'} {`→`}
+						Next {isRepresentation ? 'Artist' : 'Case'} {`→`}
 					</NextProjectLink>
 				</PaginationWrapper>
 			)}

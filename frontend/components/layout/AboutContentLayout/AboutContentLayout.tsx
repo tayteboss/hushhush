@@ -155,15 +155,11 @@ const AboutContentLayout = (props: Props) => {
 				</MobileDivider>
 				<SubTitle>Inquiries</SubTitle>
 				{enquiriesCTA?.title && enquiriesCTA?.url && (
-					<Link href={enquiriesCTA?.url} target="_blank">
+					<Link href={`mailto:${enquiriesCTA?.url}`} target="_blank">
 						{enquiriesCTA.title}
 					</Link>
 				)}
-				{phoneNumber && (
-					<Link href={`tel:${phoneNumber}`} target="_blank">
-						{phoneNumber}
-					</Link>
-				)}
+				{phoneNumber && <Text>{phoneNumber}</Text>}
 				{socialLink && (
 					<Link href={socialLink?.url} target="_blank">
 						{socialLink.title}
