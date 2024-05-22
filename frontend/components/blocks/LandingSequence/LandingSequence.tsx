@@ -102,13 +102,9 @@ const LandingSequence = (props: Props) => {
 
 	const hasData = data?.asset?.playbackId;
 
-	if (!hasData) {
-		return null;
-	}
-
 	const [hasVisited, setHasVisited] = useState<boolean>(false);
-	const [showVideo, setShowVideo] = useState<boolean>(false);
-	const [showTextBanners, setShowTextBanners] = useState<boolean>(false);
+	const [showVideo, setShowVideo] = useState<boolean>(!!hasData);
+	const [showTextBanners, setShowTextBanners] = useState<boolean>(!hasData);
 	const [finishSequence, setFinishSequence] = useState(false);
 
 	useEffect(() => {
@@ -122,10 +118,12 @@ const LandingSequence = (props: Props) => {
 			setHasVisited(true);
 			setFinishSequence(true);
 		} else {
-			setShowVideo(true);
+			if (hasData) {
+				setShowVideo(true);
+			}
 			cursorRefresh();
 		}
-	}, []);
+	}, [hasData]);
 
 	const viewport = useViewportWidth();
 	const isMobile = viewport === 'mobile';
