@@ -129,10 +129,10 @@ const LandingSequence = (props: Props) => {
 	const isMobile = viewport === 'mobile';
 
 	const playbackId = isMobile
-		? mobileData.asset.playbackId
+		? mobileData?.asset?.playbackId
 		: data?.asset?.playbackId;
 	const posterUrl = isMobile
-		? `https://image.mux.com/${mobileData.asset.playbackId}/thumbnail.png?width=214&height=121&time=1`
+		? `https://image.mux.com/${mobileData?.asset?.playbackId}/thumbnail.png?width=214&height=121&time=1`
 		: `https://image.mux.com/${data?.asset?.playbackId}/thumbnail.png?width=214&height=121&time=1`;
 
 	return (
