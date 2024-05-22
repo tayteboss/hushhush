@@ -71,7 +71,7 @@ const Header = () => {
 						className="type-p"
 						$isActive={useActiveLink() === 'home'}
 					>
-						selected clients
+						clients and projects
 					</MenuLink>
 				</Link>
 				<Link href="/representation" passHref legacyBehavior>
@@ -79,7 +79,7 @@ const Header = () => {
 						className="type-p"
 						$isActive={useActiveLink() === 'representation'}
 					>
-						representation
+						artist representation
 					</MenuLink>
 				</Link>
 				<Link href="/case-studies" passHref legacyBehavior>
@@ -90,7 +90,7 @@ const Header = () => {
 						case studies
 					</MenuLink>
 				</Link>
-				<Divider className="type-p">----------------</Divider>
+				<Divider className="type-p">---------------------</Divider>
 				<Link href="/about" passHref legacyBehavior>
 					<MenuLink
 						className="type-p"
