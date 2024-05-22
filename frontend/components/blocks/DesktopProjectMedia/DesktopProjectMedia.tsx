@@ -113,7 +113,12 @@ const DesktopProjectMedia = (props: Props) => {
 
 	if (!hasData) return <></>;
 
-	const slides = [...(data ?? []), nextProjectGalleryBlocks[0] ?? []];
+	const slides = [
+		...(data ?? []),
+		nextProjectGalleryBlocks && nextProjectGalleryBlocks.length > 0
+			? nextProjectGalleryBlocks[0]
+			: []
+	];
 
 	const router = useRouter();
 

@@ -99,7 +99,12 @@ const MobileProjectMedia = (props: Props) => {
 	const hasData = data?.length > 0;
 	const rootNodeRef = useRef<HTMLDivElement>(null);
 
-	const slides = [...(data ?? []), nextProjectGalleryBlocks[0] ?? []];
+	const slides = [
+		...(data ?? []),
+		nextProjectGalleryBlocks && nextProjectGalleryBlocks.length > 0
+			? nextProjectGalleryBlocks[0]
+			: []
+	];
 
 	const [emblaRef, emblaApi] = useEmblaCarousel(
 		{

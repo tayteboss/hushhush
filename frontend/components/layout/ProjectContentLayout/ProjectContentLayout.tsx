@@ -128,7 +128,9 @@ const ProjectContentLayout = (props: Props) => {
 
 	const slides = [
 		...(galleryBlocks ?? []),
-		nextProjectGalleryBlocks[0] ?? []
+		nextProjectGalleryBlocks && nextProjectGalleryBlocks.length > 0
+			? nextProjectGalleryBlocks[0]
+			: []
 	];
 
 	const router = useRouter();
