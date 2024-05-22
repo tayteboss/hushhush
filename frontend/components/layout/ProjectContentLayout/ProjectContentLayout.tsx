@@ -131,9 +131,6 @@ const ProjectContentLayout = (props: Props) => {
 		nextProjectGalleryBlocks[0] ?? []
 	];
 
-	console.log('slides', slides);
-	console.log('nextProjectGalleryBlocks', nextProjectGalleryBlocks);
-
 	const router = useRouter();
 
 	const isRepresentation = type === 'representation';

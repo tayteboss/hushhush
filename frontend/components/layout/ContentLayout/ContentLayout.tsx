@@ -123,11 +123,7 @@ const ContentLayout = (props: Props) => {
 			skipSnaps: true,
 			containScroll: false
 		},
-		[
-			WheelGesturesPlugin({
-				target: scrollTarget
-			})
-		]
+		[WheelGesturesPlugin()]
 	);
 
 	const handleSlideClick = (index: number) => {
