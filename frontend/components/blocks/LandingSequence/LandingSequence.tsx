@@ -152,6 +152,7 @@ const LandingSequence = (props: Props) => {
 							setFinishSequence(true);
 						}
 					}}
+					className="performance"
 				>
 					{showVideo && (
 						<MediaWrapper

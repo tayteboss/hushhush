@@ -61,9 +61,8 @@ const wrapperVariants = {
 		opacity: 0,
 		height: 0,
 		transition: {
-			duration: 0.1,
-			ease: 'easeInOut',
-			staggerChildren: 0.02,
+			duration: 0.4,
+			staggerChildren: 0.03,
 			when: 'afterChildren'
 		}
 	},
@@ -72,8 +71,7 @@ const wrapperVariants = {
 		height: 'auto',
 		transition: {
 			duration: 0.1,
-			ease: 'easeInOut',
-			staggerChildren: 0.02,
+			staggerChildren: 0.03,
 			when: 'beforeChildren'
 		}
 	},
@@ -81,9 +79,8 @@ const wrapperVariants = {
 		opacity: 0,
 		height: 0,
 		transition: {
-			duration: 0.3,
-			ease: 'easeInOut',
-			staggerChildren: 0.02,
+			duration: 0.4,
+			staggerChildren: 0.03,
 			when: 'beforeChildren'
 		}
 	}
@@ -94,16 +91,16 @@ const childVariants = {
 		opacity: 0,
 		width: 0,
 		transition: {
-			duration: 0.05,
-			ease: 'easeInOut'
+			opacity: { duration: 0.08, ease: 'easeInOut' },
+			width: { duration: 0.2, ease: 'easeInOut' }
 		}
 	},
 	visible: {
 		opacity: 1,
 		width: 'auto',
 		transition: {
-			duration: 0.05,
-			ease: 'easeInOut'
+			opacity: { duration: 0.1, ease: 'easeInOut' },
+			width: { duration: 0.1, ease: 'easeInOut' }
 		}
 	}
 };
