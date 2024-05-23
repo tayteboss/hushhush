@@ -50,7 +50,8 @@ const ContentWrapper = styled(motion.div)`
 	z-index: 1;
 
 	@media ${(props) => props.theme.mediaBreakpoints.tabletPortrait} {
-		padding-top: ${pxToRem(66)};
+		padding-top: ${pxToRem(24)};
+		padding-left: ${pxToRem(4)};
 		top: 0;
 		left: 0;
 		transform: translate(0, 0);
